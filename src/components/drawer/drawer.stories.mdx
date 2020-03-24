@@ -1,0 +1,49 @@
+import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
+import Drawer from '.';
+import { useState } from 'react';
+
+<Meta title="Design System/Drawer" />
+
+# Drawer
+Drawer is a two column layout container.
+It is designed to have left hand side container expand and collapse to respectively reveal and hide the content of that container.
+Drawer component is designed to fill the space of the element that it is put inside.
+
+```javascript
+import Drawer from 'carbon-react/lib/components/drawer';
+```
+
+### Uncontrolled usage:
+
+<Preview>
+  <Story name="default" parameters={{ info: { disable: true }}} >
+    return (
+      <Drawer
+        expandedWidth='40%'
+        animationSpeed={ '500ms' }
+        sidebar={ (
+          <ul>
+            <li>link a</li>
+            <li>link b</li>
+            <li>link c</li>
+          </ul>
+        ) }
+      >
+        content body content body content body content body content body content body content body
+      </Drawer>
+    )
+  </Story>
+</Preview>
+
+
+### Controlled Usage:
+
+<Preview>
+  <Story id="test-drawer--controlled" />
+</Preview>
+
+## Props:
+
+### Drawer
+
+<Props of={Drawer} />
