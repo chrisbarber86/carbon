@@ -1,0 +1,96 @@
+import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
+import Pager from '.';
+import { useState } from 'react';
+
+<Meta title="Design System/Pager" />
+
+# Pager
+Pagination Component.
+
+### Basic usage:
+
+<Preview>
+  <Story name="default" parameters={{ info: { disable: true }}} >
+    <Pager
+      totalRecords={ 100 }
+      showPageSizeSelection={ true }
+      onPagination={ () => {} }
+    />
+  </Story>
+</Preview>
+
+### With disabled Page Size Selection:
+
+<Preview>
+  <Story name="disabled-page-size" parameters={{ info: { disable: true }}} >
+    <Pager
+      totalRecords={ 100 }
+      onPagination={ () => {} }
+    />
+  </Story>
+</Preview>
+
+### Loading state
+When no totalRecords provided.
+
+<Preview>
+  <Story name="loading-state" parameters={{ info: { disable: true }}} >
+    <Pager
+      onPagination={ () => {} }
+    />
+  </Story>
+</Preview>
+
+### Custom pageSizeSelectionOptions;
+Shows 1, 2 or 5 items per page.
+
+<Preview>
+  <Story name="page-size-selection-options" parameters={{ info: { disable: true }}} >
+    <Pager
+      onPagination={ () => {} }
+      totalRecords={ 100 }
+      showPageSizeSelection={ true }
+      pageSizeSelectionOptions={
+        [
+          { id: '1', name: 1 },
+          { id: '2', name: 2 },
+          { id: '5', name: 5 }
+        ]
+      }
+      pageSize={ 1 }
+    />
+  </Story>
+</Preview>
+
+### With currentPage pre-set to last page;
+Due to the fact that it is last page, next and last links are disabled.
+
+<Preview>
+  <Story name="current-page-last-page" parameters={{ info: { disable: true }}} >
+    <Pager
+      onPagination={ () => {} }
+      totalRecords={ 100 }
+      showPageSizeSelection={ true }
+      currentPage={ 10 }
+    />
+  </Story>
+</Preview>
+
+### With currentPage pre-set to page 5
+
+<Preview>
+  <Story name="current-page" parameters={{ info: { disable: true }}} >
+    <Pager
+      onPagination={ () => {} }
+      totalRecords={ 100 }
+      showPageSizeSelection={ true }
+      currentPage={ 5 }
+    />
+  </Story>
+</Preview>
+
+## Props:
+
+### Pager
+
+<Props of={Pager} />
