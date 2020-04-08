@@ -18,7 +18,7 @@ const render = (props, renderer = shallow) => {
   );
 };
 
-const variants = ['primary', 'secondary', 'tertiary', 'darkBackground'];
+const variants = ['primary', 'secondary', 'tertiary', 'dashed', 'darkBackground'];
 const sizes = { small: [32, 16], medium: [40, 24], large: [48, 32] };
 
 describe('Button', () => {
@@ -93,8 +93,12 @@ describe('Button', () => {
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           background:
-          (variant === 'secondary' || variant === 'tertiary' ? 'transparent' : BaseTheme.disabled.button),
-          borderColor: (variant === 'secondary' ? BaseTheme.disabled.button : 'transparent'),
+          (
+            (variant === 'secondary'
+              || variant === 'tertiary'
+               || variant === 'dashed') ? 'transparent' : BaseTheme.disabled.button
+          ),
+          borderColor: (variant === 'secondary' || variant === 'dashed' ? BaseTheme.disabled.button : 'transparent'),
           color: BaseTheme.disabled.text
         }, wrapper);
       });
@@ -201,8 +205,14 @@ describe('Button', () => {
 
               assertStyleMatch({
                 background:
-                (variant === 'secondary' || variant === 'tertiary' ? 'transparent' : BaseTheme.disabled.button),
-                borderColor: (variant === 'secondary' ? BaseTheme.disabled.button : 'transparent'),
+                (
+                  (variant === 'secondary'
+                    || variant === 'tertiary'
+                     || variant === 'dashed') ? 'transparent' : BaseTheme.disabled.button
+                ),
+                borderColor: (
+                  variant === 'secondary' || variant === 'dashed' ? BaseTheme.disabled.button : 'transparent'
+                ),
                 color: BaseTheme.disabled.text,
                 fontSize: (size === 'large' ? '16px' : '14px'),
                 height: `${sizes[size][0].toString()}px`,
@@ -217,9 +227,14 @@ describe('Button', () => {
               }, TestRenderer.create).toJSON();
 
               assertStyleMatch({
-                background:
-                (variant === 'secondary' || variant === 'tertiary' ? 'transparent' : BaseTheme.disabled.button),
-                borderColor: (variant === 'secondary' ? BaseTheme.disabled.button : 'transparent'),
+                background: (
+                  (variant === 'secondary'
+                    || variant === 'tertiary'
+                     || variant === 'dashed') ? 'transparent' : BaseTheme.disabled.button
+                ),
+                borderColor: (
+                  variant === 'secondary' || variant === 'dashed' ? BaseTheme.disabled.button : 'transparent'
+                ),
                 color: BaseTheme.disabled.text,
                 fontSize: (size === 'large' ? '16px' : '14px'),
                 height: `${sizes[size][0].toString()}px`,
