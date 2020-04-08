@@ -1,0 +1,27 @@
+import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
+import { SimpleSelect, Option } from '.';
+
+<Meta title="Design System/Simple Select" />
+
+# Flat Table
+
+
+### Basic usage:
+
+<Preview>
+  <Story name="basic" parameters={{ info: { disable: true }}} >
+    <div style={{ height: '250px'}}>
+      <SimpleSelect>
+        <Option>ccc</Option>
+        <div>opt1</div>
+        <div>opt1</div>
+        <div>opt1</div>
+        <div>opt1</div>
+      </SimpleSelect>
+    </div>
+  </Story>
+</Preview>
+
+## Props:
+
+<Props of={SimpleSelect} />
