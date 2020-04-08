@@ -56,25 +56,23 @@ export const basic = () => {
         hasStickyHead={ hasStickyHead }
       >
         <FlatTableHead>
-          {
-            <FlatTableRow key={ processed.headData.id }>
-              {
-                processed.headData.data.map((cellData, index) => {
-                  let Component = FlatTableHeader;
+          <FlatTableRow key={ processed.headData.id }>
+            {
+              processed.headData.bodyData.map((cellData, index) => {
+                let Component = FlatTableHeader;
 
-                  if (index === 0 && hasHeaderRow) {
-                    Component = FlatTableRowHeader;
-                  }
+                if (index === 0 && hasHeaderRow) {
+                  Component = FlatTableRowHeader;
+                }
 
-                  return (
-                    <Component key={ cellData.id }>
-                      {cellData.content}
-                    </Component>
-                  );
-                })
-              }
-            </FlatTableRow>
-          }
+                return (
+                  <Component key={ cellData.id }>
+                    {cellData.content}
+                  </Component>
+                );
+              })
+            }
+          </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
           {rowWithInputs}
@@ -82,7 +80,7 @@ export const basic = () => {
             processed.bodyData.map(rowData => (
               <FlatTableRow key={ rowData.id } onClick={ onClickFn }>
                 {
-                  rowData.data.map((cellData, index) => {
+                  rowData.bodyData.map((cellData, index) => {
                     let Component = FlatTableCell;
 
                     if (index === 0 && hasHeaderRow) {
@@ -106,30 +104,23 @@ export const basic = () => {
 };
 
 export const Sortable = () => {
-  const hasStickyHead = boolean('hasStickyHead', false);
   const colorTheme = select('colorTheme', [...OptionsHelper.flatTableThemes], 'transparent');
 
-  const headData = ['Client', 'Total'];
-  const bodyData = [{
-    client: 'Jason Atkinson',
-    total: 1349
-  },
-  {
-    client: 'Monty Parker',
-    total: 849
-  },
-  {
-    client: 'Blake Sutton',
-    total: 3840
-  },
-  {
-    client: 'Tyler Webb',
-    total: 280
-  }];
+  const headDataItems = [
+    { name: 'client', isActive: false },
+    { name: 'total', isActive: false }
+  ];
 
-  const [data, setData] = useState(bodyData);
+  const bodyDataItems = [
+    { client: 'Jason Atkinson', total: 1349 },
+    { client: 'Monty Parker', total: 849 },
+    { client: 'Blake Sutton', total: 3840 },
+    { client: 'Tyler Webb', total: 280 }
+  ];
+  const [headData, setHeadData] = useState(headDataItems);
+  const [bodyData, setBodyData] = useState(bodyDataItems);
   const [sortType, setSortType] = useState('asc');
-  const sortByNumber = (dataToSort, sortByValue, type = 'asc') => {
+  const sortByNumber = (dataToSort, sortByValue, type) => {
     const sortedData = dataToSort.sort((a, b) => {
       if (type === 'asc') {
         return a[sortByValue] - b[sortByValue];
@@ -145,7 +136,7 @@ export const Sortable = () => {
     return sortedData;
   };
 
-  const sortByString = (dataToSort, sortByValue, type = 'asc') => {
+  const sortByString = (dataToSort, sortByValue, type) => {
     const sortedData = dataToSort.sort((a, b) => {
       const nameA = a[sortByValue].toUpperCase();
       const nameB = b[sortByValue].toUpperCase();
@@ -177,31 +168,45 @@ export const Sortable = () => {
   };
 
   const handleClick = (e) => {
-    const sortByValue = e.toLowerCase();
+    const tempHeadData = headData;
+    tempHeadData.forEach((item) => {
+      item.isActive = false;
+      if (item.name === e) {
+        item.isActive = !item.isActive;
+      }
+    });
+
+    setHeadData([...tempHeadData]);
+
+    const sortByValue = e;
     let sortedData;
 
-    if (typeof data[0][sortByValue] === 'string') {
-      sortedData = sortByString(data, sortByValue, sortType);
+    if (typeof bodyData[0][sortByValue] === 'string') {
+      sortedData = sortByString(bodyData, sortByValue, sortType);
     }
 
-    if (typeof data[0][sortByValue] === 'number') {
-      sortedData = sortByNumber(data, sortByValue, sortType);
+    if (typeof bodyData[0][sortByValue] === 'number') {
+      sortedData = sortByNumber(bodyData, sortByValue, sortType);
     }
 
-    setData([...sortedData]);
+    setBodyData([...sortedData]);
     setSortType(sortType === 'asc' ? 'desc' : 'asc');
   };
 
+  const showSortIcon = (isActive) => {
+    return isActive && <Icon type={ sortType === 'asc' ? 'sort_down' : 'sort_up' } />;
+  };
+
   return (
-    <FlatTable hasStickyHead={ hasStickyHead } colorTheme={ colorTheme }>
+    <FlatTable colorTheme={ colorTheme }>
       <FlatTableHead>
         <FlatTableRow>
           {
             headData.map((dataItem) => {
               return (
-                <FlatTableSortHeader key={ dataItem } onClick={ () => handleClick(dataItem) }>
-                  {dataItem}
-                  <Icon type='sort_down' />
+                <FlatTableSortHeader key={ dataItem.name } onClick={ () => handleClick(dataItem.name) }>
+                  {dataItem.name}
+                  {showSortIcon(dataItem.isActive)}
                 </FlatTableSortHeader>
               );
             })
@@ -210,7 +215,7 @@ export const Sortable = () => {
       </FlatTableHead>
       <FlatTableBody>
         {
-          data.map((dataItem) => {
+          bodyData.map((dataItem) => {
             return (
               <FlatTableRow key={ dataItem.client }>
                 <FlatTableRowHeader>{dataItem.client}</FlatTableRowHeader>
@@ -293,12 +298,12 @@ function processJsonData({ labels, clients }) {
   return {
     headData: {
       id: guid(),
-      data: processRowData(labels, 'header')
+      bodyData: processRowData(labels, 'header')
     },
     bodyData: clients.map((row) => {
       return {
         id: guid(),
-        data: processRowData(row, 'cell')
+        bodyData: processRowData(row, 'cell')
       };
     })
   };

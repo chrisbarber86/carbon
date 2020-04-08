@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import StyledFlatTableHeader from './flat-table-header/flat-table-header.style';
 import StyledFlatTableRowHeader from './flat-table-row-header/flat-table-row-header.style';
 import StyledFlatTableHead from './flat-table-head/flat-table-head.style';
+import { baseTheme } from '../../style/themes';
 
 const StyledFlatTableWrapper = styled.div`
   height: 100%;
@@ -56,5 +57,9 @@ const StyledFlatTable = styled.table`
   width: auto;
   word-break: break-all;
 `;
+
+StyledFlatTableWrapper.defaultProps = {
+  theme: baseTheme
+};
 
 export { StyledFlatTableWrapper, StyledFlatTable };

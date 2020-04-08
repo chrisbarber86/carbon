@@ -33,7 +33,8 @@ FlatTable.propTypes = {
 };
 
 FlatTable.defaultProps = {
-  styleOverride: {}
+  styleOverride: {},
+  colorTheme: 'transparent'
 };
 
 export default FlatTable;

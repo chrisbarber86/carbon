@@ -12,7 +12,7 @@ const FlatTableSortHeader = ({ children, onClick, ...props }) => {
 
     return null;
   };
-  console.log(props);
+
   return (
     <FlatTableHeader { ...props }>
       <StyledFlatTableSortHeaderStyle

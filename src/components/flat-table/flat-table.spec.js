@@ -13,6 +13,7 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import StyledFlatTableHeader from './flat-table-header/flat-table-header.style';
 import StyledFlatTableHead from './flat-table-head/flat-table-head.style';
 import StyledFlatTableRowHeader from './flat-table-row-header/flat-table-row-header.style';
+import { baseTheme } from '../../style/themes';
 
 describe('FlatTable', () => {
   describe('when rendered with proper table data', () => {
@@ -38,9 +39,32 @@ describe('FlatTable', () => {
       expect(wrapper).toHaveStyleRule('overflow-y', 'auto');
     });
 
+    it('then all Headers should have proper styling if `colorTheme="dark"`', () => {
+      wrapper = renderFlatTable({ colorTheme: 'dark' }, mount);
+
+      assertStyleMatch({
+        backgroundColor: baseTheme.flatTable.dark.headerBackground,
+        borderRight: `1px solid ${baseTheme.flatTable.dark.border}`,
+        color: baseTheme.colors.white
+      },
+
+      wrapper, { modifier: `${StyledFlatTableHeader}` });
+    });
+
+    it('then all Headers should have proper styling if `colorTheme="light"`', () => {
+      wrapper = renderFlatTable({ colorTheme: 'light' }, mount);
+
+      assertStyleMatch({
+        backgroundColor: baseTheme.flatTable.light.headerBackground,
+        borderRight: `1px solid ${baseTheme.flatTable.light.border}`
+      },
+
+      wrapper, { modifier: `${StyledFlatTableHeader}` });
+    });
+
     it('then all Headers should have proper styling', () => {
       assertStyleMatch({
-        backgroundColor: '#fff',
+        backgroundColor: baseTheme.flatTable.default.headerBackground,
         position: 'sticky',
         zIndex: '1'
       },
