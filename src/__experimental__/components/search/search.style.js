@@ -6,30 +6,9 @@ import { baseTheme } from '../../../style/themes';
 import StyledFormField from '../form-field/form-field.style';
 
 const StyledSearch = styled.div`
+  padding-bottom: 2px;
+  background-color: transparent;
   ${({ theme }) => `border-bottom: 2px solid ${theme.search.passive};`}
-  ${({ isFocused, searchHasValue }) => css`
-    ${!isFocused && !searchHasValue && css`
-      ${StyledInputPresentation} {
-        border: 1px solid transparent;
-        color: rgba(0, 0, 0, 0.65);
-      }
-    `}
-    ${(isFocused || searchHasValue) && css`
-      border-bottom: 2px solid transparent;
-      transition: border 0.2s ease, background 0.2s ease;
-      color: rgba(0, 0, 0, 0.9);
-      :hover {
-        border-bottom: none;
-      }
-    `}
-  `}
-
-  ${({ isFocused, searchIsActive }) => css`
-    ${isFocused && !searchIsActive && css`
-      color: rgba(0, 0, 0, 0.9);
-    `}
-  `}
-
   display: inline-flex;
   font-size: 14px;
   font-weight: 700;
@@ -40,6 +19,32 @@ const StyledSearch = styled.div`
     cursor: pointer;
   }
 
+  ${({ isFocused, searchHasValue }) => css`
+    ${!isFocused && !searchHasValue && css`
+      ${StyledInputPresentation} {
+        border: 1px solid transparent;
+        color: rgba(0, 0, 0, 0.65);
+      }
+    `}
+    ${(isFocused || searchHasValue) && css`
+      border-bottom: 2px solid transparent;
+      /* transition: border 0.2s ease, background 0.2s ease; */
+      color: rgba(0, 0, 0, 0.9);
+      :hover {
+        border-bottom: 2px solid transparent;
+        padding-bottom: 2px;
+      }
+    `}
+  `}
+
+  ${({ isFocused, searchIsActive }) => css`
+    ${isFocused && !searchIsActive && css`
+    border-bottom: 2px solid transparent;
+    padding-bottom: 2px;
+      color: rgba(0, 0, 0, 0.9);
+    `}
+  `}
+
   ${StyledInputPresentation} {
     width: ${
   ({
@@ -47,7 +52,7 @@ const StyledSearch = styled.div`
   }) => (
     hasSearchButton && (isFocused || searchIsActive || searchHasValue) ? '335px;' : '375px;'
   )};
-
+    background-color: transparent;
     font-size: 14px;
     font-weight: 700;
     padding-bottom: 2px;
