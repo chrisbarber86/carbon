@@ -1,3 +1,77 @@
+### [16.8.1](https://github.com/Sage/carbon/compare/v16.8.0...v16.8.1) (2020-04-07)
+
+
+### Bug Fixes
+
+* **select:** allow passing custom validation icon type prop to component ([a333235](https://github.com/Sage/carbon/commit/a3332359a5bc3e75ab427de52bfc41ec9f267c63))
+
+## [16.8.0](https://github.com/Sage/carbon/compare/v16.7.0...v16.8.0) (2020-04-06)
+
+
+### Features
+
+* **action-popover:** add support for custom menu button override ([df3477b](https://github.com/Sage/carbon/commit/df3477b523e5c81e442b916e1bb768984a8dcd83))
+
+
+### Bug Fixes
+
+* **popover-menu:** add guard against null item refs ([1b316e8](https://github.com/Sage/carbon/commit/1b316e806ea9acd2480ec85d2b5bdfb04333f233))
+
+## [16.7.0](https://github.com/Sage/carbon/compare/v16.6.0...v16.7.0) (2020-04-02)
+
+
+### Features
+
+* **radio-button-group:** add style override ([919d372](https://github.com/Sage/carbon/commit/919d372f6933c8d1b1a7de6dcce93f1b2993cf17))
+
+## [16.6.0](https://github.com/Sage/carbon/compare/v16.5.2...v16.6.0) (2020-04-02)
+
+
+### Features
+
+* **select:** value added to customFilter option ([0048bc2](https://github.com/Sage/carbon/commit/0048bc2e04c024b2833e8fa41649d27900e4bd33)), closes [#2697](https://github.com/Sage/carbon/issues/2697)
+
+### [16.5.2](https://github.com/Sage/carbon/compare/v16.5.1...v16.5.2) (2020-04-01)
+
+
+### Bug Fixes
+
+* **search:** close icon persists when the field is empty ([de5d217](https://github.com/Sage/carbon/commit/de5d217d70ef6b23dd0ccc8f1db78b16d7cecbe8))
+
+### [16.5.1](https://github.com/Sage/carbon/compare/v16.5.0...v16.5.1) (2020-04-01)
+
+
+### Bug Fixes
+
+* **date:** allow passing custom validation icon type prop to component ([16f4c50](https://github.com/Sage/carbon/commit/16f4c50b5d37c34b52e1f4b8999db720f4c58792))
+
+## [16.5.0](https://github.com/Sage/carbon/compare/v16.4.1...v16.5.0) (2020-03-31)
+
+
+### Features
+
+* **advanced-colour-picker:** create advanced color picker component ([af13999](https://github.com/Sage/carbon/commit/af13999aeaee358c7dcec5805f18a53241872189))
+
+
+### Bug Fixes
+
+* **modal:** return event for onclose callback ([714be37](https://github.com/Sage/carbon/commit/714be3798a187bd882649a413d7166842e7b8e98))
+* **simple-color-picker:** use SVG for transparent color preview ([8941e03](https://github.com/Sage/carbon/commit/8941e03731fdab316abee8ce8603195499f4b78f))
+
+### [16.4.1](https://github.com/Sage/carbon/compare/v16.4.0...v16.4.1) (2020-03-31)
+
+
+### Bug Fixes
+
+* **input:** add null check to input focus handler ([13095a9](https://github.com/Sage/carbon/commit/13095a90f4347ddf29e8b0f55aed18cf906070bf))
+
+## [16.4.0](https://github.com/Sage/carbon/compare/v16.3.0...v16.4.0) (2020-03-31)
+
+
+### Features
+
+* **action-popover:** support for aligning menu to right of button ([ed42599](https://github.com/Sage/carbon/commit/ed42599a40ce971d253a990e0b63762c807137c5))
+
 ## [16.3.0](https://github.com/Sage/carbon/compare/v16.2.1...v16.3.0) (2020-03-30)
 
 
@@ -402,6 +476,13 @@ migrate you should manually focus an element within the Dialog using
 ### Features
 
 * **modal:** add focus trap to Dialog and Sidebar ([8230399](https://github.com/Sage/carbon/commit/82303998b99714991a3164a7a51f7c7203b0d975))
+
+### [12.4.2](https://github.com/Sage/carbon/compare/v12.4.1...v12.4.2) (2020-03-27)
+
+
+### Bug Fixes
+
+* **input:** add null check to input focus handler ([13095a9](https://github.com/Sage/carbon/commit/13095a90f4347ddf29e8b0f55aed18cf906070bf))
 
 ### [12.4.1](https://github.com/Sage/carbon/compare/v12.4.0...v12.4.1) (2020-02-11)
 

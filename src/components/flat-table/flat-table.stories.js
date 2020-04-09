@@ -58,7 +58,7 @@ export const basic = () => {
         <FlatTableHead>
           <FlatTableRow key={ processed.headData.id }>
             {
-              processed.headData.bodyData.map((cellData, index) => {
+              processed.headData.data.map((cellData, index) => {
                 let Component = FlatTableHeader;
 
                 if (index === 0 && hasHeaderRow) {
@@ -67,7 +67,7 @@ export const basic = () => {
 
                 return (
                   <Component key={ cellData.id }>
-                    {cellData.content}
+                    { cellData.content }
                   </Component>
                 );
               })
@@ -80,7 +80,7 @@ export const basic = () => {
             processed.bodyData.map(rowData => (
               <FlatTableRow key={ rowData.id } onClick={ onClickFn }>
                 {
-                  rowData.bodyData.map((cellData, index) => {
+                  rowData.data.map((cellData, index) => {
                     let Component = FlatTableCell;
 
                     if (index === 0 && hasHeaderRow) {
@@ -298,12 +298,12 @@ function processJsonData({ labels, clients }) {
   return {
     headData: {
       id: guid(),
-      bodyData: processRowData(labels, 'header')
+      data: processRowData(labels, 'header')
     },
     bodyData: clients.map((row) => {
       return {
         id: guid(),
-        bodyData: processRowData(row, 'cell')
+        data: processRowData(row, 'cell')
       };
     })
   };
