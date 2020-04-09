@@ -28,7 +28,9 @@ const FlatTableSortHeader = ({ children, onClick, ...props }) => {
 };
 
 FlatTableSortHeader.propTypes = {
+  /** Callback fired when the `FlatTableSortHeader` is clicked */
   onClick: PropTypes.func,
+  /** Sets the content of `FlatTableSortHeader` */
   children: PropTypes.node
 };
 
