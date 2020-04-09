@@ -7,6 +7,7 @@ import StyledFlatTableSortHeaderStyle from './flat-table-sort-header.style';
 const FlatTableSortHeader = ({ children, onClick, ...props }) => {
   const onKeyDown = (e) => {
     if (Event.isEnterOrSpaceKey(e)) {
+      e.preventDefault();
       return onClick();
     }
 
