@@ -229,6 +229,16 @@ export const Sortable = () => {
   );
 };
 
+Sortable.story = {
+  name: 'Sortable',
+  parameters: {
+    info: { disable: true },
+    docs: {
+      page: null
+    }
+  }
+};
+
 basic.story = {
   name: 'Basic',
   parameters: {
