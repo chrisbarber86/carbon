@@ -218,8 +218,8 @@ export const Sortable = () => {
           bodyData.map((dataItem) => {
             return (
               <FlatTableRow key={ dataItem.client }>
-                <FlatTableRowHeader>{dataItem.client}</FlatTableRowHeader>
-                <FlatTableRowHeader>{dataItem.total}</FlatTableRowHeader>
+                <FlatTableCell>{dataItem.client}</FlatTableCell>
+                <FlatTableCell>{dataItem.total}</FlatTableCell>
               </FlatTableRow>
             );
           })
