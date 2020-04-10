@@ -9,4 +9,4 @@ export interface FlatTableSortHeaderProps {
 
 declare const FlatTableSortHeader: React.FunctionComponent<FlatTableSortHeaderProps>;
 
-export default FlatTAbleSortHeader;
+export default FlatTableSortHeader;
