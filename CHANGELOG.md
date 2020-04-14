@@ -1,3 +1,17 @@
+### [16.8.2](https://github.com/Sage/carbon/compare/v16.8.1...v16.8.2) (2020-04-10)
+
+
+### Bug Fixes
+
+* **action-popover:** add top position when menu right aligned in safari ([f9f8774](https://github.com/Sage/carbon/commit/f9f8774276c101647b29c991ed389eafd68e88d9))
+
+### [16.8.1](https://github.com/Sage/carbon/compare/v16.8.0...v16.8.1) (2020-04-07)
+
+
+### Bug Fixes
+
+* **select:** allow passing custom validation icon type prop to component ([a333235](https://github.com/Sage/carbon/commit/a3332359a5bc3e75ab427de52bfc41ec9f267c63))
+
 ## [16.8.0](https://github.com/Sage/carbon/compare/v16.7.0...v16.8.0) (2020-04-06)
 
 
