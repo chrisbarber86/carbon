@@ -21,6 +21,8 @@ const StyledSimpleSelect = styled.div`
       width: auto;
     }
   `}
+
+  ${({ styleOverride }) => styleOverride};
 `;
 
 export default StyledSimpleSelect;

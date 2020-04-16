@@ -1,24 +1,28 @@
 import styled, { css } from 'styled-components';
-import InputPresentationStyle from '../../__experimental__/components/input/input-presentation.style';
-import StyledInput from '../../__experimental__/components/input/input.style';
-import InputIconToggleStyle from '../../__experimental__/components/input-icon-toggle/input-icon-toggle.style';
+import propTypes from 'prop-types';
+import baseTheme from '../../style/themes/base';
 
-const StyledSelect = styled.div`
-  ${({ transparent }) => transparent && css`
-    ${InputPresentationStyle} {
-      background: transparent;
-      border: none;
-    }
+const StyledOption = styled.li`
+  cursor: pointer;
+  box-sizing: content-box;
+  padding: 5px 6px;
+  width: 100%;
+  user-select: none;
 
-    ${StyledInput} {
-      font-weight: 900;
-      text-align: right;
-    }
-
-    ${InputIconToggleStyle} {
-      width: auto;
-    }
-  `}
+  :hover, :focus {
+    ${({ theme }) => css`background-color: ${theme.select.selected};`}
+  }
 `;
 
-export default StyledSelect;
+StyledOption.propTypes = {
+  id: propTypes.any,
+  isSelected: propTypes.bool,
+  theme: propTypes.object
+};
+
+StyledOption.defaultProps = {
+  isSelectable: true, // defaulted to true so it integrates with ScrollableList by default,
+  theme: baseTheme
+};
+
+export default StyledOption;

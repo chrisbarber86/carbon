@@ -4,35 +4,46 @@ import StyledSelectList from './select-list.style';
 
 const SelectList = ({
   id,
-  isLoopable,
   children,
-  onSelect,
-  anchorElement
+  onSelectOption,
+  anchorElement,
+  styleOverride
 }) => {
   const list = useRef();
-
-  const positionList = (boundingRect) => {
-    const top = `${boundingRect.height}px`;
-    const width = `${boundingRect.width}px`;
-    list.current.setAttribute('style', `top: ${top}; width: ${width};`);
-  };
 
   useEffect(() => {
     if (anchorElement) {
       const inputBoundingRect = anchorElement.getBoundingClientRect();
-      positionList(inputBoundingRect);
+      const top = `${inputBoundingRect.height}px`;
+      const width = `${inputBoundingRect.width}px`;
+      list.current.setAttribute('style', `top: ${top}; width: ${width};`);
     }
   }, [anchorElement]);
+
+  function applyListProps() {
+    return React.Children.map(children, (child) => {
+      return React.cloneElement(child, { onSelectOption: onSelect });
+    });
+  }
+
+  function onSelect(optionData) {
+    onSelectOption(optionData);
+  }
 
   return (
     <StyledSelectList
       id={ id }
       role='presentation'
       ref={ list }
+      styleOverride={ styleOverride }
     >
-      { children }
+      { applyListProps() }
     </StyledSelectList>
   );
+};
+
+SelectList.defaultProps = {
+  styleOverride: {}
 };
 
 SelectList.propTypes = {
@@ -40,12 +51,12 @@ SelectList.propTypes = {
   id: PropTypes.string,
   /** Child components (such as <Option>) for the <ScrollableList> */
   children: PropTypes.node,
-  /** Flag to indicite whether select list is loopable while traversing using up and down keys */
-  isLoopable: PropTypes.bool,
   /** A callback for when a child is selected */
-  onSelect: PropTypes.func,
+  onSelectOption: PropTypes.func,
   /** DOM element to position the dropdown menu list relative to */
-  anchorElement: PropTypes.object
+  anchorElement: PropTypes.object,
+  /** Allows to override existing component styles */
+  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 
 export default SelectList;
