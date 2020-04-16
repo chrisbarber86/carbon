@@ -15,7 +15,6 @@ const StyledFlatTableHeader = styled.th`
     user-select: none;
     vertical-align: middle;
     white-space: nowrap;
-    transform: scale(0.999);
   `};
 `;
 

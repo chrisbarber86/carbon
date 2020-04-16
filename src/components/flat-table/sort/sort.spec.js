@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { FlatTableSortHeader, FlatTableRow } from '..';
+import { Sort, FlatTableRow } from '..';
 import FlatTable from '../flat-table.component';
 import FlatTableHead from '../flat-table-head/flat-table-head.component';
 import FlatTableBody from '../flat-table-body/flat-table-body.component';

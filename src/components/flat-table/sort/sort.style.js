@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import StyledIcon from '../../icon/icon.style';
 import { baseTheme } from '../../../style/themes';
 
-const StyledFlatTableSortHeaderStyle = styled.div`
+const StyledSort = styled.div`
   display: inline-flex;
   align-items: center;
   padding-left: 2px;
@@ -25,8 +25,8 @@ const StyledFlatTableSortHeaderStyle = styled.div`
   };
 `;
 
-StyledFlatTableSortHeaderStyle.defaultProps = {
+StyledSort.defaultProps = {
   theme: baseTheme
 };
 
-export default StyledFlatTableSortHeaderStyle;
+export default StyledSort;

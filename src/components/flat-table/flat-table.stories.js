@@ -10,9 +10,8 @@ import {
   FlatTableHeader,
   FlatTableRowHeader,
   FlatTableCell,
-  FlatTableSortHeader
+  Sort
 } from '.';
-import Icon from '../icon';
 import guid from '../../utils/helpers/guid';
 
 export default {
@@ -119,7 +118,8 @@ export const Sortable = () => {
   ];
   const [headData, setHeadData] = useState(headDataItems);
   const [bodyData, setBodyData] = useState(bodyDataItems);
-  const [sortType, setSortType] = useState('asc');
+  const [sortType, setSortType] = useState();
+
   const sortByNumber = (dataToSort, sortByValue, type) => {
     const sortedData = dataToSort.sort((a, b) => {
       if (type === 'asc') {
@@ -190,11 +190,6 @@ export const Sortable = () => {
     }
 
     setBodyData([...sortedData]);
-    setSortType(sortType === 'asc' ? 'desc' : 'asc');
-  };
-
-  const showSortIcon = (isActive) => {
-    return isActive && <Icon type={ sortType === 'asc' ? 'sort_down' : 'sort_up' } />;
   };
 
   return (
@@ -204,10 +199,14 @@ export const Sortable = () => {
           {
             headData.map((dataItem) => {
               return (
-                <FlatTableSortHeader key={ dataItem.name } onClick={ () => handleClick(dataItem.name) }>
-                  {dataItem.name}
-                  {showSortIcon(dataItem.isActive)}
-                </FlatTableSortHeader>
+                <FlatTableHeader key={ dataItem.name }>
+                  <Sort
+                    onClick={ () => handleClick(dataItem.name) }
+                    sortType={ dataItem.isActive && sortType }
+                  >
+                    {dataItem.name}
+                  </Sort>
+                </FlatTableHeader>
               );
             })
           }
