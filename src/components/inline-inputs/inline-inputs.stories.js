@@ -32,16 +32,25 @@ const handleSelectChange = (ev) => {
   });
 };
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, validations = false) {
   const component = () => {
     const label = text('label', 'Inline Inputs');
     const gutter = select('gutter size', ['none', ...OptionsHelper.sizesFull], InlineInputs.defaultProps.gutter);
+    let validationProps = {};
+
+    if (validations) {
+      validationProps = {
+        hasError: true,
+        inputIcon: 'warning',
+        tooltipMessage: 'warning'
+      };
+    }
 
     return (
       <State store={ singleSelectStore }>
         { state => (
           <InlineInputs label={ label } gutter={ gutter }>
-            <Textbox />
+            <Textbox { ...validationProps } />
             <Decimal value={ state.decimalValue } onChange={ handleDecimalChange } />
             <Select value={ state.selectValue } onChange={ handleSelectChange }>
               <Option text='Amber' value='1' />
@@ -78,4 +87,5 @@ storiesOf('InlineInputs', module)
     }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeStory('validations', dlsThemeSelector, true));

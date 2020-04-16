@@ -14,7 +14,7 @@ const StyledInlineInputs = styled.div`
   }
 
   input {
-    width: 100%;
+    width: auto;
   }
 
   [data-component="carbon-select"] input {

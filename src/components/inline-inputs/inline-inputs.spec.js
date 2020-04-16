@@ -67,9 +67,9 @@ describe('Inline Inputs', () => {
       }, wrapper, { modifier: '.carbon-row' });
     });
 
-    it('then all inputs should have 100% width', () => {
+    it('then all inputs should have auto width', () => {
       assertStyleMatch({
-        width: '100%'
+        width: 'auto'
       }, wrapper, { modifier: 'input' });
     });
 
