@@ -5,41 +5,113 @@ import { Checkbox } from '../../__experimental__/components/checkbox';
 import ButtonToggle from '../button-toggle';
 import Button from '../button';
 import Link from '../link';
+import {useState} from "react";
 
 <Meta title="Design System/Popover Container" />
 
 # PopoverContainer
 
-## Quick Start
-
-To use Popover Container, import the `PopoverContainer` and pass the content as children.
-
 ```jsx
-import React from 'react';
 import PopoverContainer from "carbon-react/lib/components/popover-container";
-
-const MyComponent = () => (
-  <PopoverContainer
-    title='Hello world!'
-  />
-);
 ```
 
-### Basic PopoverContainer
+### Quick Start
 
-This is basic version of `PopoverContainer`.
+To use `PopoverContainer`, import the `PopoverContainer` and pass the content as children.
+<Preview>
+  <Story name="basic" parameters={{ info: { disable: true }}} >
+    <div style={{height: 100}}>
+      <PopoverContainer>
+      Contents
+      </PopoverContainer>
+      
+      </div>
+  </Story>
+</Preview>
+
+### With title
+Use the `title` prop to set a title within the `PopoverContainer`.
+<Preview>
+  <Story name="title" parameters={{ info: { disable: true }}} >
+    <div style={{height: 100}}>
+      <PopoverContainer title="With a title">
+      Contents
+      </PopoverContainer>
+      
+      </div>
+  </Story>
+</Preview>
+
+### Right Aligned/Open Left
+Use the `position` prop to open the `PopoverContainer` to the left, this is useful if your open button is to the right
+of the screen.
+<Preview>
+  <Story name="position" parameters={{ info: { disable: true }}} >
+    <div style={{height: 100, float: 'right'}}>
+      <PopoverContainer title="Right Aligned" position="left">
+      Contents
+      </PopoverContainer>
+      </div>
+  </Story>
+</Preview>
+
+### Cover Button
+Use the `shouldCoverButton` prop to hide the open button when the `PopoverContainer` is open.
+<Preview>
+  <Story name="cover button" parameters={{ info: { disable: true }}} >
+    <div style={{height: 100}}>
+      <PopoverContainer title="Cover Button" shouldCoverButton>
+      Contents
+      </PopoverContainer>
+    </div>
+  </Story>
+</Preview>
+
+### Custom Open/Close Button
+Use the `renderOpenComponent` and `renderCloseComponent` to render your own open or close buttons.
 
 <Preview>
-  <Story id="test-popover-container--basic" parameters={{ info: { disable: true }}} />
+  <Story name="render props" parameters={{ info: { disable: true }}} >
+    <div style={{height: 250}}>
+      <PopoverContainer
+        title='Custom Open &amp; Close Button'
+        renderOpenComponent={ ({isOpen, ...rest}) => <Button iconType={ !isOpen ? 'filter_new' : 'close' } iconPosition='after' {...rest}>Filter</Button>}
+        renderCloseComponent={ ({isOpen, ...rest}) => <Button {...rest}>Close</Button>}
+      >
+      Content
+    </PopoverContainer>
+      </div>
+  </Story>
+</Preview>
+
+### Controlled
+You can use the `isOpen` prop to control the open state of the `PopoverContainer`.
+<Preview>
+  <Story name="controlled" parameters={{ info: { disable: true }}}>
+    {() => {
+          const [isOpen, setIsOpen] = useState(false);
+          return (
+            <div style={{height: 150}}>
+            <Button onClick={ () => setIsOpen(true) }>Open Popover</Button>
+            <Button onClick={ () => setIsOpen(false) }>Close Popover</Button>
+            <br />
+            <PopoverContainer
+              title='Controlled'
+              isOpen={ isOpen }
+            >Contents</PopoverContainer>
+            </div>
+          );
+        }}
+  </Story>
 </Preview>
 
 
-### PopoverContainer with render props
+### PopoverContainer with more complex content
 
-PopoverContainer supports render props so you can easly render your own components as opening or closing button
+You can easly use many different components to create your own compisition.
 
 <Preview>
-  <Story id="test-popover-container--render-props" parameters={{ info: { disable: true }}} />
+  <Story id="test-popover-container--with-complex-content" parameters={{ info: { disable: true }}} />
 </Preview>
 
 
@@ -52,20 +124,5 @@ You can do it easly in this way:
 <Preview>
   <Story id="test-popover-container--filter" parameters={{ info: { disable: true }}} />
 </Preview>
-
-### PopoverContainer with more complex content
-
-You can easly use many different components to create your own compisition.
-
-<Preview>
-  <Story id="test-popover-container--with-complex-content" parameters={{ info: { disable: true }}} />
-</Preview>
-
-### PopoverContainer can be fully controlled
-
-<Preview>
-  <Story id="test-popover-container--controlled-popover-container" parameters={{ info: { disable: true }}} />
-</Preview>
-
 
 <Props of={PopoverContainer} />

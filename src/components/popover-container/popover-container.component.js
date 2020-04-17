@@ -40,6 +40,7 @@ const PopoverContainer = ({
 
   const renderOpenComponentProps = {
     tabIndex: (open || isOpen) ? -1 : 0,
+    isOpen: open || isOpen,
     dataElement: 'popover-container-open-component',
     onClick: handleOpenButtonClick,
     ref: openButtonRef,
@@ -103,13 +104,13 @@ const PopoverContainer = ({
 PopoverContainer.propTypes = {
   /** A function that will render the open component
    *
-   * `({dataElement, tabIndex, onClick, ref, ariaLabel}) => ()`
+   * `({dataElement, tabIndex, onClick, ref, ariaLabel, isOpen}) => ()`
    *
   */
   renderOpenComponent: PropTypes.func,
   /** A function that will render the close component
    *
-   * `({dataElement, tabIndex, onClick, ref, ariaLabel}) => ()`
+   * `({dataElement, tabIndex, onClick, ref, ariaLabel, isOpen}) => ()`
    *
   */
   renderCloseComponent: PropTypes.func,

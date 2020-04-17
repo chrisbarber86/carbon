@@ -1,6 +1,4 @@
 import React, { useState, useRef } from 'react';
-import { select, text, boolean } from '@storybook/addon-knobs';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import PopoverContainer from './popover-container.component';
 import Button from '../button';
 import IconButton from '../icon-button';
@@ -24,22 +22,6 @@ const storyStyle = (height = '80px', position = 'right') => ({
   minHeight: height,
   marginLeft: position === 'left' ? '400px' : null
 });
-
-export const Basic = () => {
-  const title = text('title', 'Popover Title');
-  const position = select('position', [...OptionsHelper.alignBinary], 'right');
-  const shouldCoverButton = boolean('shouldcoverButton', true);
-
-  return (
-    <div style={ storyStyle(undefined, position) }>
-      <PopoverContainer
-        position={ position }
-        title={ title }
-        shouldCoverButton={ shouldCoverButton }
-      />
-    </div>
-  );
-};
 
 export const Filter = () => {
   const initValues = [
@@ -166,58 +148,6 @@ export const Filter = () => {
   );
 };
 
-export const ControlledPopoverContainer = () => {
-  const [isOpen, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  return (
-    <div style={ storyStyle('100px') }>
-      <PopoverContainer
-        title='How to make popover-container controlled'
-        isOpen={ isOpen }
-        renderOpenComponent={ () => (
-          <Button onClick={ handleOpen }>Open</Button>
-        ) }
-        renderCloseComponent={ () => (
-          <Button onClick={ handleClose }>Close</Button>
-        ) }
-      />
-    </div>
-  );
-};
-
-export const RenderProps = () => {
-  return (
-    <div style={ storyStyle('120px') }>
-      <PopoverContainer
-        title='How to use render props'
-        renderOpenComponent={ ({ onClick }) => (
-          <Button
-            type='button'
-            onClick={ onClick }
-          >
-            Open here
-          </Button>
-        ) }
-        renderCloseComponent={ ({ onClick }) => (
-          <Button
-            type='button'
-            onClick={ onClick }
-          >
-            Close
-          </Button>
-        ) }
-      />
-    </div>
-  );
-};
 
 export const WithComplexContent = () => {
   const [isOpen, setOpen] = useState(false);
