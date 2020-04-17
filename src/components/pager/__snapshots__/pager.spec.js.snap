@@ -305,6 +305,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  white-space: nowrap;
 }
 
 .c17 {
@@ -725,6 +726,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  white-space: nowrap;
 }
 
 .c14 {
