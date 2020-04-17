@@ -20,7 +20,7 @@ export const basic = () => {
   return (
     <Drawer
       expandedWidth={ text('expandedWidth', '40%') }
-      animationSpeed={ text('animationSpeed', '0.5s') }
+      animationDuration={ text('animationDuration', '0.5s') }
       onChange={ action('expansionToggled') }
       sidebar={ (
         <ul>
@@ -45,7 +45,7 @@ export const Controlled = () => {
   return (
     <Drawer
       expandedWidth={ text('expandedWidth', '40%') }
-      animationSpeed={ text('animationSpeed', '0.5s') }
+      animationDuration={ text('animationDuration', '0.5s') }
       expanded={ isExpanded }
       onChange={ onChangeHandler }
       sidebar={ (

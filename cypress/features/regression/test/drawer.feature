@@ -19,12 +19,12 @@ Feature: Drawer component
       And sidebar text is not visible
 
   @positive
-  Scenario Outline: Set animationSpeed to <animationSpeed>
-    When I set animationSpeed to "<animationSpeed>"
+  Scenario Outline: Set animationDuration to <animationDuration>
+    When I set animationDuration to "<animationDuration>"
     Given I click on Drawer arrow 1 time
-    Then animationSpeed is set to "<cssAnimationSpeed>"
+    Then animationDuration is set to "<cssAnimationDuration>"
     Examples:
-      | animationSpeed | cssAnimationSpeed |
+      | animationDuration | cssAnimationDuration |
       | 500ms          | 0.5s              |
       | 100ms          | 0.1s              |
       | 0.5s           | 0.5s              |

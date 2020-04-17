@@ -18,7 +18,7 @@ const Drawer = ({
   children,
   expandedWidth,
   sidebar,
-  animationSpeed,
+  animationDuration,
   ...props
 }) => {
   const isControlled = expanded !== undefined;
@@ -42,7 +42,7 @@ const Drawer = ({
     >
       <StyledDrawerContent
         expandedWidth={ expandedWidth }
-        animationSpeed={ animationSpeed }
+        animationDuration={ animationDuration }
         className={ isExpanded ? 'open' : closedClass }
       >
         <StyledIconButton
@@ -52,7 +52,7 @@ const Drawer = ({
           data-element='drawer-toggle'
           onAction={ toggleDrawer }
           isExpanded={ isExpanded }
-          animationSpeed={ animationSpeed }
+          animationDuration={ animationDuration }
         >
           <Icon type='chevron_right' />
         </StyledIconButton>
@@ -80,12 +80,12 @@ Drawer.propTypes = {
   /* The (% or px) width of the expanded sizebar  */
   expandedWidth: PropTypes.string,
   /** Duration of a animation */
-  animationSpeed: PropTypes.string
+  animationDuration: PropTypes.string
 };
 
 Drawer.defaultProps = {
   expandedWidth: '40%',
-  animationSpeed: '400ms'
+  animationDuration: '400ms'
 };
 
 export default Drawer;

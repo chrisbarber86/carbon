@@ -54,12 +54,12 @@ const StyledDrawerContent = styled.div`
     }
 
     width: ${({ expandedWidth }) => expandedWidth};
-    animation: drawer-open ${({ animationSpeed }) => animationSpeed} ease-in-out;
+    animation: drawer-open ${({ animationDuration }) => animationDuration} ease-in-out;
 
     ${StyledDrawerSidebar} {
       display: block;
       opacity: 1;
-      animation: sidebar-visible ${({ animationSpeed }) => animationSpeed} ease-in-out;
+      animation: sidebar-visible ${({ animationDuration }) => animationDuration} ease-in-out;
     }
   }
 
@@ -72,12 +72,12 @@ const StyledDrawerContent = styled.div`
         width: 40px;
       }
     }
-    animation: drawer-close ${({ animationSpeed }) => animationSpeed} ease-in-out;
+    animation: drawer-close ${({ animationDuration }) => animationDuration} ease-in-out;
 
     ${StyledDrawerSidebar} {
       display: block;
       opacity: 0;
-      animation: sidebar-hidden ${({ animationSpeed }) => animationSpeed} ease-in-out;
+      animation: sidebar-hidden ${({ animationDuration }) => animationDuration} ease-in-out;
     }
   }
 `;
@@ -86,7 +86,7 @@ const StyledIconButton = styled(IconButton)`
   float: right;
   margin-top: 7px;
   margin-right: 8px;
-  transition: margin-right ${({ animationSpeed }) => animationSpeed} ease-in-out;
+  transition: margin-right ${({ animationDuration }) => animationDuration} ease-in-out;
 
   ${({ isExpanded }) => isExpanded && css`
     transform: scaleX(-1);

@@ -6,7 +6,7 @@ export interface DrawerPropTypes {
   expanded?: boolean;
   onChange?: (e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>, isExpanded: boolean) => void;
   sidebar?: React.ReactNode;
-  animationSpeed?: string;
+  animationDuration?: string;
   expandedWidth?: string;
 }
 

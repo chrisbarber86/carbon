@@ -44,6 +44,6 @@ Then('expandedWidth is set to {string}', (width) => {
   drawerSidebar().should('have.css', 'width', width);
 });
 
-Then('animationSpeed is set to {string}', (animationSpeed) => {
-  drawerSidebar().should('have.css', 'animation-duration', animationSpeed);
+Then('animationDuration is set to {string}', (animationDuration) => {
+  drawerSidebar().should('have.css', 'animation-duration', animationDuration);
 });
