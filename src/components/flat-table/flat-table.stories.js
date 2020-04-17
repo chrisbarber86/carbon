@@ -118,7 +118,8 @@ export const Sortable = () => {
   ];
   const [headData, setHeadData] = useState(headDataItems);
   const [bodyData, setBodyData] = useState(bodyDataItems);
-  const [sortType, setSortType] = useState();
+  const [sortType, setSortType] = useState('asc');
+  const [sortValue, setSortValue] = useState();
 
   const sortByNumber = (dataToSort, sortByValue, type) => {
     const sortedData = dataToSort.sort((a, b) => {
@@ -167,29 +168,43 @@ export const Sortable = () => {
     return sortedData;
   };
 
-  const handleClick = (e) => {
+
+  const handleClick = (value) => {
     const tempHeadData = headData;
+
     tempHeadData.forEach((item) => {
       item.isActive = false;
-      if (item.name === e) {
+      if (item.name === value) {
         item.isActive = !item.isActive;
       }
     });
 
+    setSortValue(value);
+    setSortType(sortType === 'asc' ? 'desc' : 'asc');
     setHeadData([...tempHeadData]);
+  };
 
-    const sortByValue = e;
-    let sortedData;
+  const renderSortedData = (sortByValue) => {
+    let sortedData = bodyData;
 
     if (typeof bodyData[0][sortByValue] === 'string') {
-      sortedData = sortByString(bodyData, sortByValue, sortType);
+      sortedData = sortByString(sortedData, sortByValue, sortType);
     }
 
     if (typeof bodyData[0][sortByValue] === 'number') {
-      sortedData = sortByNumber(bodyData, sortByValue, sortType);
+      sortedData = sortByNumber(sortedData, sortByValue, sortType);
     }
 
-    setBodyData([...sortedData]);
+    return (
+      sortedData.map((dataItem) => {
+        return (
+          <FlatTableRow key={ dataItem.client }>
+            <FlatTableCell>{dataItem.client}</FlatTableCell>
+            <FlatTableCell>{dataItem.total}</FlatTableCell>
+          </FlatTableRow>
+        );
+      })
+    );
   };
 
   return (
@@ -213,16 +228,7 @@ export const Sortable = () => {
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
-        {
-          bodyData.map((dataItem) => {
-            return (
-              <FlatTableRow key={ dataItem.client }>
-                <FlatTableCell>{dataItem.client}</FlatTableCell>
-                <FlatTableCell>{dataItem.total}</FlatTableCell>
-              </FlatTableRow>
-            );
-          })
-        }
+        {renderSortedData(sortValue)}
       </FlatTableBody>
     </FlatTable>
   );
