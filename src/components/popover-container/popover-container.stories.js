@@ -1,12 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import PopoverContainer from './popover-container.component';
 import Button from '../button';
-import IconButton from '../icon-button';
-import Icon from '../icon';
 import Pill from '../pill';
-import { DraggableContainer, DraggableItem } from '../draggable';
 import { Checkbox } from '../../__experimental__/components/checkbox';
-import Link from '../link';
 import Badge from '../badge';
 
 export default {
@@ -145,41 +141,6 @@ export const Filter = () => {
         <Button onClick={ applyFilters } style={ { margin: '20px 0' } }>Apply</Button>
       </PopoverContainer>
       {renderPills()}
-    </div>
-  );
-};
-
-
-export const WithComplexContent = () => {
-  return (
-    <div style={ storyStyle('330px') }>
-      <PopoverContainer
-        title='Popover Container Title'
-      >
-        <Link>This is example link text</Link>
-        <div style={ { padding: '25px 0 15px 0' } }>
-          <Button>
-            Small
-          </Button>
-          <Button>
-            Compact
-          </Button>
-        </div>
-        <DraggableContainer>
-          <DraggableItem key='1' id={ 1 }>
-            <Checkbox name='one' label='Draggable Label One' />
-          </DraggableItem>
-          <DraggableItem key='2' id={ 2 }>
-            <Checkbox name='two' label='Draggable Label Two' />
-          </DraggableItem>
-          <DraggableItem key='3' id={ 3 }>
-            <Checkbox name='three' label='Draggable Label Three' />
-          </DraggableItem>
-          <DraggableItem key='4' id={ 4 }>
-            <Checkbox name='four' label='Draggable Label Four' />
-          </DraggableItem>
-        </DraggableContainer>
-      </PopoverContainer>
     </div>
   );
 };
