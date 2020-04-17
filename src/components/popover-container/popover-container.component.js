@@ -62,7 +62,7 @@ const PopoverContainer = ({
   };
 
   const renderCloseComponentProps = {
-    dataElement: 'popover-container-close-icon',
+    dataElement: 'popover-container-close-component',
     tabIndex: '0',
     onClick: handleCloseButtonClick,
     ref: closeButtonRef,
@@ -122,21 +122,21 @@ PopoverContainer.propTypes = {
    *
   */
   renderCloseComponent: PropTypes.func,
-  /** if `true` the popover-container is open */
+  /** If `true` the popover-container will open */
   open: PropTypes.bool,
-  /** Sets the popover-container dialog header name */
+  /** Sets the popover-container title displayed in the dialog */
   title: PropTypes.string,
-  /** if `true` the popover-container will cover open button */
+  /** If `true` the popover-container will cover open button */
   shouldCoverButton: PropTypes.bool,
-  /** Callback fires when open icon clicked */
+  /** Callback fires when open component is clicked */
   onOpen: PropTypes.func,
-  /** Callback fires when close icon clicked */
+  /** Callback fires when close component is clicked */
   onClose: PropTypes.func,
   /** Sets rendering position of the popover-container */
   position: PropTypes.oneOf(['left', 'right']),
   /** The content of the popover-container */
   children: PropTypes.node,
-  /** The id of the element that describes the dialog. */
+  /** The id of the element that describes the dialog */
   ariaDescribedBy: PropTypes.string
 };
 
