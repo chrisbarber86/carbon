@@ -8,6 +8,7 @@ import StyledIcon from '../icon/icon.style';
 import {
   MenuClassic, MenuItemClassic, MenuButtonClassic, SubMenuItemIconClassic
 } from './action-popover-classic.style';
+import { isSafari } from '../../utils/helpers/browser-type-check';
 
 const Menu = styled.div`
   ${({ isOpen }) => (isOpen ? 'display: block;' : 'visibility: hidden;')}
@@ -15,7 +16,7 @@ const Menu = styled.div`
   padding: ${({ theme }) => `${theme.spacing}px 0`};
   box-shadow: ${({ theme }) => theme.shadows.depth1};
   position: absolute;
-  right: 0;
+  ${({ rightAlignMenu }) => (rightAlignMenu ? 'left: 0;' : 'right: 0;')}
   background-color: ${({ theme }) => theme.colors.white};
   z-index: 1;
 
@@ -71,7 +72,7 @@ const MenuButton = styled.div`
   && ${StyledIcon} {
     cursor: pointer;
   }
-  width: 24px;
+  display: table;
   margin: auto;
   ${({ isOpen, theme }) => (isOpen && `background-color: ${theme.colors.white}`)}
   &:hover, &:focus {
@@ -80,7 +81,7 @@ const MenuButton = styled.div`
   &:focus {
     outline: 2px solid ${({ theme }) => theme.colors.focus};
   }
-
+  
   ${MenuButtonClassic}
 `;
 
@@ -123,6 +124,7 @@ const SubMenuItemIcon = styled(iconThemeProviderFactory(() => 'inherit')(Icon))`
 
     ${type === 'chevron_right' && css`
       right: 0px;
+      ${isSafari(navigator) && css`top: ${theme.spacing}px;`}
     `}
   `}
 
