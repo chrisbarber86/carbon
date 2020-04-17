@@ -16,41 +16,45 @@ const PopoverContainer = ({
   children,
   title,
   position,
-  isOpen,
+  open,
+  onOpen,
   onClose,
   renderOpenComponent,
   renderCloseComponent,
   shouldCoverButton,
   ariaDescribedBy
 }) => {
-  const [open, setOpen] = useState(false);
+  const isControlled = open !== undefined;
+  const [isOpenInternal, setIsOpenInternal] = useState(false);
 
   const closeButtonRef = useRef();
   const openButtonRef = useRef();
   const guid = useRef(createGuid());
   const popoverContainerId = `PopoverContainer_${guid.current}`;
 
-  useEffect(() => {
-    if ((open || isOpen) && closeButtonRef.current) closeButtonRef.current.focus();
-  }, [isOpen, open]);
+  const isOpen = isControlled ? open : isOpenInternal;
 
-  const handleOpenButtonClick = () => {
-    setOpen(!open);
+  useEffect(() => {
+    if (isOpen && closeButtonRef.current) closeButtonRef.current.focus();
+  }, [isOpen]);
+
+  const handleOpenButtonClick = (e) => {
+    if (!isControlled) setIsOpenInternal(true);
+    if (onOpen) onOpen(e);
+  };
+
+  const handleCloseButtonClick = (e) => {
+    if (!isControlled) setIsOpenInternal(false);
+    if (onClose) onClose(e);
   };
 
   const renderOpenComponentProps = {
-    tabIndex: (open || isOpen) ? -1 : 0,
-    isOpen: open || isOpen,
+    tabIndex: isOpen ? -1 : 0,
+    isOpen,
     dataElement: 'popover-container-open-component',
     onClick: handleOpenButtonClick,
     ref: openButtonRef,
     ariaLabel: title
-  };
-
-  const handleCloseButtonClick = () => {
-    if (onClose) onClose();
-    setOpen(false);
-    if ((open || isOpen) && openButtonRef.current) openButtonRef.current.focus();
   };
 
   const renderCloseComponentProps = {
@@ -68,7 +72,7 @@ const PopoverContainer = ({
     >
       {renderOpenComponent(renderOpenComponentProps)}
       <Transition
-        in={ isOpen || open }
+        in={ isOpen }
         timeout={ { exit: 300 } }
         appear
         mountOnEnter
@@ -115,11 +119,13 @@ PopoverContainer.propTypes = {
   */
   renderCloseComponent: PropTypes.func,
   /** if `true` the popover-container is open */
-  isOpen: PropTypes.bool,
+  open: PropTypes.bool,
   /** Sets the popover-container dialog header name */
   title: PropTypes.string,
   /** if `true` the popover-container will cover open button */
   shouldCoverButton: PropTypes.bool,
+  /** Callback fires when open icon clicked */
+  onOpen: PropTypes.func,
   /** Callback fires when close icon clicked */
   onClose: PropTypes.func,
   /** Sets rendering position of the popover-container */

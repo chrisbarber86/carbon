@@ -85,19 +85,23 @@ Use the `renderOpenComponent` and `renderCloseComponent` to render your own open
 </Preview>
 
 ### Controlled
-You can use the `isOpen` prop to control the open state of the `PopoverContainer`.
+You can use the `open`, `onOpen` and `onClose` props to control the open state of the `PopoverContainer`.
 <Preview>
   <Story name="controlled" parameters={{ info: { disable: true }}}>
     {() => {
-          const [isOpen, setIsOpen] = useState(false);
+          const [open, setOpen] = useState(false);
+          const onOpen = () => setOpen(true);
+          const onClose = () => setOpen(false);
           return (
             <div style={{height: 150}}>
-            <Button onClick={ () => setIsOpen(true) }>Open Popover</Button>
-            <Button onClick={ () => setIsOpen(false) }>Close Popover</Button>
+            <Button onClick={ onOpen }>Open Popover</Button>
+            <Button onClick={ onClose }>Close Popover</Button>
             <br />
             <PopoverContainer
               title='Controlled'
-              isOpen={ isOpen }
+              open={ open }
+              onOpen={ onOpen }
+              onClose={ onClose }
             >Contents</PopoverContainer>
             </div>
           );
