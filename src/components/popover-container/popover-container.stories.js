@@ -39,7 +39,7 @@ export const Filter = () => {
     }
   ];
 
-  const [isOpen, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [options, setOptions] = useState(initValues);
   const [filters, setFilters] = useState([]);
 
@@ -70,22 +70,22 @@ export const Filter = () => {
 
   const updateFilters = () => setFilters(options.filter(filter => filter.checked === true));
 
-  const handleClick = () => {
-    setOpen(!isOpen);
-  };
 
   const handleBadgeClose = () => {
     clearAllOptions();
     clearFilters();
   };
 
-  const handleClose = () => {
+  const applyFilters = () => {
+    updateFilters();
     setOpen(false);
   };
 
-  const applyFilters = () => {
-    updateFilters();
-    handleClose();
+  const onOpen = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
   };
 
   const renderCheckboxes = () => {
@@ -93,7 +93,7 @@ export const Filter = () => {
       marginBottom: '10px'
     };
 
-    return options.map((option, index) => {
+    return options.map((option) => {
       return (
         <Checkbox
           onChange={ updateCheckValue }
@@ -102,7 +102,7 @@ export const Filter = () => {
           name={ option.value }
           value={ option.value }
           checked={ option.checked }
-          key={ index }
+          key={ option.value }
         />
       );
     });
@@ -122,17 +122,18 @@ export const Filter = () => {
     <div style={ storyStyle('250px') }>
       <PopoverContainer
         title='How to create Filter component'
-        isOpen={ isOpen }
-        renderOpenComponent={ ({ dataElement }) => (
+        open={ open }
+        onOpen={ onOpen }
+        onClose={ onClose }
+        renderOpenComponent={ ({ isOpen, ...rest }) => (
           <Badge counter={ filters.length } onClick={ handleBadgeClose }>
             <Button
-              data-element={ dataElement }
               style={ { marginRight: 0 } }
               buttonType={ isOpen ? 'primary' : 'darkBackground' }
               iconPosition='after'
               iconType={ !isOpen ? 'filter_new' : 'close' }
-              onClick={ handleClick }
               size='small'
+              { ...rest }
             >
               Filter
             </Button>
@@ -150,34 +151,10 @@ export const Filter = () => {
 
 
 export const WithComplexContent = () => {
-  const [isOpen, setOpen] = useState(false);
-  const iconRef = useRef();
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    iconRef.current.focus();
-  };
-
   return (
     <div style={ storyStyle('330px') }>
       <PopoverContainer
         title='Popover Container Title'
-        isOpen={ isOpen }
-        onClose={ handleClose }
-        shouldcoverButton
-        renderOpenComponent={ () => (
-          <IconButton
-            ref={ iconRef }
-            data-element='popover-container-icon'
-            onAction={ handleClick }
-          >
-            <Icon type='settings' />
-          </IconButton>
-        ) }
       >
         <Link>This is example link text</Link>
         <div style={ { padding: '25px 0 15px 0' } }>

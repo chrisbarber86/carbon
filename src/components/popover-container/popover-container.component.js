@@ -39,12 +39,16 @@ const PopoverContainer = ({
   }, [isOpen]);
 
   const handleOpenButtonClick = (e) => {
-    if (!isControlled) setIsOpenInternal(true);
-    if (onOpen) onOpen(e);
+    if (!isControlled) setIsOpenInternal(!isOpen);
+
+    // We want the open button to close the popover if it is already open
+    if (!isOpen) {
+      if (onOpen) onOpen(e);
+    } else if (onClose) onClose(e);
   };
 
   const handleCloseButtonClick = (e) => {
-    if (!isControlled) setIsOpenInternal(false);
+    if (!isControlled) setIsOpenInternal(!isOpen);
     if (onClose) onClose(e);
   };
 
