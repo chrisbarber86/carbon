@@ -142,6 +142,7 @@ const StyledPagerLinkStyles = styled.button`
 
 const StyledPagerNoSelect = styled.span`
   user-select: none;
+  white-space: nowrap;
 `;
 
 const StyledPagerSummary = styled.div`
