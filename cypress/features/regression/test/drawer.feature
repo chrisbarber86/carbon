@@ -20,8 +20,8 @@ Feature: Drawer component
 
   @positive
   Scenario Outline: Set animationDuration to <animationDuration>
-    When I set animationDuration to "<animationDuration>"
-    Given I click on Drawer arrow 1 time
+    Given I set animationDuration to "<animationDuration>"
+    When I click on Drawer arrow 1 time
     Then animationDuration is set to "<cssAnimationDuration>"
     Examples:
       | animationDuration | cssAnimationDuration |
@@ -32,8 +32,8 @@ Feature: Drawer component
 
   @positive
   Scenario Outline: Set expandedWidth to <expandedWidth>
-    When I set expandedWidth to "<expandedWidth>"
-    Given I click on Drawer arrow 1 time
+    Given I set expandedWidth to "<expandedWidth>"
+    When I click on Drawer arrow 1 time
     Then expandedWidth is set to "<cssWidth>"
     Examples:
       | expandedWidth                   | cssWidth      |

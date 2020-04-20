@@ -3,6 +3,7 @@ import {
   drawerSidebar,
   drawerSidebarContentInnerElement,
 } from '../../locators/drawer';
+import { positionOfElement } from '../helper';
 
 When('I click on Drawer arrow {int} time(s)', (count) => {
   for (let i = 0; i < count; i++) {
@@ -15,20 +16,20 @@ Then('sidebar should have class {word}', (className) => {
 });
 
 Then('sidebar text is visible', () => {
-  drawerSidebarContentInnerElement(1).should('have.text', 'link a')
+  drawerSidebarContentInnerElement(positionOfElement('second')).should('have.text', 'link a')
     .and('be.visible');
-  drawerSidebarContentInnerElement(2).should('have.text', 'link b')
+  drawerSidebarContentInnerElement(positionOfElement('third')).should('have.text', 'link b')
     .and('be.visible');
-  drawerSidebarContentInnerElement(3).should('have.text', 'link c')
+  drawerSidebarContentInnerElement(positionOfElement('fourth')).should('have.text', 'link c')
     .and('be.visible');
 });
 
 Then('sidebar text is not visible', () => {
-  drawerSidebarContentInnerElement(1).should('have.text', 'link a')
+  drawerSidebarContentInnerElement(positionOfElement('second')).should('have.text', 'link a')
     .and('not.be.visible');
-  drawerSidebarContentInnerElement(2).should('have.text', 'link b')
+  drawerSidebarContentInnerElement(positionOfElement('third')).should('have.text', 'link b')
     .and('not.be.visible');
-  drawerSidebarContentInnerElement(3).should('have.text', 'link c')
+  drawerSidebarContentInnerElement(positionOfElement('fourth')).should('have.text', 'link c')
     .and('not.be.visible');
 });
 
