@@ -38,7 +38,7 @@ The Carbon team would like to use a more rapid and accurate method of regression
 
 # Motivation
 
-The regression suite uses the [Cypress.io](https://www.cypress.io) framework to test all knob configurations, events and accessibility of all stories of all components in Storybook. In its current form it takes around 3.5 hours to run. When the build itself only takes around 7 minutes, it is disproportionate to have a regression suite for those same components to take that much longer to run by such a huge factor. We require a method by which the visual UI can be tested rapidly, accurately and at every commit to detect regressions earlier.
+The regression suite uses the [Cypress.io](https://www.cypress.io) framework to test all knob configurations, events and accessibility of all stories of all components in Storybook. In its current form it takes around 2.5 hours to run. When the build itself only takes around 7 minutes, it is disproportionate to have a regression suite for those same components to take that much longer to run by such a huge factor. We require a method by which the visual UI can be tested rapidly, accurately and at every commit to detect regressions earlier.
 
 ## Visual Comparison testing
 Making assertions of values in the CSS is not the most reliable way to verify the visual styling of the components is correct. In addition, this has been found to be brittle in cases where browser upgrades slightly amend the number of pixels of component dimensions and the test spec is asserting on specific pixel values.
