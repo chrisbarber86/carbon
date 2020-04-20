@@ -25,10 +25,10 @@ Feature: Drawer component
     Then animationDuration is set to "<cssAnimationDuration>"
     Examples:
       | animationDuration | cssAnimationDuration |
-      | 500ms          | 0.5s              |
-      | 100ms          | 0.1s              |
-      | 0.5s           | 0.5s              |
-      | 0.1s           | 0.1s              |
+      | 500ms             | 0.5s                 |
+      | 100ms             | 0.1s                 |
+      | 0.5s              | 0.5s                 |
+      | 0.1s              | 0.1s                 |
 
   @positive
   Scenario Outline: Set expandedWidth to <expandedWidth>
@@ -36,8 +36,8 @@ Feature: Drawer component
     When I click on Drawer arrow 1 time
     Then expandedWidth is set to "<cssWidth>"
     Examples:
-      | expandedWidth                   | cssWidth      |
-      | 10%                             | 114.59375px   |
-      | 50%                             | 573px         |
-      | 100px                           | 100px         |
-      | 500px                           | 500px         |
+      | expandedWidth | cssWidth    |
+      | 10%           | 114.59375px |
+      | 50%           | 573px       |
+      | 100px         | 100px       |
+      | 500px         | 500px       |

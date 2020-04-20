@@ -2,11 +2,12 @@ import React, { useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import createGuid from '../../utils/helpers/guid';
 import Icon from '../icon';
+import Events from '../../utils/helpers/events';
 
 import {
   StyledDrawerWrapper,
   StyledDrawerContent,
-  StyledIconButton,
+  StyledButton,
   StyledDrawerChildren,
   StyledDrawerSidebar
 } from './drawer.style';
@@ -31,6 +32,17 @@ const Drawer = ({
     setFirstOpen(false);
   }, [isControlled, isExpanded, onChange]);
 
+  const handleKeyDown = useCallback((e) => {
+    e.preventDefault();
+    const isFirefox = typeof InstallTrigger !== 'undefined';
+
+    if (isFirefox && Events.isEnterKey(e)) {
+      toggleDrawer(e);
+    } else if (!isFirefox && (Events.isEnterKey(e) || Events.isSpaceKey(e))) {
+      toggleDrawer(e);
+    }
+  });
+
   const closedClass = isFirstOpen ? '' : 'closed';
   const guid = useRef(createGuid());
   const sidebarId = `DrawerSidebar_${guid.current}`;
@@ -45,17 +57,18 @@ const Drawer = ({
         animationDuration={ animationDuration }
         className={ isExpanded ? 'open' : closedClass }
       >
-        <StyledIconButton
+        <StyledButton
           aria-label='toggle sidebar'
           aria-expanded={ isExpanded }
           aria-controls={ sidebarId }
           data-element='drawer-toggle'
-          onAction={ toggleDrawer }
+          onKeyDown={ handleKeyDown }
+          onClick={ toggleDrawer }
           isExpanded={ isExpanded }
           animationDuration={ animationDuration }
         >
           <Icon type='chevron_right' />
-        </StyledIconButton>
+        </StyledButton>
         <StyledDrawerSidebar id={ sidebarId } role='navigation'>
           { sidebar }
         </StyledDrawerSidebar>

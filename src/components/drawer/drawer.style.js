@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import IconButton from '../icon-button';
 
 const StyledDrawerChildren = styled.div`
   flex: 1;
@@ -82,15 +81,51 @@ const StyledDrawerContent = styled.div`
   }
 `;
 
-const StyledIconButton = styled(IconButton)`
-  float: right;
-  margin-top: 7px;
-  margin-right: 8px;
+const StyledButton = styled.button`
+  float: left;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  margin: 7px 8px auto 8px;
   transition: margin-right ${({ animationDuration }) => animationDuration} ease-in-out;
+  background-color: transparent;
+  border: none;
+
+  &:focus {
+    outline: 3px solid ${({ theme }) => theme.colors.focus};
+  }
+
+  @keyframes button-open {
+    0% {
+      float: left;
+    }
+    20% {
+      float: right;
+    }
+    100% {
+      float: right;
+    }
+  }
+
+  @keyframes button-closed {
+    0% {
+      float: right;
+    }
+    80% {
+      float: right;
+    }
+    100% {
+      float: left;
+    }
+  }
+
+  animation: button-closed ${({ animationDuration }) => animationDuration} ease-in-out;
 
   ${({ isExpanded }) => isExpanded && css`
+    float: right;
     transform: scaleX(-1);
     margin-right: 20px;
+    animation: button-open ${({ animationDuration }) => animationDuration} ease-in-out;
   `}
 `;
 
@@ -104,5 +139,5 @@ export {
   StyledDrawerContent,
   StyledDrawerChildren,
   StyledDrawerSidebar,
-  StyledIconButton
+  StyledButton
 };
