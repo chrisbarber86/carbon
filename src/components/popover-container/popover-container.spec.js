@@ -6,7 +6,8 @@ import { act } from 'react-dom/test-utils';
 import {
   PopoverContainerContentStyle,
   PopoverContainerCloseIcon,
-  PopoverContainerIcon
+  PopoverContainerIcon,
+  PopoverContainerOpenIcon
 } from './popover-container.style';
 import StyledIcon from '../icon/icon.style';
 import PopoverContainer from './popover-container.component';
@@ -16,20 +17,7 @@ import Icon from '../icon';
 import IconButton from '../icon-button';
 
 const render = (props, renderMethod = mount) => {
-  const initialProps = {
-    title: 'Popover Container Settings',
-    iconType: 'settings',
-    renderOpenComponent: ({ tabIndex }) => (
-      <button
-        tabIndex={ tabIndex }
-        type='button'
-      >button
-      </button>
-    ),
-    isOpen: true
-  };
-
-  return (renderMethod(<PopoverContainer { ...initialProps } { ...props } />));
+  return (renderMethod(<PopoverContainer title='PopoverContainerSettings' { ...props } />));
 };
 
 describe('PopoverContainer', () => {
@@ -50,7 +38,7 @@ describe('PopoverContainer', () => {
   });
 
   it('open button should be focusable if popover-container is closed', () => {
-    wrapper = render({ isOpen: false });
+    wrapper = render({ open: false });
 
     expect(wrapper.find('button').props().tabIndex).toBe(0);
   });
@@ -58,7 +46,7 @@ describe('PopoverContainer', () => {
   it('should close the popover container if close Icon clicked', () => {
     const closeFn = jest.fn();
 
-    wrapper = render({ onClose: closeFn });
+    wrapper = render({ onClose: closeFn, open: true });
 
     act(() => {
       wrapper.find(PopoverContainerCloseIcon).props().onAction();
@@ -68,60 +56,129 @@ describe('PopoverContainer', () => {
     jest.clearAllTimers();
   });
 
-  it('support uncontrolled state', () => {
-    wrapper = render({
-      isOpen: undefined,
-      renderOpenComponent: ({ tabIndex, onClick }) => (
-        <button
-          onClick={ onClick } tabIndex={ tabIndex }
-          type='button'
-        >button
-        </button>
-      )
+  describe('if is controlled', () => {
+    describe('and is opened', () => {
+      describe('and `onClose` prop do not exists', () => {
+        it('should not fire `onClose` callback if open button is clicked', () => {
+          wrapper = render({
+            open: true
+          });
+
+          wrapper.find(PopoverContainerOpenIcon).props().onAction();
+          expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(true);
+        });
+      });
+
+      describe('and `onClose` prop is provided', () => {
+        it('should fire `onClose` callback if open button is clicked', () => {
+          const onCloseFn = jest.fn();
+          wrapper = render({
+            open: true,
+            onClose: onCloseFn
+          });
+
+          wrapper.find(PopoverContainerOpenIcon).props().onAction();
+          expect(onCloseFn).toHaveBeenCalled();
+        });
+      });
     });
 
-    act(() => {
-      wrapper.find('button').props().onClick();
-      wrapper.update();
-    });
+    describe('and is closed', () => {
+      describe('and `onOpen` prop is provided', () => {
+        it('should fire `onOpen` callback if open button is clicked', () => {
+          const onOpenFn = jest.fn();
+          wrapper = render({
+            open: false,
+            onOpen: onOpenFn
+          });
 
-    expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(false);
+          wrapper.find(PopoverContainerOpenIcon).props().onAction();
+          expect(onOpenFn).toHaveBeenCalled();
+        });
+      });
+
+      describe('and `onOpen` props is not provided', () => {
+        it('should not fire `onOpen` callback if open button is clicked', () => {
+          wrapper = render({
+            open: false
+          });
+
+          wrapper.find(PopoverContainerOpenIcon).props().onAction();
+          expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(false);
+        });
+      });
+    });
   });
 
-  it('should set focus to opening component if close button is clicked', () => {
-    wrapper = render({
-      renderOpenComponent: ({ tabIndex, ref }) => (
-        <button
-          ref={ ref }
-          type='button'
-          tabIndex={ tabIndex }
-          id='my-button'
-        >
-          open
-        </button>
-      )
-    });
-    act(() => {
-      wrapper.find(PopoverContainerCloseIcon).props().onAction();
-      wrapper.update();
-    });
+  describe('is not controlled', () => {
+    it('should open popover if open button is clicked', () => {
+      wrapper = render();
 
-    expect(wrapper.find('button#my-button')).toBeFocused();
+      act(() => {
+        wrapper.find(PopoverContainerOpenIcon).props().onAction();
+      });
+
+      wrapper.update();
+      expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(true);
+    });
   });
 
-  it('render default component if `renderOpenComponent` is not provided', () => {
-    wrapper = render({
-      renderOpenComponent: undefined
+  describe('if close button is clicked ', () => {
+    describe('and `ref` of opening button exists', () => {
+      it('should set focus to the opening button', () => {
+        wrapper = render();
+
+        act(() => {
+          wrapper.find(PopoverContainerOpenIcon).props().onAction();
+        });
+
+        wrapper.update();
+
+        act(() => {
+          wrapper.find(PopoverContainerCloseIcon).props().onAction();
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find(PopoverContainerOpenIcon)).toBeFocused();
+      });
     });
 
-    expect(wrapper.find(IconButton).exists()).toBe(true);
+    describe('and `ref` of opening button does not exist', () => {
+      it('should not set focus to the opening button', () => {
+        wrapper = render({
+          renderOpenComponent: ({ onClick }) => (
+            <button
+              type='button'
+              id='openButton'
+              onClick={ onClick }
+            >open
+            </button>
+          )
+        });
+
+        act(() => {
+          wrapper.find('#openButton').props().onClick();
+        });
+
+        wrapper.update();
+
+        act(() => {
+          wrapper.find(PopoverContainerCloseIcon).props().onAction();
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find('#openButton')).not.toBeFocused();
+      });
+    });
   });
 });
 
 describe('PopoverContainerIcon', () => {
   it('should render correct style', () => {
     const wrapper = mount(
-      <PopoverContainerIcon onAction={ () => {} } theme={ baseTheme }>
+      <PopoverContainerIcon onAction={ () => { } } theme={ baseTheme }>
         <Icon type='settings' />
       </PopoverContainerIcon>
     );

@@ -50,6 +50,7 @@ const PopoverContainer = ({
   const handleCloseButtonClick = (e) => {
     if (!isControlled) setIsOpenInternal(!isOpen);
     if (onClose) onClose(e);
+    if (isOpen && openButtonRef.current) openButtonRef.current.focus();
   };
 
   const renderOpenComponentProps = {
