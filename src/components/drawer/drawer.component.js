@@ -32,7 +32,7 @@ const Drawer = ({
     setFirstOpen(false);
   }, [isControlled, isExpanded, onChange]);
 
-  const handleKeyDown = useCallback((e) => {
+  const handleKeyDown = (e) => {
     e.preventDefault();
     const isFirefox = typeof InstallTrigger !== 'undefined';
 
@@ -41,7 +41,7 @@ const Drawer = ({
     } else if (!isFirefox && (Events.isEnterKey(e) || Events.isSpaceKey(e))) {
       toggleDrawer(e);
     }
-  });
+  };
 
   const closedClass = isFirstOpen ? '' : 'closed';
   const guid = useRef(createGuid());
