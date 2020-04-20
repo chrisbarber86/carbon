@@ -82,7 +82,7 @@ const StyledDrawerContent = styled.div`
 `;
 
 const StyledButton = styled.button`
-  float: left;
+  float: right;
   padding: 0;
   width: 24px;
   height: 24px;
