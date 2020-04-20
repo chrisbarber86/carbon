@@ -1,1 +1,1 @@
-export { default } from './flat-table-sort-header.component';
+export { default } from './sort.component';

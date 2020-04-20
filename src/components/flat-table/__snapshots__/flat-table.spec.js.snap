@@ -17,9 +17,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
-  -webkit-transform: scale(0.999);
-  -ms-transform: scale(0.999);
-  transform: scale(0.999);
 }
 
 .c5 {

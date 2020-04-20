@@ -116,8 +116,8 @@ export const Sortable = () => {
     { client: 'Blake Sutton', total: 3840 },
     { client: 'Tyler Webb', total: 280 }
   ];
+
   const [headData, setHeadData] = useState(headDataItems);
-  const [bodyData, setBodyData] = useState(bodyDataItems);
   const [sortType, setSortType] = useState('asc');
   const [sortValue, setSortValue] = useState();
 
@@ -185,13 +185,13 @@ export const Sortable = () => {
   };
 
   const renderSortedData = (sortByValue) => {
-    let sortedData = bodyData;
+    let sortedData = bodyDataItems;
 
-    if (typeof bodyData[0][sortByValue] === 'string') {
+    if (typeof bodyDataItems[0][sortByValue] === 'string') {
       sortedData = sortByString(sortedData, sortByValue, sortType);
     }
 
-    if (typeof bodyData[0][sortByValue] === 'number') {
+    if (typeof bodyDataItems[0][sortByValue] === 'number') {
       sortedData = sortByNumber(sortedData, sortByValue, sortType);
     }
 
