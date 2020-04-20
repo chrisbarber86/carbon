@@ -31,11 +31,12 @@ const Pager = ({
 
   useEffect(() => {
     let maxPage;
+    setCurrentPageSize(Number(pageSize));
 
     if (Number(totalRecords) < 0 || Number.isNaN(Number(totalRecords))) {
       maxPage = 1;
     } else {
-      maxPage = Math.ceil(totalRecords / currentPageSize);
+      maxPage = Math.ceil(totalRecords / Number(pageSize));
     }
 
     setPageCount(maxPage);
@@ -45,7 +46,7 @@ const Pager = ({
     } else {
       setPage(Number(currentPage));
     }
-  }, [currentPageSize, pageCount, currentPage, totalRecords]);
+  }, [pageSize, pageCount, currentPage, totalRecords]);
 
   /** Term used to describe table data */
   const records = count => I18n.t(
