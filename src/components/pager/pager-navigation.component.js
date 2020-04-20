@@ -75,7 +75,6 @@ const PagerNavigation = ({
         <Label htmlFor={ currentPageId }>
           <NumberInput
             value={ currentPage.toString() }
-            className='carbon-pager__current-page'
             data-element='current-page'
             onChange={ handleCurrentPageChange }
             onBlur={ handlePageInputChange }

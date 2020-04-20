@@ -75,6 +75,7 @@ PagerNavigationLink.propTypes = {
   currentPage: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   /** Count of all the pages  */
   pageCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  /** Pagination page size */
   pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   /** onClick Callback function */
   onClick: PropTypes.func,
