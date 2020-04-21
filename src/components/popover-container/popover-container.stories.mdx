@@ -3,9 +3,11 @@ import PopoverContainer from "./popover-container.component";
 import {DraggableContainer, DraggableItem} from '../draggable'
 import { Checkbox } from '../../__experimental__/components/checkbox';
 import ButtonToggle from '../button-toggle';
+import { useState } from 'react';
 import Button from '../button';
 import Link from '../link';
-import {useState} from "react";
+import Pill from '../pill';
+import Badge from '../badge';
 
 <Meta title="Design System/Popover Container" />
 
@@ -36,8 +38,7 @@ Use the `title` prop to set a title within the `PopoverContainer`.
     <div style={{height: 100}}>
       <PopoverContainer title="With a title">
       Contents
-      </PopoverContainer>
-      
+      </PopoverContainer>   
       </div>
   </Story>
 </Preview>
@@ -150,7 +151,104 @@ If you want to use the `PopoverContainer` to create for example `Filter` compone
 You can do it easly in this way:
 
 <Preview>
-  <Story id="test-popover-container--filter" parameters={{ info: { disable: true }}} />
+  <Story name="filter" parameters={{ info: { disable: true }}}>
+    {() => {
+        const initValues = [
+          { value: 'Option 1', checked: false },
+          { value: 'Option 2', checked: false },
+          { value: 'Option 3', checked: false }
+        ];
+        const [open, setOpen] = useState(false);
+        const [options, setOptions] = useState(initValues);
+        const [filters, setFilters] = useState([]);
+        const clearAllOptions = () => {
+          const temps = options;
+          for (let i = 0; i < temps.length; i++) {
+            temps[i].checked = false;
+          }
+          setOptions([...temps]);
+        };
+        const clearFilters = () => setFilters([]);
+        const updateCheckValue = (e) => {
+          const temps = options;
+          const findCorrectIndex = temps.findIndex(item => item.value === e.target.value);
+          if (findCorrectIndex !== -1) {
+            temps[findCorrectIndex].checked = !temps[findCorrectIndex].checked;
+            setOptions([...temps]);
+          }
+        };
+        const updateFilters = () => setFilters(options.filter(filter => filter.checked === true));
+        const handleBadgeClose = () => {
+          clearAllOptions();
+          clearFilters();
+        };
+        const applyFilters = () => {
+          updateFilters();
+          setOpen(false);
+        };
+        const onOpen = () => {
+          setOpen(true);
+        };
+        const onClose = () => {
+          setOpen(false);
+        };
+        const renderCheckboxes = () => {
+          const checkboxStyle = {
+            marginBottom: '10px'
+          };
+          return options.map((option) => {
+            return (
+              <Checkbox
+                onChange={ updateCheckValue }
+                style={ checkboxStyle }
+                label={ option.value }
+                name={ option.value }
+                value={ option.value }
+                checked={ option.checked }
+                key={ option.value }
+              />
+            );
+          });
+        };
+        const renderPills = () => {
+          const pillStyle = {
+            margin: '0 8px'
+          };
+          return filters.map((filter, index) => {
+            return filter.checked ? <Pill key={ index } style={ pillStyle }>{filter.value}</Pill> : null;
+          });
+        };
+        return (
+          <div style={{height: 80}}>
+            <PopoverContainer
+              title='How to create Filter component'
+              open={ open }
+              onOpen={ onOpen }
+              onClose={ onClose }
+              renderOpenComponent={ ({ isOpen, ...rest }) => (
+                <Badge counter={ filters.length } onClick={ handleBadgeClose }>
+                  <Button
+                    style={ { marginRight: 0 } }
+                    buttonType={ isOpen ? 'primary' : 'darkBackground' }
+                    iconPosition='after'
+                    iconType={ !isOpen ? 'filter_new' : 'close' }
+                    size='small'
+                    { ...rest }
+                  >
+                    Filter
+                  </Button>
+                </Badge>
+              ) }
+              renderCloseComponent={ () => {} }
+            >
+              {renderCheckboxes()}
+              <Button onClick={ applyFilters } style={ { margin: '20px 0' } }>Apply</Button>
+            </PopoverContainer>
+            {renderPills()}
+          </div>
+        );
+      }}
+  </Story>
 </Preview>
 
 <Props of={PopoverContainer} />
