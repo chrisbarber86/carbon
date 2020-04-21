@@ -46,7 +46,10 @@ export const Controlled = () => {
 
   return (
     <div>
-      <p>Note: if you experience glitchy animation on `Drawer` component, pelase open canvas in new window (2nd icon in top right corner)</p>
+      <p>
+        Note: if you experience glitchy animation on `Drawer` component,
+        pelase open canvas in new window (2nd icon in top right corner)
+      </p>
       <div style={ { height: '200px' } }>
         <Drawer
           expandedWidth={ text('expandedWidth', '40%') }
