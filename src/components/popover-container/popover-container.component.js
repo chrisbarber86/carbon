@@ -64,7 +64,7 @@ const PopoverContainer = ({
 
   const renderCloseComponentProps = {
     dataElement: 'popover-container-close-component',
-    tabIndex: '0',
+    tabIndex: 0,
     onClick: handleCloseButtonClick,
     ref: closeButtonRef,
     ariaLabel: 'close'

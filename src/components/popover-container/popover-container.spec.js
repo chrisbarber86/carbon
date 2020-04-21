@@ -14,7 +14,6 @@ import PopoverContainer from './popover-container.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { baseTheme } from '../../style/themes';
 import Icon from '../icon';
-import IconButton from '../icon-button';
 
 const render = (props, renderMethod = mount) => {
   return (renderMethod(<PopoverContainer title='PopoverContainerSettings' { ...props } />));
@@ -37,23 +36,10 @@ describe('PopoverContainer', () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  it('open button should be focusable if popover-container is closed', () => {
+  it('should let opening button to be focusable if popover is closed', () => {
     wrapper = render({ open: false });
 
     expect(wrapper.find('button').props().tabIndex).toBe(0);
-  });
-
-  it('should close the popover container if close Icon clicked', () => {
-    const closeFn = jest.fn();
-
-    wrapper = render({ onClose: closeFn, open: true });
-
-    act(() => {
-      wrapper.find(PopoverContainerCloseIcon).props().onAction();
-    });
-
-    expect(closeFn).toHaveBeenCalled();
-    jest.clearAllTimers();
   });
 
   describe('if is controlled', () => {
@@ -80,6 +66,17 @@ describe('PopoverContainer', () => {
           wrapper.find(PopoverContainerOpenIcon).props().onAction();
           expect(onCloseFn).toHaveBeenCalled();
         });
+
+        it('should fire `onClose` callback if close button is clicked', () => {
+          const onCloseFn = jest.fn();
+          wrapper = render({
+            open: true,
+            onClose: onCloseFn
+          });
+
+          wrapper.find(PopoverContainerCloseIcon).props().onAction();
+          expect(onCloseFn).toHaveBeenCalled();
+        });
       });
     });
 
@@ -97,7 +94,7 @@ describe('PopoverContainer', () => {
         });
       });
 
-      describe('and `onOpen` props is not provided', () => {
+      describe('and `onOpen` prop is not provided', () => {
         it('should not fire `onOpen` callback if open button is clicked', () => {
           wrapper = render({
             open: false
@@ -110,7 +107,24 @@ describe('PopoverContainer', () => {
     });
   });
 
-  describe('is not controlled', () => {
+  describe('if is not controlled', () => {
+    it('should render default open button', () => {
+      wrapper = render();
+
+      expect(wrapper.find(PopoverContainerOpenIcon).exists()).toBe(true);
+    });
+
+    it('should render default close button', () => {
+      wrapper = render();
+
+      act(() => {
+        wrapper.find(PopoverContainerOpenIcon).props().onAction();
+      });
+
+      wrapper.update();
+      expect(wrapper.find(PopoverContainerCloseIcon).exists()).toBe(true);
+    });
+
     it('should open popover if open button is clicked', () => {
       wrapper = render();
 
@@ -120,6 +134,51 @@ describe('PopoverContainer', () => {
 
       wrapper.update();
       expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(true);
+    });
+
+    describe('and custom component is provided as opening button', () => {
+      it('should render correct props', () => {
+        wrapper = render({
+          title: 'render props',
+          renderOpenComponent: ({
+            tabIndex, dataElement, ariaLabel
+          }) => (
+            <button
+              type='button'
+              tabIndex={ tabIndex }
+              data-element={ dataElement }
+              aria-label={ ariaLabel }
+            />
+          )
+        });
+
+        expect(wrapper.find('button').props().tabIndex).toBe(0);
+        expect(wrapper.find('button').prop('data-element')).toBe('popover-container-open-component');
+        expect(wrapper.find('button').prop('aria-label')).toBe('render props');
+      });
+    });
+
+    describe('and custom component is provided as closing button', () => {
+      it('should render correct props', () => {
+        wrapper = render({
+          open: true,
+          renderCloseComponent: ({
+            tabIndex, dataElement, ariaLabel
+          }) => (
+            <button
+              type='button'
+              id='closeButton'
+              tabIndex={ tabIndex }
+              data-element={ dataElement }
+              aria-label={ ariaLabel }
+            />
+          )
+        });
+
+        expect(wrapper.find('#closeButton').props().tabIndex).toBe(0);
+        expect(wrapper.find('#closeButton').prop('data-element')).toBe('popover-container-close-component');
+        expect(wrapper.find('#closeButton').prop('aria-label')).toBe('close');
+      });
     });
   });
 
@@ -205,7 +264,7 @@ describe('PopoverContainerContentStyle', () => {
     }, wrapper);
   });
 
-  it('should render correct style if `shouldCoverButton`', () => {
+  it('should render correct style if `shouldCoverButton` prop is provided', () => {
     const wrapper = mount(<PopoverContainerContentStyle shouldCoverButton />);
 
     assertStyleMatch({
@@ -213,23 +272,25 @@ describe('PopoverContainerContentStyle', () => {
     }, wrapper);
   });
 
-  it('should render correct style of animation state', () => {
-    const wrapper = mount(<PopoverContainerContentStyle animationState='entered' />);
+  describe('should render correct style of animation', () => {
+    it('if the animation has state `entered`', () => {
+      const wrapper = mount(<PopoverContainerContentStyle animationState='entered' />);
 
-    assertStyleMatch({
-      opacity: '1',
-      transform: 'translateY(0)',
-      transition: 'all 0.3s cubic-bezier(0.25,0.25,0,1.5)'
-    }, wrapper);
-  });
+      assertStyleMatch({
+        opacity: '1',
+        transform: 'translateY(0)',
+        transition: 'all 0.3s cubic-bezier(0.25,0.25,0,1.5)'
+      }, wrapper);
+    });
 
-  it('should render correct style of animation state', () => {
-    const wrapper = mount(<PopoverContainerContentStyle animationState='exiting' />);
+    it('if the animation has state `exiting`', () => {
+      const wrapper = mount(<PopoverContainerContentStyle animationState='exiting' />);
 
-    assertStyleMatch({
-      opacity: '0',
-      transform: 'translateY(-8px)',
-      transition: 'all 0.3s cubic-bezier(0.25,0.25,0,1.5)'
-    }, wrapper);
+      assertStyleMatch({
+        opacity: '0',
+        transform: 'translateY(-8px)',
+        transition: 'all 0.3s cubic-bezier(0.25,0.25,0,1.5)'
+      }, wrapper);
+    });
   });
 });
