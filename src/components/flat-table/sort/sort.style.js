@@ -13,16 +13,16 @@ const StyledSort = styled.div`
     height: 16px;
     padding-left: 8px;
     color: ${({ theme }) => theme.flatTable.default.headerIconColor};
-  };
+  }
 
   :hover{
     border-bottom: 1px solid;
     cursor: pointer;
-  };
+  }
 
   :focus{
     outline: 1px solid ${({ theme }) => theme.colors.focus};
-  };
+  }
 `;
 
 StyledSort.defaultProps = {

@@ -30,10 +30,10 @@ const Sort = ({ children, onClick, sortType }) => {
 
 Sort.propTypes = {
   /** if `asc` it will show `sort_up` icon, if `desc` it will show `sort_down` */
-  sortType: PropTypes.oneOf(['asc', 'desc']),
+  sortType: PropTypes.oneOf(['asc', 'desc', false]),
   /** Callback fired when the `FlatTableSortHeader` is clicked */
   onClick: PropTypes.func,
-  /** Sets the content of `FlatTableSortHeader` */
+  /** The content of `FlatTableSortHeader` */
   children: PropTypes.node
 };
 

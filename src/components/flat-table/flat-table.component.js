@@ -6,11 +6,11 @@ const FlatTable = ({
   children,
   hasStickyHead,
   colorTheme,
-  styleOverride
+  headerBackground
 }) => {
   return (
     <StyledFlatTableWrapper
-      styleOverride={ styleOverride.headerBackground }
+      headerBackground={ headerBackground }
       hasStickyHead={ hasStickyHead }
       colorTheme={ colorTheme }
     >
@@ -26,14 +26,13 @@ FlatTable.propTypes = {
   children: PropTypes.node.isRequired,
   /** If true, the header does not scroll with the content */
   hasStickyHead: PropTypes.bool,
-  /** Override `TableHeader` background color */
-  styleOverride: PropTypes.object,
-  /** Setup one of theme colors to the Table */
-  colorTheme: PropTypes.string
+  /** The background color of `TableHeader` */
+  headerBackground: PropTypes.string,
+  /** `FlatTable` color theme */
+  colorTheme: PropTypes.oneOf(['dark', 'light', 'transparent'])
 };
 
 FlatTable.defaultProps = {
-  styleOverride: {},
   colorTheme: 'transparent'
 };
 

@@ -8,7 +8,7 @@ const StyledFlatTableWrapper = styled.div`
   height: 100%;
 
   ${({
-    colorTheme, styleOverride, theme
+    colorTheme, headerBackground, theme
   }) => {
     switch (colorTheme) {
       case 'dark':
@@ -29,7 +29,7 @@ const StyledFlatTableWrapper = styled.div`
       default:
         return css`
         ${StyledFlatTableHeader} {
-          background-color: ${styleOverride || theme.flatTable.default.headerBackground};
+          background-color: ${headerBackground || theme.flatTable.default.headerBackground};
         }`;
     }
   }}
@@ -40,11 +40,11 @@ const StyledFlatTableWrapper = styled.div`
     ${StyledFlatTableHeader} {
       position: sticky;
       z-index: 1;
-    };
+    }
 
     ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
       z-index: 2;
-    };
+    }
   `}
 `;
 
