@@ -51,7 +51,7 @@ describe('Pager Navigation', () => {
 
     assertStyleMatch({
       padding: '0',
-      margin: '0 4px',
+      margin: '12px 4px 0 4px',
       lineHeight: '24px',
       minHeight: '24px'
     }, wrapper.find(PagerNavigation),

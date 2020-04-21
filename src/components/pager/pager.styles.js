@@ -91,7 +91,7 @@ const StyledPagerNavigation = styled.div`
 
   && ${StyledInputPresentation} {
     padding: 0;
-    margin: 0 4px;
+    margin: 12px 4px 0 4px;
     line-height: 24px;
     min-height: 24px;
 
