@@ -18,19 +18,21 @@ import Drawer from 'carbon-react/lib/components/drawer';
 <Preview>
   <Story name="default" parameters={{ info: { disable: true }}} >
     return (
-      <Drawer
-        expandedWidth='40%'
-        animationDuration={ '500ms' }
-        sidebar={ (
-          <ul>
-            <li>link a</li>
-            <li>link b</li>
-            <li>link c</li>
-          </ul>
-        ) }
-      >
-        content body content body content body content body content body content body content body
-      </Drawer>
+      <div style={ { height: '200px' } }>
+        <Drawer
+          expandedWidth='40%'
+          animationDuration={ '500ms' }
+          sidebar={ (
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          ) }
+        >
+          content body content body content body content body content body content body content body
+        </Drawer>
+      </div>
     )
   </Story>
 </Preview>

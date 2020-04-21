@@ -18,20 +18,22 @@ export default {
 
 export const basic = () => {
   return (
-    <Drawer
-      expandedWidth={ text('expandedWidth', '40%') }
-      animationDuration={ text('animationDuration', '0.5s') }
-      onChange={ action('expansionToggled') }
-      sidebar={ (
-        <ul>
-          <li>link a</li>
-          <li>link b</li>
-          <li>link c</li>
-        </ul>
-      ) }
-    >
-      content body content body content body content body content body content body content body
-    </Drawer>
+    <div style={ { height: '200px' } }>
+      <Drawer
+        expandedWidth={ text('expandedWidth', '40%') }
+        animationDuration={ text('animationDuration', '0.5s') }
+        onChange={ action('expansionToggled') }
+        sidebar={ (
+          <ul>
+            <li>link a</li>
+            <li>link b</li>
+            <li>link c</li>
+          </ul>
+        ) }
+      >
+        content body content body content body content body content body content body content body
+      </Drawer>
+    </div>
   );
 };
 
@@ -43,20 +45,22 @@ export const Controlled = () => {
   }, [isExpanded]);
 
   return (
-    <Drawer
-      expandedWidth={ text('expandedWidth', '40%') }
-      animationDuration={ text('animationDuration', '0.5s') }
-      expanded={ isExpanded }
-      onChange={ onChangeHandler }
-      sidebar={ (
-        <ul>
-          <li>link a</li>
-          <li>link b</li>
-          <li>link c</li>
-        </ul>
-      ) }
-    >
-      content body content body content body content body content body content body content body
-    </Drawer>
+    <div style={ { height: '200px' } }>
+      <Drawer
+        expandedWidth={ text('expandedWidth', '40%') }
+        animationDuration={ text('animationDuration', '0.5s') }
+        expanded={ isExpanded }
+        onChange={ onChangeHandler }
+        sidebar={ (
+          <ul>
+            <li>link a</li>
+            <li>link b</li>
+            <li>link c</li>
+          </ul>
+        ) }
+      >
+        content body content body content body content body content body content body content body
+      </Drawer>
+    </div>
   );
 };
