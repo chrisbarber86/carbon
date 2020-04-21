@@ -38,18 +38,18 @@ describe('InputPresentation', () => {
     });
 
     describe.each([
-      ['hasError', 'error'],
-      ['hasWarning', 'warning'],
-      ['hasInfo', 'info']
-    ])('when %s prop is set to true', (validationProp, expectedColor) => {
+      ['error'],
+      ['warning'],
+      ['info']
+    ])('when %s prop is set to true', (validation) => {
       it('has the right style', () => {
-        const boxShadow = `inset 1px 1px 0 ${baseTheme.colors[expectedColor]}, `
-                        + `inset -1px -1px 0 ${baseTheme.colors[expectedColor]}`;
+        const boxShadow = `inset 1px 1px 0 ${baseTheme.colors[validation]}, `
+                        + `inset -1px -1px 0 ${baseTheme.colors[validation]}`;
 
         assertStyleMatch({
-          borderColor: `${baseTheme.colors[expectedColor]} !important`,
+          borderColor: `${baseTheme.colors[validation]} !important`,
           boxShadow
-        }, render({ [validationProp]: true }));
+        }, render({ [validation]: true }));
       });
     });
 

@@ -9,9 +9,13 @@ import 'jest-styled-components';
 import Icon from '../icon';
 
 describe('ValidationIcon', () => {
-  it('renders with an icon for the given type', () => {
-    const wrapper = mount(<ValidationIcon type='error' />);
-    expect(wrapper.find(ValidationIconStyle).prop('validationType')).toEqual('error');
+  it.each([
+    [{ error: true }, 'error'],
+    [{ warning: true }, 'warning'],
+    [{ info: true }, 'info']
+  ])('renders with a proper icon for given validation type', (validation, iconType) => {
+    const wrapper = mount(<ValidationIcon { ...validation } />);
+    expect(wrapper.find(ValidationIconStyle).prop('validationType')).toEqual(iconType);
   });
 
   it('renders with an icon with classic styling', () => {

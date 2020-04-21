@@ -1,14 +1,16 @@
 import * as React from 'react';
-import { WithValidationProps } from '../../../components/validations/with-validation';
 
 export interface RadioButtonGroupProps {
-  children: React.ComponentClass;
+  children: React.ReactNode;
   groupName: string;
   label: string;
   labelHelp?: string;
-  hasError?: boolean;
-  hasWarning?: boolean;
-  hasInfo?: boolean;
+  /** Prop to indicate that an error has occurred */
+  error: boolean | string;
+  /** Prop to indicate that a warning has occurred */
+  warning: boolean | string;
+  /** Prop to indicate additional information  */
+  info: boolean | string;
   styleOverride?: {
     root?: object;
     content?: object;
@@ -16,6 +18,6 @@ export interface RadioButtonGroupProps {
   };
 }
 
-declare const RadioButtonGroup: React.ComponentClass<WithValidationProps & RadioButtonGroupProps>;
+declare const RadioButtonGroup: React.ComponentClass<RadioButtonGroupProps>;
 
 export { RadioButtonGroup };

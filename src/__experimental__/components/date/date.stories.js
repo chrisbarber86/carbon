@@ -10,7 +10,7 @@ import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/t
 import DateInput from './date.component';
 import { OriginalTextbox } from '../textbox';
 import { getCommonTextboxProps } from '../textbox/textbox.stories';
-import { notes, info, infoValidations } from './documentation';
+import { notes, info } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 DateInput.__docgenInfo = getDocGenInfo(
@@ -81,71 +81,31 @@ function makeStory(name, themeSelector, component) {
 function makeValidationsStory(name, themeSelector) {
   const component = () => {
     return (
-      <State store={ store }>
-        <DateInput
-          name='dateinput'
-          placeholder={ text('placeholder') }
-          validations={ [isNotFirstApr] }
-          warnings={ [isNotSecondApr] }
-          info={ [isNotThirdApr] }
-          onChange={ setValue }
-          onBlur={ ev => action('onBlur')(ev) }
-          allowEmptyValue={ boolean('allowEmptyValue', false) }
-        />
-      </State>
-    );
-  };
+      <>
+        <h4>Validation as string</h4>
+        {[{ error: 'Error' }, { warning: 'Warning' }, { info: 'Info' }].map(validation => (
+          <DateInput
+            name='dateinput'
+            placeholder={ text('placeholder') }
+            { ...validation }
+            onChange={ setValue }
+            onBlur={ ev => action('onBlur')(ev) }
+            allowEmptyValue={ boolean('allowEmptyValue', false) }
+          />
+        ))}
 
-  const metadata = {
-    themeSelector,
-    info: {
-      source: false,
-      text: infoValidations,
-      propTables: [OriginalTextbox],
-      propTablesExclude: [State]
-    }
-  };
-
-  return [name, component, metadata];
-}
-
-function makeExternalValidationsStory(name, themeSelector) {
-  const component = () => {
-    return (
-      <State store={ store }>
-        <DateInput
-          name='dateinput'
-          placeholder={ text('placeholder') }
-          hasError
-          inputIcon='error'
-          tooltipMessage='Error'
-          onChange={ setValue }
-          onBlur={ ev => action('onBlur')(ev) }
-          allowEmptyValue={ boolean('allowEmptyValue', false) }
-        />
-        <div style={ { height: 24 } } />
-        <DateInput
-          name='dateinput'
-          placeholder={ text('placeholder') }
-          hasWarning
-          inputIcon='warning'
-          tooltipMessage='Warning'
-          onChange={ setValue }
-          onBlur={ ev => action('onBlur')(ev) }
-          allowEmptyValue={ boolean('allowEmptyValue', false) }
-        />
-        <div style={ { height: 24 } } />
-        <DateInput
-          name='dateinput'
-          placeholder={ text('placeholder') }
-          hasInfo
-          inputIcon='info'
-          tooltipMessage='Info'
-          onChange={ setValue }
-          onBlur={ ev => action('onBlur')(ev) }
-          allowEmptyValue={ boolean('allowEmptyValue', false) }
-        />
-      </State>
+        <h4>Validation as boolean</h4>
+        {[{ error: true }, { warning: true }, { info: true }].map(validation => (
+          <DateInput
+            name='dateinput'
+            placeholder={ text('placeholder') }
+            { ...validation }
+            onChange={ setValue }
+            onBlur={ ev => action('onBlur')(ev) }
+            allowEmptyValue={ boolean('allowEmptyValue', false) }
+          />
+        ))}
+      </>
     );
   };
 
@@ -166,36 +126,4 @@ storiesOf('Experimental/Date Input', module)
   .add(...makeStory('default', dlsThemeSelector, dateComponent))
   .add(...makeStory('classic', classicThemeSelector, dateComponent))
   .add(...makeValidationsStory('validations', dlsThemeSelector, dateComponent))
-  .add(...makeExternalValidationsStory('external validations', dlsThemeSelector, dateComponent))
-  .add(...makeValidationsStory('validations classic', classicThemeSelector, dateComponent))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusDateComponent));
-
-function isNotFirstApr(value) {
-  return new Promise((resolve, reject) => {
-    if (value !== '2019-04-01') {
-      resolve();
-    } else {
-      reject(new Error('April 1st 2019 cannot be selected!'));
-    }
-  });
-}
-
-function isNotSecondApr(value) {
-  return new Promise((resolve, reject) => {
-    if (value !== '2019-04-02') {
-      resolve();
-    } else {
-      reject(new Error('Selecting April 2nd 2019 is not recommended'));
-    }
-  });
-}
-
-function isNotThirdApr(value) {
-  return new Promise((resolve, reject) => {
-    if (value !== '2019-04-03') {
-      resolve();
-    } else {
-      reject(new Error('You have selected April 3rd 2019'));
-    }
-  });
-}

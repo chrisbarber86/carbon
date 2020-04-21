@@ -8,7 +8,7 @@ import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { RadioButton, RadioButtonGroup, PrivateRadioButton } from '.';
-import { info, infoValidations, notes } from './documentation';
+import { info, notes } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 RadioButtonGroup.__docgenInfo = getDocGenInfo(
@@ -35,7 +35,7 @@ function makeStory(name, themeSelector, component) {
   const metadata = {
     themeSelector,
     info: {
-      text: name.search('validations') !== -1 ? infoValidations : info,
+      text: info,
       excludedPropTypes: ['children']
     },
     notes: { markdown: notes },
@@ -113,45 +113,46 @@ const radioComponentWithValidation = themeName => () => {
   const legend = text('legend', 'Are you coming to the event?');
   const labelHelp = text('labelHelp', 'Group label helper');
 
-  function testValidation(type) {
-    return (value) => {
-      return new Promise((resolve, reject) => {
-        if (type === 'valid' && value === 'error') {
-          reject(new Error('An error has occurred!'));
-        }
-
-        if (type === 'warn' && value === 'warning') {
-          reject(new Error('Watch out!'));
-        }
-
-        if (type === 'info' && value === 'info') {
-          reject(new Error('Let me tell you this...'));
-        }
-
-        resolve();
-      });
-    };
-  }
-
   return (
-    <State store={ validationRadioToggleGroupStore }>
-      <RadioButtonGroup
-        name={ text('name', 'Group Name') }
-        legend={ legend }
-        labelHelp={ labelHelp }
-        validations={ testValidation('valid') }
-        warnings={ testValidation('warn') }
-        info={ testValidation('info') }
-        onChange={ handleGroupChangeFactory(validationRadioToggleGroupStore) }
-      >
-        {validationTypes.map(vType => (
-          <RadioButton
-            { ...groupedKnobs(vType, themeName) }
-            id={ `id-${vType}` }
-          />
-        ))}
-      </RadioButtonGroup>
-    </State>
+    <>
+      <State store={ validationRadioToggleGroupStore }>
+        <h4>Applied to single RadioButton</h4>
+        <RadioButtonGroup
+          name={ text('name', 'Group Name') }
+          legend={ legend }
+          labelHelp={ labelHelp }
+          onChange={ handleGroupChangeFactory(validationRadioToggleGroupStore) }
+        >
+          {validationTypes.map(vType => (
+            <RadioButton
+              { ...groupedKnobs(vType, themeName) }
+              id={ `id-${vType}` }
+              { ...{ [vType]: 'Message' } }
+            />
+          ))}
+        </RadioButtonGroup>
+      </State>
+
+      <h4>Applied to RadioButtonGroup</h4>
+      {validationTypes.map(vType => (
+        <State store={ validationRadioToggleGroupStore }>
+          <RadioButtonGroup
+            name={ text('name', 'Group Name') }
+            legend={ legend }
+            labelHelp={ labelHelp }
+            { ...{ [vType]: 'Message' } }
+            onChange={ handleGroupChangeFactory(validationRadioToggleGroupStore) }
+          >
+            {['Foo', 'Bar', 'Baz'].map(option => (
+              <RadioButton
+                { ...groupedKnobs(option, themeName) }
+                id={ `id-${option}` }
+              />
+            ))}
+          </RadioButtonGroup>
+        </State>
+      ))}
+    </>
   );
 };
 

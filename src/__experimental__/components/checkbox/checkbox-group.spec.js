@@ -1,10 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import 'jest-styled-components';
 import TestRenderer from 'react-test-renderer';
 import CheckboxGroup from './checkbox-group.component';
 import { Checkbox } from '.';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
+import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import baseTheme from '../../../style/themes/base';
 import Icon from '../../../components/icon';
 import Label from '../label';
@@ -83,23 +84,20 @@ describe('CheckboxGroup', () => {
   describe('styles', () => {
     describe('checkbox group', () => {
       const validationTypes = {
-        hasError: { color: baseTheme.colors.error },
-        hasWarning: { color: baseTheme.colors.warning },
-        hasInfo: { color: baseTheme.colors.info }
+        error: { color: baseTheme.colors.error },
+        warning: { color: baseTheme.colors.warning },
+        info: { color: baseTheme.colors.info }
       };
       const validationTypesArr = Object.keys(validationTypes);
 
       describe.each(validationTypesArr)('group[%s]', (type) => {
-        const wrapper = render({
-          labelHelp: 'Text for tooltip',
-          tooltipMessage: 'Custom tooltip message'
-        });
+        const wrapper = render({});
 
         beforeEach(() => {
           const props = {
-            hasError: false,
-            hasWarning: false,
-            hasInfo: false
+            error: false,
+            warning: false,
+            info: false
           };
           props[type] = true;
 
@@ -107,11 +105,9 @@ describe('CheckboxGroup', () => {
         });
 
         it('has correct color', () => {
-          const checkboxWrapper = wrapper.find(Checkbox).first();
-
           assertStyleMatch({
-            border: `1px solid ${validationTypes[type].color}`
-          }, checkboxWrapper, { modifier: 'svg' });
+            borderColor: `${validationTypes[type].color}`
+          }, wrapper, { modifier: `${HiddenCheckableInputStyle} + ${StyledCheckableInputSvgWrapper} svg` });
         });
       });
 
@@ -120,13 +116,13 @@ describe('CheckboxGroup', () => {
 
         it('checked === false', () => {
           wrapper.setProps({
-            hasError: true
+            error: true
           });
 
           const checkboxWrapper = wrapper.find(Checkbox).first();
 
           expect(checkboxWrapper.prop('checked')).toBe(true);
-          expect(checkboxWrapper.prop('hasError')).toBeUndefined();
+          expect(checkboxWrapper.prop('error')).toBeUndefined();
         });
       });
     });

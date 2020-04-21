@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FormField from '../../__experimental__/components/form-field';
 import ButtonToggleGroupStyle from './button-toggle-group.style';
-import withValidations from '../validations/with-validation.hoc';
 import RadioButtonMapper from '../../__experimental__/components/radio-button/radio-button-mapper.component';
 
 const BaseButtonToggleGroup = ((props) => {
@@ -72,4 +71,4 @@ BaseButtonToggleGroup.propTypes = {
 
 BaseButtonToggleGroup.displayName = 'BaseButtonToggleGroup';
 
-export default withValidations(BaseButtonToggleGroup);
+export default BaseButtonToggleGroup;

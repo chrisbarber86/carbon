@@ -5,11 +5,10 @@ import tagComponent from '../../../utils/helpers/tags';
 import RadioButtonFieldsetStyle from './radio-button-fieldset.style';
 import RadioButtonGroupStyle from './radio-button-group.style';
 import RadioButtonMapper from './radio-button-mapper.component';
-import withValidation from '../../../components/validations/with-validation.hoc';
 
 const RadioButtonGroup = (props) => {
   const {
-    children, name, legend, hasError, hasWarning, hasInfo, onBlur,
+    children, name, legend, error, warning, info, onBlur,
     onChange, value, tooltipMessage, inline, labelInline, styleOverride
   } = props;
 
@@ -24,9 +23,9 @@ const RadioButtonGroup = (props) => {
       aria-labelledby={ groupLabelId }
       role='radiogroup'
       legend={ legend }
-      hasError={ hasError }
-      hasWarning={ hasWarning }
-      hasInfo={ hasInfo }
+      error={ error }
+      warning={ warning }
+      info={ info }
       tooltipMessage={ tooltipMessage }
       inline={ labelInline }
       styleOverride={ styleOverride }
@@ -61,11 +60,11 @@ RadioButtonGroup.propTypes = {
   /** Help text */
   labelHelp: PropTypes.string,
   /** Prop to indicate that an error has occurred */
-  hasError: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Prop to indicate that a warning has occurred */
-  hasWarning: PropTypes.bool,
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Prop to indicate additional information  */
-  hasInfo: PropTypes.bool,
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Callback fired when each RadioButton is blurred */
   onBlur: PropTypes.func,
   /** Callback fired when the user selects a RadioButton */
@@ -87,12 +86,9 @@ RadioButtonGroup.propTypes = {
 };
 
 RadioButtonGroup.defaultProps = {
-  hasError: false,
-  hasWarning: false,
-  hasInfo: false,
   inline: false,
   labelInline: false,
   styleOverride: {}
 };
 
-export default withValidation(RadioButtonGroup, { unblockValidation: true });
+export default RadioButtonGroup;

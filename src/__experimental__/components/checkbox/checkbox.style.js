@@ -13,7 +13,7 @@ import StyledIcon from '../../../components/icon/icon.style';
 
 const CheckboxStyle = styled.div`
   ${({
-    disabled, hasError, hasWarning, hasInfo, fieldHelpInline, inputWidth, reverse, size, theme
+    disabled, error, warning, info, fieldHelpInline, inputWidth, reverse, size, theme
   }) => css`
     padding-top: 8px;
 
@@ -28,9 +28,9 @@ const CheckboxStyle = styled.div`
       ${!disabled && css`
         border: 1px solid ${theme.colors.border};
 
-        ${hasInfo && `border: 1px solid ${theme.colors.info};`}
-        ${hasWarning && `border: 1px solid ${theme.colors.warning};`}
-        ${hasError && `border: 1px solid ${theme.colors.error};`}
+        ${info && `border: 1px solid ${theme.colors.info};`}
+        ${warning && `border: 1px solid ${theme.colors.warning};`}
+        ${error && `border: 1px solid ${theme.colors.error};`}
       `}
     }
 
@@ -183,7 +183,9 @@ CheckboxStyle.defaultProps = {
 
 CheckboxStyle.propTypes = {
   disabled: PropTypes.bool,
-  hasError: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   fieldHelpInline: PropTypes.bool,
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   labelAlign: PropTypes.string,
@@ -216,6 +218,20 @@ const StyledCheckboxGroup = styled.div`
       }
     }
   }
+
+  ${({
+    theme,
+    disabled,
+    error,
+    warning,
+    info
+  }) => !disabled && css`
+    ${StyledHiddenCheckableInput} + ${StyledCheckableInputSvgWrapper} svg {
+      ${info && `border-color: ${theme.colors.info};`}
+      ${warning && `border-color: ${theme.colors.warning};`}
+      ${error && `border-color: ${theme.colors.error};`}
+    }
+  `}
 `;
 
 StyledCheckboxGroup.defaultProps = {

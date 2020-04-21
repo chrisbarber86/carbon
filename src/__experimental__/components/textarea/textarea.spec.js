@@ -41,9 +41,9 @@ describe('Textarea', () => {
     });
   });
 
-  describe.each(['hasError', 'hasWarning', 'hasInfo'])('when %s validation prop is true', (validationProp) => {
+  describe.each(['error', 'warning', 'info'])('when %s validation prop is string', (validationProp) => {
     it('renders a validation icon', () => {
-      wrapper = renderTextarea({ children: 'mock content', [validationProp]: true });
+      wrapper = renderTextarea({ children: 'mock content', [validationProp]: 'Message' });
       const validationIcon = wrapper.find(ValidationIcon);
       expect(validationIcon.exists()).toBe(true);
     });

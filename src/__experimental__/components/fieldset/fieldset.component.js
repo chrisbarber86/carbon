@@ -4,17 +4,20 @@ import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
 import { FieldsetStyle, LegendContainerStyle, FieldsetContentStyle } from './fieldset.style';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
-import { getValidationType } from '../../../components/validations/with-validation.hoc';
 
-const validationsPresent = ({ hasError, hasWarning, hasInfo }) => hasError || hasWarning || hasInfo;
+const shouldDisplayValidationIcon = ({ error, warning, info }) => {
+  const validation = error || warning || info;
+  return typeof validation === 'string';
+};
 
 const Fieldset = (props) => {
   const validationIcon = () => {
-    if (validationsPresent(props) && props.tooltipMessage) {
+    if (shouldDisplayValidationIcon(props)) {
       return (
         <ValidationIcon
-          type={ getValidationType(props) }
-          tooltipMessage={ props.tooltipMessage }
+          error={ props.error }
+          warning={ props.warning }
+          info={ props.info }
           tabIndex={ 0 }
         />
       );
@@ -68,13 +71,11 @@ Fieldset.propTypes = {
   /** The text for the fieldsets legend element. */
   legend: PropTypes.string,
   /** Prop to indicate that an error has occurred */
-  hasError: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Prop to indicate that a warning has occurred */
-  hasWarning: PropTypes.bool,
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Prop to indicate additional information  */
-  hasInfo: PropTypes.bool,
-  /** A message that the ValidationIcon component will display */
-  tooltipMessage: PropTypes.string,
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** When true, legend is placed in line with the children */
   inline: PropTypes.bool,
   /** Allows to override existing component styles */

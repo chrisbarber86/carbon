@@ -18,7 +18,7 @@ function render(props, renderer = shallow) {
 }
 
 const basicWrapper = render();
-const validationTypes = ['hasError', 'hasWarning', 'hasInfo'];
+const validationTypes = ['error', 'warning', 'info'];
 
 describe('Fieldset', () => {
   it('renders correctly', () => {
@@ -74,12 +74,12 @@ describe('Fieldset', () => {
     });
   });
 
-  describe.each(validationTypes)('when prop %s === true', (vType) => {
-    it('show validation icon', () => {
-      const wrapper = render({ legend: 'Legend', [vType]: true, tooltipMessage: 'Message!' }, mount);
+  describe.each(validationTypes)('when prop %s === string', (vType) => {
+    it('show validation icon with proper type', () => {
+      const wrapper = render({ legend: 'Legend', [vType]: 'Message' }, mount);
       const icon = wrapper.find(ValidationIcon);
 
-      expect(icon.exists()).toEqual(true);
+      expect(icon.props()[vType]).toEqual('Message');
     });
   });
 });

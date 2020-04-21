@@ -5,7 +5,6 @@ import 'jest-styled-components';
 import { css, ThemeProvider } from 'styled-components';
 import { mount } from 'enzyme';
 import I18n from 'i18n-js';
-import text from '../../../utils/helpers/text/text';
 import Switch from '.';
 import CheckableInput from '../checkable-input';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
@@ -281,18 +280,15 @@ describe('Switch', () => {
   describe('check icon when validating', () => {
     const wrapper = render({
       label: 'My Label',
-      labelHelp: 'Please help me?',
-      unblockValidation: true,
-      useValidationIcon: true
+      labelHelp: 'Please help me?'
     }, mount);
     const validationTypes = ['error', 'warning', 'info'];
 
     beforeEach(() => {
       const props = {
-        tooltipMessage: 'The message',
-        hasError: false,
-        hasWarning: false,
-        hasInfo: false
+        error: false,
+        warning: false,
+        info: false
       };
 
       wrapper.setProps(props);
@@ -300,9 +296,8 @@ describe('Switch', () => {
 
     describe.each(validationTypes)('validation %s', (type) => {
       it(`displays ${type} icon`, () => {
-        const propName = `has${text.titleCase(type)}`;
         wrapper.setProps({
-          [propName]: true
+          [type]: true
         });
 
         expect(wrapper.find(StyledValidationIcon).prop('validationType')).toEqual(type);

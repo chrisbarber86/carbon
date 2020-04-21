@@ -732,7 +732,6 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
               size="medium"
             >
               <input
-                aria-invalid={false}
                 className="c13 c14"
                 data-element="input"
                 id="guid-12345"

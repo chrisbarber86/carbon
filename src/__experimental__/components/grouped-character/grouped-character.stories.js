@@ -46,6 +46,35 @@ const autoFocusComponent = () => {
   return defaultComponent();
 };
 
+const validationsComponent = () => {
+  const groups = object('groups', [2, 2, 4]);
+  const separator = text('separator', '-');
+
+  return (
+    <>
+      <h4>Validation as string</h4>
+      {[{ error: 'Error' }, { warning: 'Warning' }, { info: 'Info' }].map(validation => (
+        <GroupedCharacter
+          { ...getCommonTextboxProps() }
+          groups={ groups }
+          separator={ separator }
+          { ...validation }
+        />
+      ))}
+
+      <h4>Validation as boolean</h4>
+      {[{ error: true }, { warning: true }, { info: true }].map(validation => (
+        <GroupedCharacter
+          { ...getCommonTextboxProps() }
+          groups={ groups }
+          separator={ separator }
+          { ...validation }
+        />
+      ))}
+    </>
+  );
+};
+
 function makeStory(name, themeSelector, component) {
   const metadata = {
     themeSelector,
@@ -67,4 +96,5 @@ storiesOf('Experimental/GroupedCharacter', module)
   })
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
   .add(...makeStory('classic', classicThemeSelector, defaultComponent))
+  .add(...makeStory('validations', dlsThemeSelector, validationsComponent))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));

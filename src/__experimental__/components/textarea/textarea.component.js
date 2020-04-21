@@ -6,8 +6,8 @@ import { InputPresentation } from '../input';
 import FormField from '../form-field';
 import CharacterCount from './character-count';
 import TextareaInput from './textarea-input.component';
-import withValidations from '../../../components/validations/with-validation.hoc';
-import ValidationIcon from '../../../components/validations/validation-icon.component';
+import InputIconToggle from '../input-icon-toggle';
+
 import guid from '../../../utils/helpers/guid/guid';
 import StyledTextarea from './textarea.style';
 
@@ -61,17 +61,20 @@ class Textarea extends React.Component {
   }
 
   renderValidation() {
-    if (hasFailedValidation(this.props)) {
-      return (
-        <ValidationIcon
-          type={ this.props.inputIcon }
-          tooltipMessage={ this.props.tooltipMessage }
-          isPartOfInput
-        />
-      );
-    }
-
-    return null;
+    const {
+      disabled, readOnly, inputIcon, size, error, warning, info
+    } = this.props;
+    return (
+      <InputIconToggle
+        disabled={ disabled }
+        readOnly={ readOnly }
+        inputIcon={ inputIcon }
+        size={ size }
+        error={ error }
+        warning={ warning }
+        info={ info }
+      />
+    );
   }
 
   get overLimit() {
@@ -192,11 +195,11 @@ Textarea.propTypes = {
   /** Whether to display the character count message in red */
   warnOverLimit: PropTypes.bool,
   /** Status of error validations */
-  hasError: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Status of warnings */
-  hasWarning: PropTypes.bool,
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Status of info */
-  hasInfo: PropTypes.bool,
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Icon to display inside of the Textarea */
   inputIcon: PropTypes.string,
   /** Message to be displayed in a Tooltip when the user hovers over the help icon */
@@ -211,9 +214,5 @@ Textarea.defaultProps = {
   warnOverLimit: false
 };
 
-function hasFailedValidation({ hasError, hasWarning, hasInfo }) {
-  return hasError || hasWarning || hasInfo;
-}
-
 export { Textarea as OriginalTextarea };
-export default withValidations(Textarea);
+export default Textarea;

@@ -5,7 +5,6 @@ import { action } from '@storybook/addon-actions';
 import { Store, State } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import { Select, Option } from '.';
-import infoValidations from './documentation';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import docgenInfo from './docgenInfo.json';
@@ -108,20 +107,6 @@ const objectOptions = [
   }
 ];
 
-function validator(value, errorValue, errorMessage) {
-  return new Promise((resolve, reject) => {
-    if (value === errorValue) {
-      reject(new Error(errorMessage));
-    } else {
-      resolve();
-    }
-  });
-}
-
-const selectValidation = value => validator(value, '2', '"Black" cannot be selected!');
-const selectWarning = value => validator(value, '3', 'Selecting "Blue" is not recommended');
-const selectInfo = value => validator(value, '4', 'You have selected "Brown"');
-
 const defaultComponent = () => {
   return (
     <State store={ singleSelectStore }>
@@ -204,104 +189,62 @@ function makeMultipleStory(name, themeSelector) {
 function makeValidationsStory(name, themeSelector) {
   const component = () => {
     return (
-      <State store={ singleSelectStore }>
-        <Select
-          ariaLabel='singleSelect'
-          { ...commonKnobs(singleSelectStore) }
-          validations={ [selectValidation] }
-          warnings={ [selectWarning] }
-          info={ [selectInfo] }
-        >
-          { selectOptions }
-        </Select>
-      </State>
-    );
-  };
-
-  const metadata = {
-    themeSelector,
-    info: {
-      text: infoValidations,
-      source: false,
-      propTablesExclude: [Select, Option]
-    }
-  };
-
-  return [name, component, metadata];
-}
-
-function makeExternalValidationsStory(name, themeSelector) {
-  const component = () => {
-    return (
       <>
-        <State store={ singleSelectStore }>
-          <h3>Single select</h3>
-          <Select
-            ariaLabel='singleSelect'
-            { ...commonKnobs(singleSelectStore) }
-            hasError
-            inputIcon='error'
-            tooltipMessage='Error'
-          >
-            { selectOptions }
-          </Select>
-          <div style={ { height: 24 } } />
-          <Select
-            ariaLabel='singleSelect'
-            { ...commonKnobs(singleSelectStore) }
-            hasWarning
-            inputIcon='warning'
-            tooltipMessage='Warning'
-          >
-            { selectOptions }
-          </Select>
-          <div style={ { height: 24 } } />
-          <Select
-            ariaLabel='singleSelect'
-            { ...commonKnobs(singleSelectStore) }
-            hasInfo
-            inputIcon='info'
-            tooltipMessage='Info'
-          >
-            { selectOptions }
-          </Select>
-        </State>
+        <h4>Single select - validations as string</h4>
+        {[{ error: 'Error' }, { warning: 'Warning' }, { info: 'Info' }].map(validation => (
+          <>
+            <Select
+              ariaLabel='singleSelect'
+              { ...commonKnobs(singleSelectStore) }
+              { ...validation }
+            >
+              { selectOptions }
+            </Select>
+            <div style={ { height: 24 } } />
+          </>
+        ))}
+        <h4>Single select - validations as boolean</h4>
+        {[{ error: true }, { warning: true }, { info: true }].map(validation => (
+          <>
+            <Select
+              ariaLabel='singleSelect'
+              { ...commonKnobs(singleSelectStore) }
+              { ...validation }
+            >
+              { selectOptions }
+            </Select>
+            <div style={ { height: 24 } } />
+          </>
+        ))}
 
-        <State store={ multiSelectStore }>
-          <h3>Multi select</h3>
-          <Select
-            ariaLabel='multiSelect'
-            enableMultiSelect
-            { ...commonKnobs(singleSelectStore) }
-            hasError
-            inputIcon='error'
-            tooltipMessage='Error'
-          >
-            { selectOptions }
-          </Select>
-          <div style={ { height: 24 } } />
-          <Select
-            ariaLabel='multiSelect'
-            enableMultiSelect
-            { ...commonKnobs(singleSelectStore) }
-            hasWarning
-            inputIcon='warning'
-            tooltipMessage='Warning'
-          >
-            { selectOptions }
-          </Select>
-          <div style={ { height: 24 } } />
-          <Select
-            ariaLabel='multiSelect'
-            enableMultiSelect
-            { ...commonKnobs(singleSelectStore) }
-            hasInfo
-            inputIcon='info'
-            tooltipMessage='Info'
-          >
-            { selectOptions }
-          </Select>
-        </State>
+        <h4>Multi select - validations as string</h4>
+        {[{ error: 'Error' }, { warning: 'Warning' }, { info: 'Info' }].map(validation => (
+          <>
+            <Select
+              ariaLabel='multiSelect'
+              enableMultiSelect
+              { ...commonKnobs(multiSelectStore, true) }
+              { ...validation }
+            >
+              { selectOptions }
+            </Select>
+            <div style={ { height: 24 } } />
+          </>
+        ))}
+        <h4>Multi select - validations as boolean</h4>
+        {[{ error: true }, { warning: true }, { info: true }].map(validation => (
+          <>
+            <Select
+              ariaLabel='multiSelect'
+              enableMultiSelect
+              { ...commonKnobs(multiSelectStore, true) }
+              { ...validation }
+            >
+              { selectOptions }
+            </Select>
+            <div style={ { height: 24 } } />
+          </>
+        ))}
       </>
     );
   };
@@ -309,7 +252,6 @@ function makeExternalValidationsStory(name, themeSelector) {
   const metadata = {
     themeSelector,
     info: {
-      text: infoValidations,
       source: false,
       propTablesExclude: [Select, Option]
     }
@@ -329,7 +271,5 @@ storiesOf('Experimental/Select', module)
   .add(...makeStory('classic', classicThemeSelector, defaultComponent))
   .add(...makeMultipleStory('multiple', dlsThemeSelector))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
-  .add(...makeExternalValidationsStory('external validations', dlsThemeSelector))
-  .add(...makeValidationsStory('validations classic', classicThemeSelector))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
   .add(...makeStory('customFilter', dlsThemeSelector, customFilterComponent));

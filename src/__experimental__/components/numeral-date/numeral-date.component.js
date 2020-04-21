@@ -8,15 +8,13 @@ import Textbox from '../textbox';
 const NumeralDate = ({
   dateFormat,
   defaultValue,
-  hasError,
-  hasInfo,
-  hasWarning,
+  error,
+  info,
+  warning,
   id,
-  inputIcon,
   name,
   onBlur,
   onChange,
-  tooltipMessage,
   value
 }) => {
   const isControlled = value !== undefined;
@@ -85,6 +83,7 @@ const NumeralDate = ({
               isYearInput={ datePart.length === 4 }
               isMiddle={ textboxNumber === 1 }
               isEnd={ isEnd }
+              showValidationIcon={ error || warning || info }
               twoPartDate={ textboxNumber <= 1 }
               dateFormatLength={ dateFormat.length }
             >
@@ -93,11 +92,14 @@ const NumeralDate = ({
                 value={ dateValue[datePart] }
                 onChange={ e => handleChange(e, datePart) }
                 onBlur={ handleBlur }
-                { ...{ hasError, hasWarning, hasInfo } }
+                error={ !!error }
+                warning={ !!warning }
+                info={ !!info }
                 {
                 ...(isEnd && {
-                  inputIcon,
-                  tooltipMessage
+                  error,
+                  warning,
+                  info
                 })
                 }
               />
@@ -117,11 +119,11 @@ NumeralDate.propTypes = {
   /** Prop for `controlled` use */
   value: PropTypes.object,
   /** Status of error validations */
-  hasError: PropTypes.bool,
+  error: PropTypes.bool,
   /** Status of warnings */
-  hasWarning: PropTypes.bool,
+  warning: PropTypes.bool,
   /** Status of info */
-  hasInfo: PropTypes.bool,
+  info: PropTypes.bool,
   /** Prop for `onBlur` events */
   onBlur: PropTypes.func,
   /** Prop for `onChange` events */

@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import Help from '../../../components/help';
 import StyledLabel from './label.style';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
-import { getValidationType } from '../../../components/validations/with-validation.hoc';
 import { filterByProps } from '../../../utils/ether';
 import IconWrapperStyle from './icon-wrapper.style';
 
-const validationsPresent = ({ hasError, hasWarning, hasInfo }) => hasError || hasWarning || hasInfo;
+const validationsPresent = ({ error, warning, info }) => error || warning || info;
 
 const Label = (props) => {
   const [isFocused, setFocus] = useState(false);
@@ -15,11 +14,13 @@ const Label = (props) => {
     labelId,
     helpId,
     children,
+    error,
+    warning,
+    info,
     help,
     helpIcon,
     helpTag,
     helpTabIndex,
-    tooltipMessage,
     useValidationIcon,
     htmlFor,
     tabIndex,
@@ -43,13 +44,14 @@ const Label = (props) => {
       onBlur: () => setFocus(false)
     };
 
-    if (useValidationIcon && validationsPresent(props) && tooltipMessage) {
+    if (useValidationIcon && validationsPresent(props)) {
       return (
         <IconWrapperStyle { ...wrapperProps }>
           <ValidationIcon
             iconId={ helpId }
-            type={ getValidationType(props) }
-            tooltipMessage={ tooltipMessage }
+            error={ error }
+            warning={ warning }
+            info={ info }
             tabIndex={ helpTabIndex }
             isFocused={ isFocused }
           />
@@ -94,6 +96,12 @@ Label.propTypes = {
   helpId: PropTypes.string,
   /** Children elements */
   children: PropTypes.node,
+  /** Status of error validations */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Status of warnings */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Status of info */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** A message that the Help component will display */
   help: PropTypes.string,
   /** Icon type */
@@ -117,7 +125,7 @@ Label.propTypes = {
 };
 
 Label.defaultProps = {
-  useValidationIcon: false,
+  useValidationIcon: true,
   tabIndex: 0,
   styleOverride: {}
 };

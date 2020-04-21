@@ -6,10 +6,9 @@ import {
   select,
   number
 } from '@storybook/addon-knobs';
-import { Store, State } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
-import { notes, info, infoValidations } from './documentation';
+import { notes, info } from './documentation';
 import Textbox, { OriginalTextbox } from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
@@ -34,7 +33,7 @@ function makeStory(name, themeSelector, component) {
     info: {
       text: info,
       propTables: [OriginalTextbox],
-      propTablesExclude: [State, Textbox]
+      propTablesExclude: [Textbox]
     },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
@@ -87,28 +86,29 @@ const multipleTextboxAutoFocus = () => {
 };
 
 function makeValidationsStory(name, themeSelector) {
-  const store = new Store(
-    {
-      value: ''
-    }
-  );
-
-  const setValue = (ev) => {
-    store.set({ value: ev.target.value });
-  };
-
   const component = () => {
     return (
-      <State store={ store }>
-        <Textbox
-          placeholder={ text('placeholder') }
-          name='textbox'
-          warnings={ [warningValidator] }
-          validations={ [errorValidator] }
-          info={ [lengthValidator] }
-          onChange={ setValue }
-        />
-      </State>
+      <>
+        <h4>Validation as string</h4>
+        {[{ error: 'Error' }, { warning: 'Warning' }, { info: 'Info' }].map(validation => (
+          <Textbox
+            placeholder={ text('placeholder') }
+            label='Label'
+            name='textbox'
+            { ...validation }
+          />
+        ))}
+
+        <h4>Validation as boolean</h4>
+        {[{ error: true }, { warning: true }, { info: true }].map(validation => (
+          <Textbox
+            placeholder={ text('placeholder') }
+            label='Label'
+            name='textbox'
+            { ...validation }
+          />
+        ))}
+      </>
     );
   };
 
@@ -116,8 +116,7 @@ function makeValidationsStory(name, themeSelector) {
     themeSelector,
     info: {
       source: false,
-      text: infoValidations,
-      propTablesExclude: [State, Textbox]
+      propTablesExclude: [Textbox]
     }
   };
 
@@ -179,31 +178,4 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig) {
     iconOnClick,
     inputIcon
   };
-}
-
-function errorValidator(value) {
-  return new Promise((resolve, reject) => {
-    if (!value.includes('error')) {
-      resolve();
-    } else {
-      reject(new Error('This value must not include the word "error"!'));
-    }
-  });
-}
-
-function warningValidator(value) {
-  return new Promise((resolve, reject) => {
-    if (!value.includes('warning')) {
-      resolve();
-    } else {
-      reject(new Error('This value must not include the word "warning"!'));
-    }
-  });
-}
-
-function lengthValidator(value) {
-  return new Promise((resolve, reject) => {
-    if (value.length > 12) return resolve(true);
-    return reject(Error('This value should be longer than 12 characters'));
-  });
 }

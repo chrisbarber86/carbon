@@ -4,7 +4,6 @@ import tagComponent from '../../../utils/helpers/tags';
 import CheckboxStyle from './checkbox.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
 import CheckboxSvg from './checkbox-svg.component';
-import withValidations from '../../../components/validations/with-validation.hoc';
 
 const Checkbox = ({
   id, label, onChange, onBlur, value, ...props
@@ -62,11 +61,17 @@ Checkbox.propTypes = {
    */
   size: PropTypes.string,
   /** the value of the checkbox, passed on form submit */
-  value: PropTypes.string
+  value: PropTypes.string,
+  /** Prop to indicate that an error has occurred */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Prop to indicate that a warning has occurred */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Prop to indicate additional information  */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
 };
 
 Checkbox.defaultProps = {
   reverse: false
 };
 
-export default withValidations(Checkbox);
+export default Checkbox;

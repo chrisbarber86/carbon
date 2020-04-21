@@ -156,10 +156,10 @@ describe('Checkbox', () => {
         ));
       });
 
-      describe('when hasError is true', () => {
+      describe('when error is true', () => {
         it('render correct color for errors', () => {
           wrapper.setProps({
-            hasError: true
+            error: true
           });
 
           assertStyleMatch({
@@ -168,10 +168,10 @@ describe('Checkbox', () => {
         });
       });
 
-      describe('when hasWarning is true', () => {
+      describe('when warning is true', () => {
         it('render correct color for warnings', () => {
           wrapper.setProps({
-            hasWarning: true
+            warning: true
           });
 
           assertStyleMatch({
@@ -180,10 +180,10 @@ describe('Checkbox', () => {
         });
       });
 
-      describe('when hasInfo is true', () => {
+      describe('when info is true', () => {
         it('render correct color for info', () => {
           wrapper.setProps({
-            hasInfo: true
+            info: true
           });
 
           assertStyleMatch({

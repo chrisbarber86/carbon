@@ -65,17 +65,17 @@ const InputPresentationStyle = styled.div`
 
 function stylingForValidations({
   theme,
-  hasError,
-  hasWarning,
-  hasInfo
+  error,
+  warning,
+  info
 }) {
   let validationColor;
 
-  if (hasError) {
+  if (error) {
     validationColor = theme.colors.error;
-  } else if (hasWarning) {
+  } else if (warning) {
     validationColor = theme.colors.warning;
-  } else if (hasInfo) {
+  } else if (info) {
     validationColor = theme.colors.info;
   } else {
     return '';
@@ -94,9 +94,9 @@ InputPresentationStyle.safeProps = [
   'inputWidth',
   'readOnly',
   'size',
-  'hasError',
-  'hasWarning',
-  'hasInfo'
+  'error',
+  'warning',
+  'info'
 ];
 
 InputPresentationStyle.defaultProps = {
@@ -111,9 +111,9 @@ InputPresentationStyle.propTypes = {
   inputWidth: PropTypes.number,
   readOnly: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  hasError: PropTypes.bool,
-  hasWarning: PropTypes.bool,
-  hasInfo: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 

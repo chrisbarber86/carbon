@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Input, InputPresentation } from '../input';
 import InputIconToggle from '../input-icon-toggle';
 import FormField from '../form-field';
-import { withValidation, validationsPropTypes } from '../../../components/validations';
 import withUniqueIdProps from '../../../utils/helpers/with-unique-id-props';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
@@ -40,17 +39,16 @@ const Textbox = ({
         <Input
           { ...removeParentProps(props) }
           placeholder={ (props.disabled || props.readOnly) ? '' : props.placeholder }
-          aria-invalid={ props.hasError }
+          aria-invalid={ props.error }
           value={ visibleValue(value, formattedValue) }
         />
         { children }
-        { inputIcon && (
-          <InputIconToggle
-            { ...removeParentProps(props) }
-            onClick={ iconOnClick || props.onClick }
-            inputIcon={ inputIcon }
-          />
-        ) }
+
+        <InputIconToggle
+          { ...removeParentProps(props) }
+          onClick={ iconOnClick || props.onClick }
+          inputIcon={ inputIcon }
+        />
       </InputPresentation>
     </FormField>
   );
@@ -112,22 +110,16 @@ Textbox.propTypes = {
   inputIcon: PropTypes.string,
   /** Additional child elements to display before the input */
   leftChildren: PropTypes.node,
-  /** List of error validation functions */
-  validations: validationsPropTypes,
-  /** List of warning validation functions */
-  warnings: validationsPropTypes,
-  /** List of info validation functions */
-  info: validationsPropTypes,
   /** Flag to configure component when in a Form */
   childOfForm: PropTypes.bool,
   /** Flag to configure component as optional in Form */
   isOptional: PropTypes.bool,
   /** Status of error validations */
-  hasError: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Status of warnings */
-  hasWarning: PropTypes.bool,
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Status of info */
-  hasInfo: PropTypes.bool,
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Size of an input */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** Placeholder string to be displayed in input */
@@ -152,4 +144,4 @@ Textbox.defaultProps = {
 };
 
 export { Textbox as OriginalTextbox };
-export default withUniqueIdProps(withValidation(Textbox));
+export default withUniqueIdProps(Textbox);

@@ -86,6 +86,39 @@ const defaultComponent = () => {
   );
 };
 
+const componentWithValidations = () => {
+  return (
+    <>
+      <h4>Validation as string</h4>
+      {[{ error: 'Error' }, { warning: 'Warning' }, { info: 'Info' }].map(validation => (
+        <State store={ store }>
+          <Decimal
+            { ...commonProps() }
+            { ...getCommonTextboxProps() }
+            { ...validation }
+            value={ store.get('value') }
+            onChange={ setValue }
+            onBlur={ action('onBlur') }
+          />
+        </State>
+      ))}
+      <h4>Validation as boolean</h4>
+      {[{ error: true }, { warning: true }, { info: true }].map(validation => (
+        <State store={ store }>
+          <Decimal
+            { ...commonProps() }
+            { ...getCommonTextboxProps() }
+            { ...validation }
+            value={ store.get('value') }
+            onChange={ setValue }
+            onBlur={ action('onBlur') }
+          />
+        </State>
+      ))}
+    </>
+  );
+};
+
 const autoFocusComponent = () => {
   boolean('autoFocus', true);
   return defaultComponent();
@@ -111,4 +144,5 @@ storiesOf('Experimental/Decimal Input', module)
   })
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
   .add(...makeStory('classic', classicThemeSelector, defaultComponent))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
+  .add(...makeStory('validations', dlsThemeSelector, componentWithValidations));

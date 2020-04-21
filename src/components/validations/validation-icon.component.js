@@ -8,13 +8,22 @@ import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
 
+const getValidationType = ({ error, warning, info }) => {
+  if (error) return 'error';
+  if (warning) return 'warning';
+  if (info) return 'info';
+  return '';
+};
+
 const ValidationIcon = ({
+  error,
+  warning,
+  info,
   theme,
   type,
   size,
   iconId,
   isPartOfInput,
-  tooltipMessage,
   tabIndex,
   isFocused,
   onClick
@@ -31,23 +40,27 @@ const ValidationIcon = ({
     };
   }
 
+  const validationType = getValidationType({ error, warning, info });
+
+  const validationMessage = error || warning || info;
+
   return (
     <InputPresentationContext.Consumer>
       {
         context => (
           <ValidationIconStyle
             id={ iconId }
-            validationType={ type }
+            validationType={ validationType }
             role='tooltip'
-            aria-label={ tooltipMessage }
+            aria-label={ validationMessage }
             onClick={ onClick }
           >
             <Icon
               key={ `${type}-icon` }
-              tooltipType={ type }
-              tooltipMessage={ tooltipMessage }
+              tooltipType={ validationType }
+              tooltipMessage={ validationMessage }
               tooltipVisible={ isFocused || (context && (context.hasFocus || context.hasMouseOver)) }
-              type={ type }
+              type={ validationType }
               size={ size }
               tabIndex={ tabIndex }
               { ...modernTooltipProps }
@@ -77,7 +90,13 @@ ValidationIcon.propTypes = {
   /** Overrides the default tabindex of the component */
   tabIndex: PropTypes.number,
   /** A boolean received from IconWrapper */
-  isFocused: PropTypes.bool
+  isFocused: PropTypes.bool,
+  /** Status of error validations */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Status of warnings */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Status of info */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
 };
 
 ValidationIcon.defaultProps = {

@@ -9,7 +9,7 @@ import I18n from 'i18n-js';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Switch, { BaseSwitch } from './switch.component';
-import { info, infoValidations, notes } from './documentation';
+import { info, notes } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 const { translations } = I18n;
@@ -42,7 +42,7 @@ const stores = {
   }
 };
 
-const validationTypes = ['cookies', 't&cs', 'info'];
+const validationTypes = ['error', 'warning', 'info'];
 
 validationTypes.forEach((type) => {
   stores[type] = {
@@ -57,7 +57,7 @@ function makeStory(name, themeSelector, component) {
     themeSelector,
     knobs: { escapeHTML: false },
     info: {
-      text: name.search('validations') !== -1 ? infoValidations : info
+      text: info
     },
     notes: { markdown: notes }
   };
@@ -69,8 +69,7 @@ function handleChange(ev, type) {
   const { checked } = ev.target;
 
   stores[type].store.set({
-    checked,
-    forceUpdateTriggerToggle: !checked
+    checked
   });
 
   action('change')(`checked: ${checked}`);
@@ -120,11 +119,7 @@ const validationKnobs = (type, storyName) => {
     name: `switch-${type}`,
     value: type,
     onChange: ev => handleChange(ev, type),
-    validations: testValidation('valid'),
-    warnings: testValidation('warn'),
-    info: testValidation('info'),
-    unblockValidation: true,
-    useValidationIcon: true
+    [type]: 'Message'
   };
 };
 
@@ -203,22 +198,6 @@ function dlsKnobs() {
   return {
     disabled: boolean('disabled', false),
     size: select('size', OptionsHelper.sizesBinary, 'small')
-  };
-}
-
-function testValidation(type) {
-  return (value, { checked }) => {
-    return new Promise((resolve, reject) => {
-      if (type === 'valid' && value === 'cookies' && !checked) {
-        reject(new Error('Show error!'));
-      } else if (type === 'warn' && value === 't&cs' && !checked) {
-        reject(new Error('Show warning!'));
-      } else if (type === 'info' && value === 'info' && !checked) {
-        reject(new Error('Show info!'));
-      } else {
-        resolve();
-      }
-    });
   };
 }
 

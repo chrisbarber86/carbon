@@ -119,13 +119,11 @@ exports[`Textarea when rendered should render default 1`] = `
         size="medium"
       >
         <textarea
-          aria-invalid={false}
           className="c5 c6"
           disabled={false}
           id="guid-12345"
           name="textarea"
           onBlur={[Function]}
-          onChange={[Function]}
           onClick={[Function]}
           onFocus={[Function]}
           readOnly={false}

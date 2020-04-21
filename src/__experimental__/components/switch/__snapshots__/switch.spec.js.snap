@@ -817,7 +817,6 @@ exports[`Switch base theme renders as expected 1`] = `
             className="c8 c9"
             id="guid-12345"
             name="my-switch"
-            onBlur={[Function]}
             onChange={[Function]}
             role="checkbox"
             type="checkbox"

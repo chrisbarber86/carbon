@@ -1,13 +1,15 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { ThemeProvider } from 'styled-components';
-import { shallow } from 'enzyme';
-import 'jest-styled-components';
+import { shallow, mount } from 'enzyme';
+
 import Icon from 'components/icon';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
+import InputIconToggleStyle from './input-icon-toggle.style';
+import BaseTheme from '../../../style/themes/base';
 import InputIconToggle from './input-icon-toggle.component';
-import classicTheme from '../../../style/themes/classic';
+import StyledIcon from '../../../components/icon/icon.style';
+
 
 describe('InputIconToggle', () => {
   describe('when initiated with the disabled prop set to true', () => {
@@ -34,11 +36,22 @@ describe('InputIconToggle', () => {
     });
   });
 
-  describe.each(['hasError', 'hasWarning', 'hasInfo'])('when %s validation prop is true', (validationProp) => {
+  describe.each(['error', 'warning', 'info'])('when %s validation prop is string', (validationProp) => {
     it('renders a validation icon', () => {
-      const wrapper = render({ children: 'mock content', [validationProp]: true });
+      const wrapper = render({ [validationProp]: 'Message' });
       const validationIcon = wrapper.find(ValidationIcon);
       expect(validationIcon.exists()).toBe(true);
+    });
+  });
+
+  describe.each(['error', 'warning', 'info'])('when %s validation prop is true', (validationProp) => {
+    it('renders colored input icon when it is provided', () => {
+      const wrapper = render({ inputIcon: 'dropdown', [validationProp]: true }, mount);
+      const iconStyle = wrapper.find(InputIconToggleStyle);
+
+      assertStyleMatch({
+        color: BaseTheme.colors[validationProp]
+      }, iconStyle, { modifier: `${StyledIcon}:before` });
     });
   });
 
@@ -51,20 +64,6 @@ describe('InputIconToggle', () => {
       });
     });
   });
-
-  describe('clasic theme', () => {
-    it('when active', () => {
-      assertStyleMatch({
-        backgroundColor: '#e6ebed'
-      }, renderWithTheme({ inputIcon: 'dropdown' }, classicTheme).toJSON());
-    });
-
-    it('renders a narrow button when in a dropdown', () => {
-      assertStyleMatch({
-        width: '20px'
-      }, renderWithTheme({ inputIcon: 'dropdown' }, classicTheme).toJSON());
-    });
-  });
 });
 
 function render(props, renderer = shallow) {
@@ -72,15 +71,5 @@ function render(props, renderer = shallow) {
 
   return renderer(
     <InputIconToggle { ...defaultProps } { ...props } />
-  );
-}
-
-function renderWithTheme(props, theme, renderer = TestRenderer.create) {
-  const defaultProps = { inputIcon: 'settings' };
-
-  return renderer(
-    <ThemeProvider theme={ theme }>
-      <InputIconToggle { ...defaultProps } { ...props } />
-    </ThemeProvider>
   );
 }

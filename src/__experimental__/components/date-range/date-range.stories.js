@@ -27,8 +27,6 @@ function makeStory(name, themeSelector) {
   const component = () => {
     const startLabel = text('startLabel', '');
     const endLabel = text('endLabel', '');
-    const startMessage = text('startMessage', 'Start date must not be later than the end date');
-    const endMessage = text('endMessage', 'End date cannot be earlier than the start date');
     const labelsInline = (startLabel || endLabel) ? boolean('labelsInline', false) : undefined;
 
     return (
@@ -38,8 +36,6 @@ function makeStory(name, themeSelector) {
           endLabel={ endLabel }
           value={ store.get('value') }
           startLabel={ startLabel }
-          startMessage={ startMessage }
-          endMessage={ endMessage }
           labelsInline={ labelsInline }
           onBlur={ ev => action('blur')(ev) }
         />
@@ -59,6 +55,59 @@ function makeStory(name, themeSelector) {
   return [name, component, metadata];
 }
 
+function makeValidationStory(name, themeSelector) {
+  const component = () => {
+    const startLabel = text('startLabel', '');
+    const endLabel = text('endLabel', '');
+    const labelsInline = (startLabel || endLabel) ? boolean('labelsInline', false) : undefined;
+
+    return (
+      <>
+        <h4>Validation as string</h4>
+        {[{ error: 'Error' }, { warning: 'Warning' }, { info: 'Info' }].map(validation => (
+          <State store={ store }>
+            <DateRange
+              onChange={ handleChange }
+              endLabel={ endLabel }
+              value={ store.get('value') }
+              startLabel={ startLabel }
+              labelsInline={ labelsInline }
+              onBlur={ ev => action('blur')(ev) }
+              { ...validation }
+            />
+          </State>
+        ))}
+        <h4>Validation as boolean</h4>
+        {[{ error: true }, { warning: true }, { info: true }].map(validation => (
+          <State store={ store }>
+            <DateRange
+              onChange={ handleChange }
+              endLabel={ endLabel }
+              value={ store.get('value') }
+              startLabel={ startLabel }
+              labelsInline={ labelsInline }
+              onBlur={ ev => action('blur')(ev) }
+              { ...validation }
+            />
+          </State>
+        ))}
+      </>
+    );
+  };
+
+  const metadata = {
+    themeSelector,
+    notes: { markdown: notes },
+    info: {
+      text: info,
+      propTablesExclude: [State]
+    }
+  };
+
+  return [name, component, metadata];
+}
+
 storiesOf('Experimental/Date Range', module)
   .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeValidationStory('validations', dlsThemeSelector))
   .add(...makeStory('classic', classicThemeSelector));

@@ -7,19 +7,17 @@ import { LegendContainerStyle } from '../fieldset/fieldset.style';
 import baseTheme from '../../../style/themes/base';
 
 const RadioButtonFieldsetStyle = styled(Fieldset)`
-${({
+  ${({
     theme,
     disabled,
-    hasError,
-    hasWarning,
-    hasInfo
-  }) => css`
-    ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} svg {
-      ${!disabled && css`
-        ${hasInfo && `border-color: ${theme.colors.info};`}
-        ${hasWarning && `border-color: ${theme.colors.warning};`}
-        ${hasError && `border-color: ${theme.colors.error};`}
-      `}
+    error,
+    warning,
+    info
+  }) => !disabled && css`
+    ${HiddenCheckableInputStyle} + ${StyledCheckableInputSvgWrapper} svg {
+      ${info && `border-color: ${theme.colors.info};`}
+      ${warning && `border-color: ${theme.colors.warning};`}
+      ${error && `border-color: ${theme.colors.error};`}
     }
   `}
 

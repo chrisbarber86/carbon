@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { WithValidationProps } from '../../../components/validations/with-validation';
 
 interface CheckboxProps {
   checked?: boolean;
@@ -14,8 +13,14 @@ interface CheckboxProps {
   reverse?: boolean;
   size?: string;
   value: string;
+  /** Prop to indicate that an error has occurred */
+  error?: boolean | string;
+  /** Prop to indicate that a warning has occurred */
+  warning?: boolean | string;
+  /** Prop to indicate additional information  */
+  info: boolean | string;
 }
 
-declare const Checkbox: React.ComponentClass<WithValidationProps & CheckboxProps>;
+declare const Checkbox: React.ComponentClass<CheckboxProps>;
 
 export { Checkbox };

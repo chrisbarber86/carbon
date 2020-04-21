@@ -2,53 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import { StyledCheckboxGroup } from './checkbox.style';
-import { withValidation } from '../../../components/validations';
 import FormField from '../form-field';
 
 const CheckboxGroup = (props) => {
   const {
     children,
     groupName,
-    hasError,
-    hasWarning,
-    hasInfo
+    error,
+    warning,
+    info
   } = props;
 
   const groupLabelId = `${groupName}-label`;
-
-  const buttons = React.Children.map(children, (child) => {
-    const handleChange = (ev) => {
-      child.props.onChange(ev);
-    };
-
-    let childProps = {
-      inputName: groupName,
-      onChange: handleChange
-    };
-
-    if (!child.props.checked) {
-      childProps = {
-        ...childProps,
-        hasError,
-        hasWarning,
-        hasInfo
-      };
-    }
-
-    return React.cloneElement(child, childProps);
-  });
 
   return (
     <StyledCheckboxGroup
       aria-labelledby={ groupLabelId }
       role='checkbox'
-      hasError={ hasError }
-      hasWarning={ hasWarning }
-      hasInfo={ hasInfo }
+      error={ error }
+      warning={ warning }
+      info={ info }
       { ...tagComponent('checkboxgroup', props) }
     >
       <FormField { ...props }>
-        {buttons}
+        {React.Children.map(children, child => React.cloneElement(child, {
+          inputName: groupName
+        }))}
       </FormField>
     </StyledCheckboxGroup>
   );
@@ -60,17 +39,11 @@ CheckboxGroup.propTypes = {
   /** Specifies the name prop to be applied to each button in the group */
   groupName: PropTypes.string.isRequired,
   /** Prop to indicate that an error has occurred */
-  hasError: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Prop to indicate that a warning has occurred */
-  hasWarning: PropTypes.bool,
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Prop to indicate additional information  */
-  hasInfo: PropTypes.bool
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
 };
 
-CheckboxGroup.defaultProps = {
-  hasError: false,
-  hasWarning: false,
-  hasInfo: false
-};
-
-export default withValidation(CheckboxGroup);
+export default CheckboxGroup;

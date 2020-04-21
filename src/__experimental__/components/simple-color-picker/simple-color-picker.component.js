@@ -14,6 +14,9 @@ import { SimpleColorFieldset, StyledColorOptions } from './simple-color-picker.s
 const SimpleColorPicker = (props) => {
   const {
     children,
+    error,
+    warning,
+    info,
     name,
     legend,
     onChange,
@@ -177,6 +180,9 @@ const SimpleColorPicker = (props) => {
       role='radiogroup'
       legend={ legend }
       isBlurBlocked={ blurBlocked }
+      error={ error }
+      warning={ warning }
+      info={ info }
       { ...tagComponent('simple-color-picker', props) }
       maxWidth={ maxWidth }
     >
@@ -212,6 +218,12 @@ SimpleColorPicker.propTypes = {
   },
   /** Should the onBlur callback prop be initially blocked? */
   isBlurBlocked: PropTypes.bool,
+  /** Status of error validations */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Status of warnings */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Status of info */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** The content for the RadioGroup Legend */
   legend: PropTypes.string.isRequired,
   /** The currently selected color. */

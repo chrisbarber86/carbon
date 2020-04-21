@@ -4,7 +4,6 @@ import tagComponent from '../../../utils/helpers/tags';
 import SwitchStyle from './switch.style';
 import CheckableInput from '../checkable-input';
 import SwitchSlider from './switch-slider.component';
-import withValidation from '../../../components/validations/with-validation.hoc';
 
 const Switch = ({
   id,
@@ -87,11 +86,11 @@ Switch.propTypes = {
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Prop to indicate that an error has occurred */
-  hasError: PropTypes.bool,
+  error: PropTypes.bool,
   /** Prop to indicate that a warning has occurred */
-  hasWarning: PropTypes.bool,
+  warning: PropTypes.bool,
   /** Prop to indicate additional information  */
-  hasInfo: PropTypes.bool,
+  info: PropTypes.bool,
   /** Override tab index on the validation and help icon */
   helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Triggers loading animation */
@@ -113,12 +112,8 @@ Switch.propTypes = {
 
 Switch.defaultProps = {
   labelInline: false,
-  reverse: true,
-  hasError: false,
-  hasWarning: false,
-  hasInfo: false,
-  helpTabIndex: 0
+  reverse: true
 };
 
 export { Switch as BaseSwitch };
-export default withValidation(Switch);
+export default Switch;

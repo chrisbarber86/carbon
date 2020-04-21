@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { WithValidationProps } from '../../../components/validations/with-validation';
 
 export interface SwitchProps {
   checked?: boolean;
@@ -19,11 +18,11 @@ export interface SwitchProps {
   size?: string;
   theme?: object;
   value: string;
-  hasError?: boolean;
-  hasWarning?: boolean;
-  hasInfo?: boolean;
+  error?: boolean | string;
+  warning?: boolean | string;
+  info?: boolean | string;
 }
 
-declare const Switch: React.ComponentClass<WithValidationProps & SwitchProps>;
+declare const Switch: React.ComponentClass<SwitchProps>;
 
 export { Switch as default };
