@@ -45,22 +45,25 @@ export const Controlled = () => {
   }, [isExpanded]);
 
   return (
-    <div style={ { height: '200px' } }>
-      <Drawer
-        expandedWidth={ text('expandedWidth', '40%') }
-        animationDuration={ text('animationDuration', '0.5s') }
-        expanded={ isExpanded }
-        onChange={ onChangeHandler }
-        sidebar={ (
-          <ul>
-            <li>link a</li>
-            <li>link b</li>
-            <li>link c</li>
-          </ul>
-        ) }
-      >
-        content body content body content body content body content body content body content body
-      </Drawer>
+    <div>
+      <p>Note: if you experience glitchy animation on `Drawer` component, pelase open canvas in new window (2nd icon in top right corner)</p>
+      <div style={ { height: '200px' } }>
+        <Drawer
+          expandedWidth={ text('expandedWidth', '40%') }
+          animationDuration={ text('animationDuration', '0.5s') }
+          expanded={ isExpanded }
+          onChange={ onChangeHandler }
+          sidebar={ (
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          ) }
+        >
+          content body content body content body content body content body content body content body
+        </Drawer>
+      </div>
     </div>
   );
 };
