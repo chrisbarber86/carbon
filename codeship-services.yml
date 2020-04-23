@@ -1,6 +1,6 @@
 cypress-codeship-test:
   build:
-    image: carbon_cypress
+    image: cypress/carbon_cypress
     dockerfile: Dockerfile-codeship
   encrypted_env_file:
     - env.encrypted
