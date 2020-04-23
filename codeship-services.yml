@@ -1,4 +1,4 @@
-carbon_cypress:
+carbon-cypress:
   build:
     image: cypress/carbon_cypress
     dockerfile: Dockerfile-codeship

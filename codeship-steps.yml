@@ -1,37 +1,38 @@
 # starts server
 - name: "Start carbon"
-  service: carbon_cypress
+  service: carbon-cypress
   command: npm start -- --ci </dev/null &>/dev/null & wait-on http://localhost:9001
 - type: parallel
+  name: "Cypress regression tests on Chrome"
   steps:
   # runs all tests in parallel
-  - service: carbon_cypress
+  - service: carbon-cypress
     command: npm run cypress:ci:all -- --group regression
-  - service: carbon_cypress
+  - service: carbon-cypress
     command: npm run cypress:ci:all -- --group regression
-  - service: carbon_cypress
+  - service: carbon-cypress
     command: npm run cypress:ci:all -- --group regression
-  - service: carbon_cypress
+  - service: carbon-cypress
     command: npm run cypress:ci:all -- --group regression
-  - service: carbon_cypress
+  - service: carbon-cypress
     command: npm run cypress:ci:all -- --group regression
-  - service: carbon_cypress
+  - service: carbon-cypress
     command: npm run cypress:ci:all -- --group regression
-  - service: carbon_cypress
+  - service: carbon-cypress
     command: npm run cypress:ci:all -- --group regression
-  - service: carbon_cypress
+  - service: carbon-cypress
     command: npm run cypress:ci:all -- --group regression
-  - service: carbon_cypress
+  - service: carbon-cypress
     command: npm run cypress:ci:all -- --group regression
-  - service: carbon_cypress
+  - service: carbon-cypress
     command: npm run cypress:ci:all -- --group regression
-  - service: carbon_cypress
+  - service: carbon-cypress
     command: npm run cypress:ci:all -- --group regression
-  - service: carbon_cypress
+  - service: carbon-cypress
     command: npm run cypress:ci:all -- --group regression
-  - service: carbon_cypress
+  - service: carbon-cypress
     command: npm run cypress:ci:all -- --group regression
-  - service: carbon_cypress
+  - service: carbon-cypress
     command: npm run cypress:ci:all -- --group regression
-  - service: carbon_cypress
+  - service: carbon-cypress
     command: npm run cypress:ci:all -- --group regression
