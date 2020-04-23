@@ -1,7 +1,6 @@
-services:
-  carbon-cypress:
-    build:
-      image: Sage/carbon-cypress
-      dockerfile: Dockerfile-codeship
-    encrypted_env_file:
-      - env.encrypted
+carbon-cypress:
+  build:
+    image: Sage/carbon-cypress
+    dockerfile: Dockerfile-codeship
+  encrypted_env_file:
+    - env.encrypted
