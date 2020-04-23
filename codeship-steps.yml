@@ -6,33 +6,48 @@
   name: "Cypress regression tests on Chrome"
   steps:
   # runs all tests in parallel
-  - service: carbon-cypress
-    command: npm run cypress:ci:all -- --group regression
-  - service: carbon-cypress
-    command: npm run cypress:ci:all -- --group regression
-  - service: carbon-cypress
-    command: npm run cypress:ci:all -- --group regression
-  - service: carbon-cypress
-    command: npm run cypress:ci:all -- --group regression
-  - service: carbon-cypress
-    command: npm run cypress:ci:all -- --group regression
-  - service: carbon-cypress
-    command: npm run cypress:ci:all -- --group regression
-  - service: carbon-cypress
-    command: npm run cypress:ci:all -- --group regression
-  - service: carbon-cypress
-    command: npm run cypress:ci:all -- --group regression
-  - service: carbon-cypress
-    command: npm run cypress:ci:all -- --group regression
-  - service: carbon-cypress
-    command: npm run cypress:ci:all -- --group regression
-  - service: carbon-cypress
-    command: npm run cypress:ci:all -- --group regression
-  - service: carbon-cypress
-    command: npm run cypress:ci:all -- --group regression
-  - service: carbon-cypress
-    command: npm run cypress:ci:all -- --group regression
-  - service: carbon-cypress
-    command: npm run cypress:ci:all -- --group regression
-  - service: carbon-cypress
-    command: npm run cypress:ci:all -- --group regression
+  - name: "1st thread"
+    service: carbon-cypress
+    command: npm run cypress:ci:all:codeship
+  - name: "2nd thread"
+    service: carbon-cypress
+    command: npm run cypress:ci:all:codeship
+  - name: "3rd thread"
+    service: carbon-cypress
+    command: npm run cypress:ci:all:codeship
+  - name: "4th thread"
+    service: carbon-cypress
+    command: npm run cypress:ci:all:codeship
+  - name: "5th thread"
+    service: carbon-cypress
+    command: npm run cypress:ci:all:codeship
+  - name: "6th thread"
+    service: carbon-cypress
+    command: npm run cypress:ci:all:codeship
+  - name: "7th thread"
+    service: carbon-cypress
+    command: npm run cypress:ci:all:codeship
+  - name: "8th thread"
+    service: carbon-cypress
+    command: npm run cypress:ci:all:codeship
+  - name: "9th thread"
+    service: carbon-cypress
+    command: npm run cypress:ci:all:codeship
+  - name: "10th thread"
+    service: carbon-cypress
+    command: npm run cypress:ci:all:codeship
+  - name: "1th thread"
+    service: carbon-cypress
+    command: npm run cypress:ci:all:codeship
+  - name: "12th thread"
+    service: carbon-cypress
+    command: npm run cypress:ci:all:codeship
+  - name: "13th thread"
+    service: carbon-cypress
+    command: npm run cypress:ci:all:codeship
+  - name: "14th thread"
+    service: carbon-cypress
+    command: npm run cypress:ci:all:codeship
+  - name: "15th thread"
+    service: carbon-cypress
+    command: npm run cypress:ci:all:codeship
