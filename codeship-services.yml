@@ -1,4 +1,4 @@
-cypress-codeship-test:
+carbon_cypress:
   build:
     image: cypress/carbon_cypress
     dockerfile: Dockerfile-codeship
