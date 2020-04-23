@@ -1,6 +1,6 @@
 carbon-cypress:
   build:
-    image: carbon/carbon-cypress
+    image: carbon/carbon_cypress
     dockerfile: Dockerfile-codeship
   encrypted_env_file:
     - env.encrypted
