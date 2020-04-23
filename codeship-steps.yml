@@ -1,37 +1,37 @@
 # starts server
 - name: "Start carbon"
-  service: cypress_codeship_test
+  service: carbon_cypress
   command: npm start -- --ci </dev/null &>/dev/null & wait-on http://localhost:9001
 - type: parallel
   steps:
   # runs all tests in parallel
-  - service: cypress_codeship_test
-    command: npm run cypress:ci:all
-  - service: cypress_codeship_test
-    command: npm run cypress:ci:all
-  - service: cypress_codeship_test
-    command: npm run cypress:ci:all
-  - service: cypress_codeship_test
-    command: npm run cypress:ci:all
-  - service: cypress_codeship_test
-    command: npm run cypress:ci:all
-  - service: cypress_codeship_test
-    command: npm run cypress:ci:all
-  - service: cypress_codeship_test
-    command: npm run cypress:ci:all
-  - service: cypress_codeship_test
-    command: npm run cypress:ci:all
-  - service: cypress_codeship_test
-    command: npm run cypress:ci:all
-  - service: cypress_codeship_test
-    command: npm run cypress:ci:all
-  - service: cypress_codeship_test
-    command: npm run cypress:ci:all
-  - service: cypress_codeship_test
-    command: npm run cypress:ci:all
-  - service: cypress_codeship_test
-    command: npm run cypress:ci:all
-  - service: cypress_codeship_test
-    command: npm run cypress:ci:all
-  - service: cypress_codeship_test
-    command: npm run cypress:ci:all
+  - service: carbon_cypress
+    command: npm run cypress:ci:all -- --group regression
+  - service: carbon_cypress
+    command: npm run cypress:ci:all -- --group regression
+  - service: carbon_cypress
+    command: npm run cypress:ci:all -- --group regression
+  - service: carbon_cypress
+    command: npm run cypress:ci:all -- --group regression
+  - service: carbon_cypress
+    command: npm run cypress:ci:all -- --group regression
+  - service: carbon_cypress
+    command: npm run cypress:ci:all -- --group regression
+  - service: carbon_cypress
+    command: npm run cypress:ci:all -- --group regression
+  - service: carbon_cypress
+    command: npm run cypress:ci:all -- --group regression
+  - service: carbon_cypress
+    command: npm run cypress:ci:all -- --group regression
+  - service: carbon_cypress
+    command: npm run cypress:ci:all -- --group regression
+  - service: carbon_cypress
+    command: npm run cypress:ci:all -- --group regression
+  - service: carbon_cypress
+    command: npm run cypress:ci:all -- --group regression
+  - service: carbon_cypress
+    command: npm run cypress:ci:all -- --group regression
+  - service: carbon_cypress
+    command: npm run cypress:ci:all -- --group regression
+  - service: carbon_cypress
+    command: npm run cypress:ci:all -- --group regression
