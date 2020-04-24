@@ -1,24 +1,42 @@
-# This Docker file is for building this project on Codeship Pro
-# https://documentation.codeship.com/pro/languages-frameworks/nodejs/
+FROM cypress/included:4.4.0
 
-# use Cypress provided image with all dependencies included
-FROM cypress/base:10
+ENV APP_HOME /usr/src/app
+RUN mkdir -p $APP_HOME
+WORKDIR $APP_HOME
+
+COPY . $APP_HOME
+
 RUN node --version
 RUN npm --version
-RUN mkdir -p /home/node/app
-WORKDIR /home/node/app
-# copy our test application
-COPY package.json package-lock.json ./
-COPY app ./app
-# copy Cypress tests
-COPY cypress.json cypress ./
-COPY cypress ./cypress
+
+EXPOSE 9001
 
 # avoid many lines of progress bars during install
 # https://github.com/cypress-io/cypress/issues/1243
 ENV CI=1
 
-# install NPM dependencies and Cypress binary
-RUN npm ci
-# check if the binary was installed successfully
+# disable shared memory X11 affecting Cypress v4 and Chrome
+# https://github.com/cypress-io/cypress-docker-images/issues/270
+ENV QT_X11_NO_MITSHM=1
+ENV _X11_NO_MITSHM=1
+ENV _MITSHM=0
+
+# point Cypress at the /root/cache no matter what user account is used
+# see https://on.cypress.io/caching
+ENV CYPRESS_CACHE_FOLDER=/root/.cache/Cypress
+RUN npm install -g wait-on --silent
+RUN npm install --silent
 RUN $(npm bin)/cypress verify
+
+# Cypress cache and installed version
+# should be in the root user's home folder
+RUN cypress cache path
+RUN cypress cache list
+RUN cypress info
+
+# always grab the latest NPM
+# otherwise the base image might have old versions
+RUN npm i -g npm@latest
+
+# Override default entrypoint from cypress/included
+ENTRYPOINT []

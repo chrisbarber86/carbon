@@ -1,6 +1,13 @@
 carbon-cypress:
   build:
     image: carbon/carbon_cypress
+    container_name: cypress
     dockerfile: Dockerfile-codeship
   encrypted_env_file:
     - env.encrypted
+  ipc: host
+  depends_on:
+    - storybook
+storybook:
+  image: carbon/carbon_cypress
+  container_name: storybook
