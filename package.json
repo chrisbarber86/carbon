@@ -16,7 +16,7 @@
     "cypress:ci:smoke": "npm run cypress:ci -- --spec './cypress/features/build/build.feature', './cypress/features/accessibility/*' --browser chrome --reporter spec",
     "cypress:ci:all": "npm run cypress:ci -- --spec './cypress/features/themes/*', './cypress/features/regression/experimental/*', './cypress/features/regression/test/*', './cypress/features/regression/validations/*', './cypress/features/regression/*' --browser chrome --reporter spec",
     "cypress:start:test:ci": "npm run cypress:ci:all -- --group regression --ci-build-id=$CI_BUILD_ID",
-    "cypress:ci:all:codeship": "start-server-and-test start http://localhost:9001 cypress:start:test:ci",
+    // "cypress:ci:all:codeship": "start-server-and-test start http://localhost:9001 cypress:start:test:ci",
     "test-cypress-build": "npm run cypress:ci -- --spec ./cypress/features/build/build.feature --browser chrome --reporter spec --group build --ci-build-id=$BUILD_NUMBER",
     "test-cypress-accessibility": "npm run cypress:ci -- --spec ./cypress/features/accessibility/* --browser chrome --reporter spec --group accessibility --ci-build-id=$BUILD_NUMBER",
     "test-cypress-regression": "npm run cypress-group-regression-common; npm run cypress-group-regression-common1; npm run cypress-group-regression-common2; npm run cypress-group-regression-experimental; npm run cypress-group-regression-validations; npm run cypress-group-regression-themes; npm run cypress-group-regression-test",

@@ -5,46 +5,46 @@
   # runs all tests in parallel
   - name: "1st thread"
     service: carbon-cypress
-    command: bash -c "npm run cypress:ci:all:codeship"
+    command: npm run cypress:start:test:ci
   - name: "2nd thread"
     service: carbon-cypress
-    command: bash -c "npm run cypress:ci:all:codeship"
+    command: npm run cypress:start:test:ci
   - name: "3rd thread"
     service: carbon-cypress
-    command: bash -c "npm run cypress:ci:all:codeship"
+    command: npm run cypress:start:test:ci
   - name: "4th thread"
     service: carbon-cypress
-    command: bash -c "npm run cypress:ci:all:codeship"
+    command: npm run cypress:start:test:ci
   - name: "5th thread"
     service: carbon-cypress
-    command: bash -c "npm run cypress:ci:all:codeship"
+    command: npm run cypress:start:test:ci
   - name: "6th thread"
     service: carbon-cypress
-    command: bash -c "npm run cypress:ci:all:codeship"
+    command: npm run cypress:start:test:ci
   - name: "7th thread"
     service: carbon-cypress
-    command: bash -c "npm run cypress:ci:all:codeship"
+    command: npm run cypress:start:test:ci
   - name: "8th thread"
     service: carbon-cypress
-    command: bash -c "npm run cypress:ci:all:codeship"
+    command: npm run cypress:start:test:ci
   - name: "9th thread"
     service: carbon-cypress
-    command: bash -c "npm run cypress:ci:all:codeship"
+    command: npm run cypress:start:test:ci
   - name: "10th thread"
     service: carbon-cypress
-    command: bash -c "npm run cypress:ci:all:codeship"
+    command: npm run cypress:start:test:ci
   - name: "1th thread"
     service: carbon-cypress
-    command: bash -c "npm run cypress:ci:all:codeship"
+    command: npm run cypress:start:test:ci
   - name: "12th thread"
     service: carbon-cypress
-    command: bash -c "npm run cypress:ci:all:codeship"
+    command: npm run cypress:start:test:ci
   - name: "13th thread"
     service: carbon-cypress
-    command: bash -c "npm run cypress:ci:all:codeship"
+    command: npm run cypress:start:test:ci
   - name: "14th thread"
     service: carbon-cypress
-    command: bash -c "npm run cypress:ci:all:codeship"
+    command: npm run cypress:start:test:ci
   - name: "15th thread"
     service: carbon-cypress
-    command: bash -c "npm run cypress:ci:all:codeship"
+    command: npm run cypress:start:test:ci
