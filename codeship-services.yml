@@ -2,6 +2,5 @@ carbon-cypress:
   build:
     image: carbon/carbon_cypress
     dockerfile: Dockerfile-codeship
-    command: bash -c "npm start"
   encrypted_env_file:
     - env.encrypted

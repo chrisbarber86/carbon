@@ -1,4 +1,7 @@
 # starts server
+- name: "Starting storybook"
+  service: carbon-cypress
+  command: npm start & wait-on http://localhost:9001
 - type: parallel
   name: "Cypress regression tests on Chrome"
   steps:
