@@ -1,3 +1,6 @@
+- name: Start storybook
+  service: storybook
+  command: npm start
 # run all tests in parallel
 - type: parallel
   name: "Cypress regression tests on Chrome"

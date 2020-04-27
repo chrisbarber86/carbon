@@ -1,4 +1,4 @@
-FROM cypress/base:10
+FROM node:10
 
 ENV APP_HOME /usr/src/app
 RUN mkdir -p $APP_HOME
@@ -9,10 +9,12 @@ COPY . $APP_HOME
 RUN node --version
 RUN npm --version
 
-EXPOSE 9001
+ENV CI=1
 
 RUN npm install -g wait-on --silent
-RUN npm i
+RUN npm install --silent
 RUN npm i -g npm@latest
 
 CMD ["npm", "start"]
+
+HEALTHCHECK CMD curl --fail -s http://localhost:9001/ || exit 1
