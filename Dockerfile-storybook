@@ -12,7 +12,7 @@ RUN npm --version
 EXPOSE 9001
 
 RUN npm install -g wait-on --silent
-RUN npm install --silent
+RUN npm i
 RUN npm i -g npm@latest
 
 CMD ["npm", "start"]
