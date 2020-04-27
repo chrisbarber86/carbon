@@ -1,20 +1,27 @@
-carbon-cypress:
+storybook-builder:
+  build:
+    image: carbon/storybook
+    dockerfile: Dockerfile-story
+  cached: true
+  volumes:
+    - ./output:/usr/src/app/storybook-static
+
+storybook:
+  image: nginx:stable
+  cached: true
+  depends_on:
+    - storybook-builder
+  volumes:
+    - ./output:/usr/share/nginx/html
+
+cypress:
   build:
     image: carbon/carbon_cypress
-    dockerfile: Dockerfile-codeship
+    dockerfile: Dockerfile-cypress
+  cached: true
+  environment:
+    CYPRESS_baseUrl: http://storybook/
   encrypted_env_file:
     - env.encrypted
   depends_on:
-      - storybook
-
-storybook:
-  build:
-    image: carbon/storybook
-    dockerfile: Dockerfile-storybook
-    ports:
-      - "9001:9001"
-    healthcheck:
-      test: curl --fail -s http://localhost:9001/ || exit 1
-      interval: 2m
-      timeout: 30s
-      retries: 25
+    - storybook
