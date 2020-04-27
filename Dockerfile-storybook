@@ -17,4 +17,5 @@ RUN npm i -g npm@latest
 
 CMD ["npm", "start"]
 
-HEALTHCHECK CMD curl --fail -s http://localhost:9001/ || exit 1
+HEALTHCHECK --interval=3m --timeout=1m \
+  CMD curl --fail -s http://localhost:9001/ || exit 1

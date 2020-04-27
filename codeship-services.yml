@@ -15,6 +15,6 @@ storybook:
       - "9001:9001"
     healthcheck:
       test: curl --fail -s http://localhost:9001/ || exit 1
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
+      interval: 3m
+      timeout: 45s
+      retries: 4
