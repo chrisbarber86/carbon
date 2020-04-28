@@ -9,10 +9,10 @@
   service: cypress
   steps:
     - name: Thread 1
-      command: bash -c "npm run cypress:ci:all -- "npm run cypress:ci:all -- --headless --group regression --ci-build-id=$CI_BUILD_ID" --group regression --ci-build-id=$CI_BUILD_ID"
+      command: bash -c "npm run cypress:ci:all -- --headless --group regression --ci-build-id=$CI_BUILD_ID"
     - name: Thread 2
-      command: bash -c "npm run cypress:ci:all -- "npm run cypress:ci:all -- --headless --group regression --ci-build-id=$CI_BUILD_ID" --group regression --ci-build-id=$CI_BUILD_ID"
+      command: bash -c "npm run cypress:ci:all -- --headless --group regression --ci-build-id=$CI_BUILD_ID"
     - name: Thread 3
-      command: bash -c "npm run cypress:ci:all -- "npm run cypress:ci:all -- --headless --group regression --ci-build-id=$CI_BUILD_ID" --group regression --ci-build-id=$CI_BUILD_ID"
+      command: bash -c "npm run cypress:ci:all -- --headless --group regression --ci-build-id=$CI_BUILD_ID"
     - name: Thread 4
-      command: bash -c "npm run cypress:ci:all -- "npm run cypress:ci:all -- --headless --group regression --ci-build-id=$CI_BUILD_ID" --group regression --ci-build-id=$CI_BUILD_ID"
+      command: bash -c "npm run cypress:ci:all -- --headless --group regression --ci-build-id=$CI_BUILD_ID"
