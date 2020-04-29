@@ -1,16 +1,14 @@
 # GitHub Actions
 name: Cypress parallel tests
 
-# on:
-#   push:
-#     branches:    
-#       - cypress-oss
-on: repository_dispatch
+on:
+  push:
+    branches:    
+      - master
 
 jobs:
   install:
     name: Install NPM and Cypress
-    if: github.event.action == 'cypress'
     runs-on: ubuntu-16.04
     steps:
       - uses: actions/checkout@master
@@ -27,7 +25,6 @@ jobs:
       # workflow successfully finishes.
       # See https://github.com/actions/cache
       - name: Cache central NPM modules
-        if: github.event.action == 'cypress'
         uses: actions/cache@v1
         with:
           path: ~/.npm
@@ -35,7 +32,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-${{ github.ref }}-${{ hashFiles('**/package-lock.json') }}
       - name: Cache Cypress binary
-        if: github.event.action == 'cypress'
         uses: actions/cache@v1
         with:
           path: ~/.cache/Cypress
@@ -44,7 +40,6 @@ jobs:
             cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/package.json') }}
       # Cache local node_modules to pass to testing jobs
       - name: Cache local node_modules
-        if: github.event.action == 'cypress'
         uses: actions/cache@v1
         with:
           path: node_modules
@@ -52,7 +47,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-modules-${{ github.ref }}-
       - name: install dependencies and verify Cypress
-        if: github.event.action == 'cypress'
         env:
           # make sure every Cypress install prints minimal information
           CI: 1
@@ -66,7 +60,6 @@ jobs:
   # anchor definitions yet, thus we cannot put same steps into a template object yet
   test1:
     name: Regression 1thread
-    if: github.event.action == 'cypress'
     runs-on: ubuntu-16.04
     needs: install
     steps:
@@ -128,7 +121,6 @@ jobs:
 
   test2:
     name: Regression 2thread
-    if: github.event.action == 'cypress'
     runs-on: ubuntu-16.04
     needs: install
     steps:
@@ -190,7 +182,6 @@ jobs:
 
   test3:
     name: Regression 3thread
-    if: github.event.action == 'cypress'
     runs-on: ubuntu-16.04
     needs: install
     steps:
@@ -252,7 +243,6 @@ jobs:
 
   test4:
     name: Regression 4thread
-    if: github.event.action == 'cypress'
     runs-on: ubuntu-16.04
     needs: install
     steps:
@@ -314,7 +304,6 @@ jobs:
 
   test5:
     name: Regression 5thread
-    if: github.event.action == 'cypress'
     runs-on: ubuntu-16.04
     needs: install
     steps:
@@ -376,7 +365,6 @@ jobs:
 
   test6:
     name: Regression 6thread
-    if: github.event.action == 'cypress'
     runs-on: ubuntu-16.04
     needs: install
     steps:
@@ -438,7 +426,6 @@ jobs:
 
   test7:
     name: Regression 7thread
-    if: github.event.action == 'cypress'
     runs-on: ubuntu-16.04
     needs: install
     steps:
@@ -500,7 +487,6 @@ jobs:
 
   test8:
     name: Regression 8thread
-    if: github.event.action == 'cypress'
     runs-on: ubuntu-16.04
     needs: install
     steps:
@@ -562,7 +548,6 @@ jobs:
 
   test9:
     name: Regression 9thread
-    if: github.event.action == 'cypress'
     runs-on: ubuntu-16.04
     needs: install
     steps:
@@ -624,7 +609,6 @@ jobs:
 
   test10:
     name: Regression 10thread
-    if: github.event.action == 'cypress'
     runs-on: ubuntu-16.04
     needs: install
     steps:
