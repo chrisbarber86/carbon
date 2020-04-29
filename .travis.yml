@@ -1,6 +1,11 @@
 language: node_js
 node_js: node
 
+cache:
+   npm: true
+   directories:
+     - ~/.cache
+
 # We build PR's and branches, this tells travis to only build on the master branch or PR's that target the master branch
 branches:
   only:
@@ -14,12 +19,34 @@ addons:
      packages:
        # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
        - libgconf-2-4
+   chrome: stable
+
+cypress-travis-smoke: &cypress-travis-smoke
+  script:
+  - npm start -- --ci </dev/null &>/dev/null &
+  - wait-on http://localhost:9001
+  - npm run cypress:ci:smoke -- --group $STAGE_NAME --ci-build-id $STAGE_NAME-$TRAVIS_BUILD_ID
+  # after all tests finish running we need
+  # to kill all background jobs (like "npm start &")
+  - kill $(jobs -p) || true
+
+cypress-travis-regression: &cypress-travis-regression
+  script:
+  - npm start -- --ci </dev/null &>/dev/null &
+  - wait-on http://localhost:9001
+  - npm run cypress:ci:all -- --group $STAGE_NAME --ci-build-id $STAGE_NAME-$TRAVIS_BUILD_ID
+  # after all tests finish running we need
+  # to kill all background jobs (like "npm start &")
+  - kill $(jobs -p) || true
 
 stages:
-  - test
-  - deploy
+  - name: test
+  - name: regression
+    if: type = cron # we only need to run regression on nightly cron builds
+  - name: deploy
 
 jobs:
+  fast_finish: true
   include:
     - stage: test
       name: "lint"
@@ -28,11 +55,47 @@ jobs:
         - npm run lint-ts
     - name: "unit tests"
       script: npm test
-    - name: "test storybook with cypress"
-      script: 
-        - npm start -- --ci </dev/null &>/dev/null &
-        - wait-on http://localhost:9001
-        - npm run test-cypress-build
+    - script:
+      name: "Cypress Smoke Tests on Travis CI 1st thread - chrome"
+      env:
+      - STAGE_NAME=smoke-chrome
+      <<: *cypress-travis-smoke
+    - script:
+      name: "Cypress Smoke Tests on Travis CI 2nd thread - chrome"
+      env:
+      - STAGE_NAME=smoke-chrome
+      <<: *cypress-travis-smoke
+    - script:
+      name: "Cypress Smoke Tests on Travis CI 3rd thread - chrome"
+      env:
+      - STAGE_NAME=smoke-chrome
+      <<: *cypress-travis-smoke
+    - stage: regression
+      script:
+      name: "Cypress regression on Travis CI 1thread - chrome"
+      env:
+      - STAGE_NAME=regression-chrome
+      <<: *cypress-travis-regression
+    - script:
+      name: "Cypress regression on Travis CI 2thread - chrome"
+      env:
+      - STAGE_NAME=regression-chrome
+      <<: *cypress-travis-regression
+    - script:
+      name: "Cypress regression on Travis CI 3thread - chrome"
+      env:
+      - STAGE_NAME=regression-chrome
+      <<: *cypress-travis-regression
+    - script:
+      name: "Cypress regression on Travis CI 4thread - chrome"
+      env:
+      - STAGE_NAME=regression-chrome
+      <<: *cypress-travis-regression
+    - script:
+      name: "Cypress regression on Travis CI 5thread - chrome"
+      env:
+      - STAGE_NAME=regression-chrome
+      <<: *cypress-travis-regression
     - stage: deploy
       name: "s3"
       script: skip
@@ -57,4 +120,3 @@ jobs:
         skip_cleanup: true
         on:
           all_branches: true # semantic-release has a regex that allows us to publish maintenance releases
-          

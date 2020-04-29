@@ -4,8 +4,6 @@ ENV APP_HOME /usr/src/app
 RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 
-COPY . $APP_HOME
-
 # install packages
 RUN apt-get update && \
     apt-get install -y curl \
@@ -25,6 +23,11 @@ ENV JAVA_HOME=/usr/lib/jvm/default-java
 
 EXPOSE 9001
 
+# Override default entrypoint from cypress/included
+ENTRYPOINT []
+
+# avoid many lines of progress bars during install
+# https://github.com/cypress-io/cypress/issues/1243
 ENV CI=1
 
 # disable shared memory X11 affecting Cypress v4 and Chrome
@@ -37,8 +40,12 @@ ENV _MITSHM=0
 # see https://on.cypress.io/caching
 ENV CYPRESS_CACHE_FOLDER=/root/.cache/Cypress
 RUN npm install -g wait-on --silent
-RUN npm install --silent
-RUN cypress verify
+
+COPY package.json $APP_HOME
+COPY package-lock.json $APP_HOME
+
+RUN npm ci --silent
+RUN $(npm bin)/cypress verify
 
 # Cypress cache and installed version
 # should be in the root user's home folder
@@ -46,15 +53,4 @@ RUN cypress cache path
 RUN cypress cache list
 RUN cypress info
 
-# always grab the latest NPM
-# otherwise the base image might have old versions
-RUN npm i -g npm@latest
-
-RUN echo  " node version:    $(node -v) \n" \
-  "npm version:     $(npm -v) \n" \
-  "debian version:  $(cat /etc/debian_version) \n" \
-  "chrome:          $(google-chrome --version || true) \n" \
-  "firefox:         $(firefox --version || true) \n"
-
-# Override default entrypoint from cypress/included
-ENTRYPOINT []
+COPY . $APP_HOME
