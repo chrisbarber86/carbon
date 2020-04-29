@@ -21,7 +21,6 @@ jobs:
       # because of "record" and "parallel" parameters
       # these containers will load balance all found tests among themselves
       - name: Cypress run
-        run: npm run cypress:ci:all
         with:
           start: npm start
           # quote the url to be safe against YML parsing surprises
@@ -36,3 +35,4 @@ jobs:
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm run cypress:ci:all
