@@ -5,7 +5,7 @@ on: [push]
 jobs:
   test:
     name: Cypress run
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes
@@ -21,13 +21,13 @@ jobs:
       # because of "record" and "parallel" parameters
       # these containers will load balance all found tests among themselves
       - name: Cypress run
-        run: npm run cypress:ci:all
         uses: ./
         with:
           start: npm start
           # quote the url to be safe against YML parsing surprises
           wait-on: 'http://localhost:9001'
           wait-on-timeout: 300
+          command: npm run cypress:ci:all
           record: true
           parallel: true
           group: 'regression'
