@@ -1,6 +1,7 @@
 import {
   flatTableHeaderCells, flatTableHeader, flatTableBodyRows, flatTableNoiFrame,
-  flatTableHeaderCellsNoiFrame, flatTableBodyRowByPositionNoiFrame, flatTableBodyCellByPosition, flatTableBodyRowByPosition,
+  flatTableHeaderCellsNoiFrame, flatTableBodyRowByPositionNoiFrame,
+  flatTableBodyCellByPosition, flatTableBodyRowByPosition,
 } from '../../locators/flat-table';
 import { DEBUG_FLAG } from '..';
 import { positionOfElement } from '../helper';
