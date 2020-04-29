@@ -95,7 +95,7 @@ jobs:
       # Starts local server, then runs Cypress tests and records results on the dashboard
       - name: Cypress tests
         run: |
-          npm start & wait-on http://localhost:9001 &&
+          npm start &
           npm run cypress:ci:all -- --group regression
         env:
           # place your secret record key at
@@ -156,7 +156,7 @@ jobs:
       # Starts local server, then runs Cypress tests and records results on the dashboard
       - name: Cypress tests
         run: |
-          npm start & wait-on http://localhost:9001 &&
+          npm start &
           npm run cypress:ci:all -- --group regression
         env:
           # place your secret record key at
@@ -217,7 +217,7 @@ jobs:
       # Starts local server, then runs Cypress tests and records results on the dashboard
       - name: Cypress tests
         run: |
-          npm start & wait-on http://localhost:9001 &&
+          npm start &
           npm run cypress:ci:all -- --group regression
         env:
           # place your secret record key at
@@ -278,7 +278,7 @@ jobs:
       # Starts local server, then runs Cypress tests and records results on the dashboard
       - name: Cypress tests
         run: |
-          npm start & wait-on http://localhost:9001 &&
+          npm start &
           npm run cypress:ci:all -- --group regression
         env:
           # place your secret record key at
@@ -339,7 +339,7 @@ jobs:
       # Starts local server, then runs Cypress tests and records results on the dashboard
       - name: Cypress tests
         run: |
-          npm start & wait-on http://localhost:9001 &&
+          npm start &
           npm run cypress:ci:all -- --group regression
         env:
           # place your secret record key at
@@ -400,7 +400,7 @@ jobs:
       # Starts local server, then runs Cypress tests and records results on the dashboard
       - name: Cypress tests
         run: |
-          npm start & wait-on http://localhost:9001 &&
+          npm start &
           npm run cypress:ci:all -- --group regression
         env:
           # place your secret record key at
@@ -461,7 +461,7 @@ jobs:
       # Starts local server, then runs Cypress tests and records results on the dashboard
       - name: Cypress tests
         run: |
-          npm start & wait-on http://localhost:9001 &&
+          npm start &
           npm run cypress:ci:all -- --group regression
         env:
           # place your secret record key at
@@ -522,7 +522,7 @@ jobs:
       # Starts local server, then runs Cypress tests and records results on the dashboard
       - name: Cypress tests
         run: |
-          npm start & wait-on http://localhost:9001 &&
+          npm start &
           npm run cypress:ci:all -- --group regression
         env:
           # place your secret record key at
@@ -583,7 +583,7 @@ jobs:
       # Starts local server, then runs Cypress tests and records results on the dashboard
       - name: Cypress tests
         run: |
-          npm start & wait-on http://localhost:9001 &&
+          npm start &
           npm run cypress:ci:all -- --group regression
         env:
           # place your secret record key at
@@ -644,7 +644,7 @@ jobs:
       # Starts local server, then runs Cypress tests and records results on the dashboard
       - name: Cypress tests
         run: |
-          npm start & wait-on http://localhost:9001 &&
+          npm start &
           npm run cypress:ci:all -- --group regression
         env:
           # place your secret record key at
