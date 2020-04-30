@@ -31,6 +31,10 @@ module.exports = (on, config) => {
       launchOptions.args.push('--disable-site-isolation-trials');
       return launchOptions;
     }
+    if (browser.name === 'firefox') {
+      launchOptions.args.push('--new-instance');
+      return launchOptions;
+    }
   });
   require('cypress-plugin-retries/lib/plugin')(on);
 };
