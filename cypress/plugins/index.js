@@ -32,7 +32,7 @@ module.exports = (on, config) => {
       return launchOptions;
     }
     if (browser.name === 'firefox') {
-      launchOptions.args.push('--new-instance');
+      launchOptions.args.push('-new-instance');
       return launchOptions;
     }
   });
