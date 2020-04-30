@@ -1,9 +1,10 @@
 name: Cypress tests on Windows - all browsers
 
-on: [push, pull_request]
-  # schedule:
-    # every day
+on:
+  schedule:
+    # every day at 00 00
     # - cron:  '0 0 * * *'
+    - cron:  '15 9 * * *'
 
 jobs:
   parallel-runs-across-browsers:
@@ -18,7 +19,7 @@ jobs:
         # run 7 copies of the current job in parallel
         # and they will load balance all specs
         browser: ['chrome', 'firefox', 'edge']
-        machines: [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+        machines: [ 1, 2, 3, 4, 5, 6 ]
     runs-on: windows-latest
     steps:
       - name: Checkout
