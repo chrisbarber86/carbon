@@ -1,4 +1,4 @@
-name: Cypress tests on MacOS - all browsers
+name: Cypress tests - MacOS
 
 on:
   schedule:
@@ -16,10 +16,10 @@ jobs:
       # https://github.com/cypress-io/github-action/issues/48
       fail-fast: false
       matrix:
-        # run 7 copies of the current job in parallel
+        # run 10 copies of the current job in parallel
         # and they will load balance all specs
-        browser: ['chrome', 'firefox', 'edge']
-        machines: [ 1, 2, 3, 4, 5, 6 ]
+        browser: ['chrome', 'edge']
+        machines: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
     runs-on: macos-latest
     steps:
       - name: Checkout
