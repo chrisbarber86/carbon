@@ -123,7 +123,7 @@ Feature: Experimental Textbox multiple component
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
 
-  @positive
+  @ignore
   Scenario Outline: Set label size to <size>
     When I select size to "<size>"
     Then Multiple Textbox height is "<height>"

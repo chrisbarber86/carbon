@@ -119,7 +119,7 @@ Feature: Pod component
     Then edit action was called in Actions Tab
 
   # width is properly for CI
-  @positive
+  @ignore
   Scenario: Enable onEdit checkbox and check the editContentFullWidth checkbox
     Given I check onEdit checkbox
     When I check editContentFullWidth checkbox

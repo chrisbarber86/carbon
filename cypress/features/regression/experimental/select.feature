@@ -68,7 +68,7 @@ Feature: Experimental Select component
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
 
-  @positive
+  @ignore
   Scenario Outline: Change Select size to <size>
     When I select size to "<size>"
     Then Select size on preview for default component is set to "<size>"

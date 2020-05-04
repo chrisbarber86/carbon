@@ -25,7 +25,6 @@ Feature: Experimental RadioButton monthly component
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
 
-
   @positive
   Scenario Outline: Change RadioButton component monthly value to <monthlyValue>
     When I set group monthly value to "<monthlyValue>"
@@ -95,10 +94,10 @@ Feature: Experimental RadioButton monthly component
     Examples:
       | width | px         |
       | 1     | 16         |
-      | 50    | 358.234375 |
+      # | 50    | 358.234375 |
 
   # pixels are adjusted for Travis build. For normal cypress test runner test should fail
-  @positive
+  @ignore
   Scenario Outline: Change RadioButton label width to <width>
     When I check group monthly fieldHelpInline checkbox
       And I set group monthly labelWidth slider to <width>
