@@ -1,11 +1,13 @@
-name: Cypress tests
+name: Cypress - MacOS - edge
 
 on: [push, pull_request]
+  # schedule:
+    # every day at 01-00
+    # - cron:  '0 1 * * *'
 
 jobs:
-  test:
-    name: Cypress run
-    runs-on: ubuntu-16.04
+  mac-os-edge-parallel:
+    name: MacOS-edge
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes
@@ -13,13 +15,10 @@ jobs:
       # https://github.com/cypress-io/github-action/issues/48
       fail-fast: false
       matrix:
-        # run 20 copies of the current job in parallel
-        containers: [
-            1, 2, 3, 4, 5, 
-            6, 7, 8, 9, 10, 
-            11, 12, 13, 14, 15, 
-            16, 17, 18, 19, 20
-            ]
+        # run 5 copies of the current job in parallel
+        # and they will load balance all specs
+        containers: [ 1, 2, 3, 4, 5 ]
+    runs-on: macos-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -34,8 +33,8 @@ jobs:
           wait-on-timeout: 300
           record: true
           parallel: true
-          group: Ubuntu-chrome
-          browser: chrome
+          group: MacOS-edge
+          browser: edge
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

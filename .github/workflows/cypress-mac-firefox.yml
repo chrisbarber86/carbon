@@ -1,14 +1,13 @@
-name: Cypress tests - MacOS
+name: Cypress - MacOS - firefox
 
-on:
-  schedule:
+on: [push, pull_request]
+  # schedule:
     # every day at 01-00
     # - cron:  '0 1 * * *'
-    - cron:  '45 10 * * *'
 
 jobs:
-  parallel-runs-across-browsers:
-    name: MacOS-${{ matrix.browser }}
+  mac-os-firefox-parallel:
+    name: MacOS-firefox
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes
@@ -16,10 +15,9 @@ jobs:
       # https://github.com/cypress-io/github-action/issues/48
       fail-fast: false
       matrix:
-        # run 10 copies of the current job in parallel
+        # run 5 copies of the current job in parallel
         # and they will load balance all specs
-        browser: ['chrome', 'edge']
-        machines: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+        containers: [ 1, 2, 3, 4, 5 ]
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -35,8 +33,8 @@ jobs:
           wait-on-timeout: 300
           record: true
           parallel: true
-          group: MacOS-${{ matrix.browser }}
-          browser: ${{ matrix.browser }}
+          group: MacOS-firefox
+          browser: firefox
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
