@@ -17,7 +17,7 @@ jobs:
       matrix:
         # run 5 copies of the current job in parallel
         # and they will load balance all specs
-        containers: [ 1, 2, 3, 4, 5 ]
+        containers: [ 1, 2, 3, 4 ]
     runs-on: macos-latest
     steps:
       - name: Checkout
