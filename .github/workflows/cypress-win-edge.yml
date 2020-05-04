@@ -1,9 +1,9 @@
 name: Cypress - Windows - edge
 
-on: [push, pull_request]
-  # schedule:
+on:
+  schedule:
     # every day at 00 00
-    # - cron:  '0 0 * * *'
+    - cron:  '15 8 * * *'
 
 jobs:
   windows-edge-parallel:
@@ -22,7 +22,7 @@ jobs:
           6, 7, 8, 9, 10,
           11, 12, 13, 14,
           15, 16, 17, 18,
-          19
+          19, 20
           ]
     runs-on: windows-latest
     steps:

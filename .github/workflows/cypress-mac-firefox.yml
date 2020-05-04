@@ -1,9 +1,9 @@
 name: Cypress - MacOS - firefox
 
-on: [push, pull_request]
-  # schedule:
+on:
+  schedule:
     # every day at 01-00
-    # - cron:  '0 1 * * *'
+    - cron:  '15 10 * * *'
 
 jobs:
   mac-os-firefox-parallel:
@@ -17,7 +17,7 @@ jobs:
       matrix:
         # run 5 copies of the current job in parallel
         # and they will load balance all specs
-        containers: [ 1, 2, 3, 4 ]
+        containers: [ 1, 2, 3, 4, 5 ]
     runs-on: macos-latest
     steps:
       - name: Checkout
