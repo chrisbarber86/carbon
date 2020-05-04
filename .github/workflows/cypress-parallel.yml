@@ -23,8 +23,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      # because of "record" and "parallel" parameters
-      # these containers will load balance all found tests among themselves
       - name: Cache central NPM modules
         uses: actions/cache@v1
         with:
@@ -57,6 +55,8 @@ jobs:
           npx cypress cache list
           npx cypress verify
           npx cypress info
+      # because of "record" and "parallel" parameters
+      # these containers will load balance all found tests among themselves
       - name: Cypress run
         uses: cypress-io/github-action@v1
         with:
