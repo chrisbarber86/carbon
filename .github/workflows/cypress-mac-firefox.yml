@@ -3,7 +3,7 @@ name: Cypress - MacOS - firefox
 on:
   schedule:
     # every day at 01-00
-    - cron:  '15 10 * * *'
+    - cron:  '0 12 * * *'
 
 jobs:
   mac-os-firefox-parallel:

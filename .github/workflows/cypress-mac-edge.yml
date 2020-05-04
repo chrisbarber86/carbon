@@ -3,7 +3,7 @@ name: Cypress - MacOS - edge
 on:
   schedule:
     # every day at 01-00
-    - cron:  '45 9 * * *'
+    - cron:  '0 14 * * *'
 
 jobs:
   mac-os-edge-parallel:

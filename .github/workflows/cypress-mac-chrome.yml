@@ -3,7 +3,7 @@ name: Cypress - MacOS - chrome
 on:
   schedule:
     # every day at 01-00
-    - cron:  '0 9 * * *'
+    - cron:  '0 13 * * *'
 
 jobs:
   mac-os-chrome-parallel:

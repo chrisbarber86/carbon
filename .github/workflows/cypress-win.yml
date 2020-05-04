@@ -1,13 +1,13 @@
-name: Cypress - Windows - chrome
+name: Cypress-Windows-${{ matrix.browser }}
 
 on:
   schedule:
-    # every day at 00 00
-    - cron:  '0 8 * * *'
+    # every day at 03:00
+    - cron:  '0 11 * * *'
 
 jobs:
-  windows-chrome-parallel:
-    name: Windows-chrome
+  windows-parallel:
+    name: Windows-${{ matrix.browser }}
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes
@@ -15,6 +15,7 @@ jobs:
       # https://github.com/cypress-io/github-action/issues/48
       fail-fast: false
       matrix:
+        browser: ['chrome', 'edge']
         # run 20 copies of the current job in parallel
         # and they will load balance all specs
         containers: [ 
@@ -71,8 +72,8 @@ jobs:
           wait-on-timeout: 300
           record: true
           parallel: true
-          group: Windows-chrome
-          browser: chrome
+          group: Windows-${{ matrix.browser }}
+          browser: ${{ matrix.browser }}
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
