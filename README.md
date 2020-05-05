@@ -1,4 +1,4 @@
-# Carbon [![Travis Status](https://travis-ci.org/Sage/carbon.svg?branch=master)](https://travis-ci.org/Sage/carbon) [![npm](https://img.shields.io/npm/v/carbon-react.svg)](https://www.npmjs.com/package/carbon-react) ![Cypress Tests](https://github.com/chrisbarber86/carbon/workflows/Parallel%20Cypress%20Tests/badge.svg)
+# Carbon [![Travis Status](https://travis-ci.org/Sage/carbon.svg?branch=master)](https://travis-ci.org/Sage/carbon) [![npm](https://img.shields.io/npm/v/carbon-react.svg)](https://www.npmjs.com/package/carbon-react)
 <img src="https://raw.githubusercontent.com/Sage/carbon/master/logo/carbon-logo.png" width="50">
 
 Carbon is a [React](https://facebook.github.io/react/) component library developed by Sage.
