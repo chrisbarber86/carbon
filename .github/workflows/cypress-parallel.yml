@@ -5,6 +5,7 @@ on: [push, pull_request]
 jobs:
   test:
     name: Cypress run
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true
     runs-on: ubuntu-16.04
     strategy:
       # when one test fails, DO NOT cancel the other
@@ -36,10 +37,10 @@ jobs:
           parallel: true
           group: Ubuntu-chrome
           browser: chrome
-          key: ${{ secrets.CYPRESS_RECORD_KEY }}
+          key: CYPRESS_RECORD_KEY
         env:
           # pass the Dashboard record key as an environment variable
-          # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
