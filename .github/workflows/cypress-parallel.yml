@@ -1,6 +1,10 @@
 name: Cypress tests
 
-on: [pull_request]
+on: 
+  push:
+    branches:
+      - master
+  pull_request:
 
 jobs:
   test:
@@ -22,7 +26,7 @@ jobs:
             ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
       # because of "record" and "parallel" parameters
       # these containers will load balance all found tests among themselves
       - name: Cypress run
