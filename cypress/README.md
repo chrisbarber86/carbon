@@ -112,3 +112,5 @@ Every commit / pull request in repository initializing cypress tests and runs:
 1. `npm start` - runs storybook.
 3. `wait-on http://localhost:9001` - waits until storybook is up and running and is ready to run tests.
 4. `npx cypress run --parallel --record` - run all tests suite.
+
+TEST for Pull_request - will be deleted
