@@ -1,10 +1,10 @@
 name: Cypress tests
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   test:
-    name: Cypress run
+    name: Cypress regression
     runs-on: ubuntu-16.04
     strategy:
       # when one test fails, DO NOT cancel the other
