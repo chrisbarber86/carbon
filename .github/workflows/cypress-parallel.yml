@@ -5,6 +5,7 @@ on: [push, pull_request]
 jobs:
   test:
     name: Cypress run
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true
     runs-on: ubuntu-16.04
     strategy:
       # when one test fails, DO NOT cancel the other
