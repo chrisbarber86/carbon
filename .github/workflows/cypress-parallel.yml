@@ -36,8 +36,7 @@ jobs:
           parallel: true
           group: Ubuntu-chrome
           browser: chrome
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          key: ${{ secrets.CYPRESS_RECORD_KEY }}
+          headless: true
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
