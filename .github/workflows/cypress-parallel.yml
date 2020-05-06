@@ -22,7 +22,7 @@ jobs:
             ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
       # because of "record" and "parallel" parameters
       # these containers will load balance all found tests among themselves
       - name: Cypress run
@@ -32,6 +32,7 @@ jobs:
           # quote the url to be safe against YML parsing surprises
           wait-on: 'http://localhost:9001'
           wait-on-timeout: 250
+          install: false
           record: true
           parallel: true
           group: Ubuntu-chrome
