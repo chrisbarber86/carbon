@@ -31,13 +31,11 @@ jobs:
           start: npm start
           # quote the url to be safe against YML parsing surprises
           wait-on: 'http://localhost:9001'
-          wait-on-timeout: 250
-          install: false
+          wait-on-timeout: 100
           record: true
           parallel: true
           group: Ubuntu-chrome
           browser: chrome
-          headless: true
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
