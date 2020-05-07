@@ -27,7 +27,7 @@ jobs:
 
   test:
     if: github.repository == 'chrisbarber86/carbon'
-    name: Cypress regression
+    name: Cypress regression carbon
     runs-on: ubuntu-16.04
     strategy:
       # when one test fails, DO NOT cancel the other
