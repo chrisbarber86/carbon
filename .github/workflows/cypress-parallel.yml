@@ -5,7 +5,7 @@ on: [pull_request]
 jobs:
   fork-test:
     name: Cypress regression for forked PR
-    if: github.head_ref != 'chrisbarber86/carbon'
+    if: github.head_ref == 'chrisbarber86/carbon'
     runs-on: ubuntu-16.04
     steps:
       - name: Checkout
@@ -27,7 +27,7 @@ jobs:
 
   test:
     name: Cypress regression carbon
-    if: github.head_ref == 'chrisbarber86/carbon'
+    if: github.head_ref != 'chrisbarber86/carbon'
     runs-on: ubuntu-16.04
     strategy:
       # when one test fails, DO NOT cancel the other
