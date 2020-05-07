@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   fork-test:
-    # if: github.head_ref == "chrisbarber86/carbon"
+    if: github.repository == 'chrisbarber86/carbon' && github.head_ref == 'master' && github.base_ref == 'master'
     name: Cypress regression for forked PR
     runs-on: ubuntu-16.04
     steps:
