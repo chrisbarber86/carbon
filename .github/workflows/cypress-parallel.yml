@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   fork-test:
-    if: github.repository != 'sage/carbon' && CYPRESS_RECORD_KEY != true
+    if: github.repository != 'sage/carbon' && ${{ secrets.CYPRESS_RECORD_KEY }} != 'true'
     name: Cypress regression for for PR
     runs-on: ubuntu-16.04
     steps:
@@ -26,7 +26,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   test:
-    if: github.repository == 'sage/carbon' && CYPRESS_RECORD_KEY
+    if: github.repository == 'sage/carbon'
     name: Cypress regression
     runs-on: ubuntu-16.04
     strategy:
