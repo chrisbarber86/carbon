@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   fork-test:
-    if: github.repository != 'chrisbarber86/carbon'
+    if: github.head_ref != 'chrisbarber86/carbon'
     name: Cypress regression for for PR
     runs-on: ubuntu-16.04
     steps:
@@ -26,7 +26,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   test:
-    if: github.repository == 'chrisbarber86/carbon'
+    if: github.head_ref == 'chrisbarber86/carbon'
     name: Cypress regression carbon
     runs-on: ubuntu-16.04
     strategy:
