@@ -3,7 +3,30 @@ name: Cypress tests
 on: [pull_request]
 
 jobs:
+  fork-test:
+    if: !(secrets.CYPRESS_RECORD_KEY)
+    name: Cypress regression for for PR
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Cypress run
+        uses: cypress-io/github-action@v1
+        with:
+          start: npm start
+          wait-on: "http://localhost:9001"
+          wait-on-timeout: 250
+          record: true
+          parallel: true
+          group: Ubuntu-chrome
+          browser: chrome
+          headless: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   test:
+    if: secrets.CYPRESS_RECORD_KEY
     name: Cypress regression
     runs-on: ubuntu-16.04
     strategy:
@@ -14,12 +37,29 @@ jobs:
       fail-fast: false
       matrix:
         # run 20 copies of the current job in parallel
-        containers: [
-            1, 2, 3, 4, 5, 
-            6, 7, 8, 9, 10, 
-            11, 12, 13, 14, 15, 
-            16, 17, 18, 19, 20
-            ]
+        containers:
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+          ]
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -30,7 +70,7 @@ jobs:
         with:
           start: npm start
           # quote the url to be safe against YML parsing surprises
-          wait-on: 'http://localhost:9001'
+          wait-on: "http://localhost:9001"
           wait-on-timeout: 250
           record: true
           parallel: true
