@@ -4,13 +4,13 @@ on: [pull_request]
 
 jobs:
   fork-test:
+    name: Cypress regression for forked PR
     if: github.head_ref != 'chrisbarber86/carbon'
-    name: Cypress regression for for PR
     runs-on: ubuntu-16.04
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Cypress regression for for PR
+      - name: Cypress regression for forked PR
         uses: cypress-io/github-action@v1
         with:
           start: npm start
@@ -26,8 +26,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   test:
-    if: github.head_ref == 'chrisbarber86/carbon'
     name: Cypress regression carbon
+    if: github.head_ref == 'chrisbarber86/carbon'
     runs-on: ubuntu-16.04
     strategy:
       # when one test fails, DO NOT cancel the other
@@ -65,7 +65,7 @@ jobs:
         uses: actions/checkout@v1
       # because of "record" and "parallel" parameters
       # these containers will load balance all found tests among themselves
-      - name: Cypress run
+      - name: Cypress regression
         uses: cypress-io/github-action@v1
         with:
           start: npm start
