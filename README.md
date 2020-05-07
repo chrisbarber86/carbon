@@ -4,7 +4,6 @@
 Carbon is a [React](https://facebook.github.io/react/) component library developed by Sage.
 
 ## Examples
-
 See the [storybook](https://carbon.sage.com/) for live examples.
 
 ## Browser Support
