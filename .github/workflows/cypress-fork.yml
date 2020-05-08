@@ -4,27 +4,23 @@ on: [pull_request]
 
 jobs:
   fork-test:
-    if: github.repository == 'chrisbarber86/carbon' && github.head_ref == 'master' && github.base_ref == 'master'
-    name: Cypress regression for forked PR
+    if: ${{ github.event.pull_request.head.repo.full_name != 'chrisbarber86/carbon' }}  
+    name: Cypress regression
     runs-on: ubuntu-16.04
     steps:
-      - run: echo ${{github.repository}}
-      - run: echo ${{github.ref}}
-      - run: echo ${{github.head_ref}}
-      - run: echo ${{github.base_ref}}
-      # - name: Checkout
-      #   uses: actions/checkout@v1
-      # - name: Cypress regression for forked PR
-      #   uses: cypress-io/github-action@v1
-      #   with:
-      #     start: npm start
-      #     wait-on: "http://localhost:9001"
-      #     wait-on-timeout: 250
-      #     record: true
-      #     parallel: true
-      #     group: Ubuntu-chrome
-      #     browser: chrome
-      #     headless: true
-      #   env:
-      #     CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Cypress run
+        uses: cypress-io/github-action@v1
+        with:
+          start: npm start
+          wait-on: "http://localhost:9001"
+          wait-on-timeout: 250
+          record: true
+          parallel: true
+          group: Ubuntu-chrome
+          browser: chrome
+          headless: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
